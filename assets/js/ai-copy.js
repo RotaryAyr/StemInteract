@@ -3,10 +3,21 @@
     window.location.pathname.toLowerCase().endsWith("/marking.html") ||
     window.location.pathname.toLowerCase().endsWith("marking.html");
 
-  const AI_URLS = {
-    chatgpt: "https://chat.openai.com/",
-    claude: "https://claude.ai/",
-    gemini: "https://gemini.google.com/app"
+  const AI_SERVICES = {
+    chatgpt: {
+      name: "ChatGPT",
+      url: "https://chatgpt.com/"
+    },
+    claude: {
+      name: "Claude",
+      url: "https://claude.ai/new",
+      promptParameter: "q"
+    },
+    gemini: {
+      name: "Gemini",
+      url: "https://gemini.google.com/app",
+      promptParameter: "text"
+    }
   };
 
   function buildStemInteractPrompt(questionLabel, pdfUrl) {
@@ -34,22 +45,45 @@
 
   async function copyTextToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(text);
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch (e) {
+        // Safari can expose the Clipboard API but still reject the write.
+        // Keep the click active and continue to the selection-based fallback.
+      }
     }
+
     const ta = document.createElement("textarea");
     ta.value = text;
+    ta.setAttribute("readonly", "");
     ta.style.position = "fixed";
     ta.style.left = "-9999px";
     ta.style.top = "0";
     document.body.appendChild(ta);
     ta.focus();
     ta.select();
-    document.execCommand("copy");
+    ta.setSelectionRange(0, ta.value.length);
+    const copied = document.execCommand("copy");
     document.body.removeChild(ta);
+
+    if (!copied) {
+      throw new Error("Clipboard copy was not supported");
+    }
   }
 
   function toAbsoluteUrl(href) {
     return new URL(href, window.location.origin).toString();
+  }
+
+  function buildHandoffUrl(service, prompt) {
+    const url = new URL(service.url);
+
+    if (service.promptParameter) {
+      url.searchParams.set(service.promptParameter, prompt);
+    }
+
+    return url.toString();
   }
 
   function closeAllDropdowns() {
@@ -60,7 +94,7 @@
     return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   }
 
-  function showCopyToast() {
+  function showHandoffToast(service, copied) {
     let toast = document.getElementById("copyToast");
 
     if (!toast) {
@@ -70,10 +104,11 @@
       document.body.appendChild(toast);
     }
 
-    toast.innerHTML = `
-      <strong>Prompt copied.</strong><br>
-      Now paste it into your chosen AI.
-    `;
+    toast.setAttribute("role", "status");
+    toast.setAttribute("aria-live", "polite");
+    toast.innerHTML = service.promptParameter
+      ? `<strong>Opening ${service.name}.</strong>${copied ? " The prompt is copied as a backup." : ""}`
+      : `<strong>Prompt copied.</strong> Paste and send it in ${service.name}.`;
 
     toast.classList.add("show");
 
@@ -95,47 +130,52 @@
     const menu = document.createElement("div");
     menu.className = "ai-dd-menu";
 
-    function makeItem(name, key) {
+    function makeItem(key) {
+      const service = AI_SERVICES[key];
       const item = document.createElement("button");
       item.type = "button";
       item.className = "ai-dd-item";
-      item.textContent = name;
+      item.textContent = service.name;
 
       item.addEventListener("click", async () => {
+        const openedWindow = isIOS() ? null : window.open("about:blank", "_blank");
+
         try {
           closeAllDropdowns();
 
           const prompt = buildStemInteractPrompt(label, pdfUrl);
-          await copyTextToClipboard(prompt);
+          const handoffUrl = buildHandoffUrl(service, prompt);
+          let copied = false;
 
-          
-			
-			showCopyToast();
+          try {
+            await copyTextToClipboard(prompt);
+            copied = true;
+          } catch (copyError) {
+            if (!service.promptParameter) throw copyError;
+          }
 
-const url = AI_URLS[key];
+          showHandoffToast(service, copied);
 
-if (isIOS()) {
-  setTimeout(() => {
-    window.location.href = url;
-  }, 1200);
-} else {
-  setTimeout(() => {
-    window.open(url, "_blank", "noopener");
-  }, 800);
-}
-			
-			
+          if (isIOS()) {
+            window.location.href = handoffUrl;
+          } else if (openedWindow) {
+            openedWindow.opener = null;
+            openedWindow.location.replace(handoffUrl);
+          } else {
+            window.location.href = handoffUrl;
+          }
         } catch (e) {
-          alert("Sorry - copying failed on this browser. Please copy manually.");
+          if (openedWindow) openedWindow.close();
+          alert("Sorry - copying failed on this browser. Please copy the question details manually.");
         }
       });
 
       return item;
     }
 
-    menu.appendChild(makeItem("ChatGPT", "chatgpt"));
-    menu.appendChild(makeItem("Claude", "claude"));
-    menu.appendChild(makeItem("Gemini", "gemini"));
+    menu.appendChild(makeItem("chatgpt"));
+    menu.appendChild(makeItem("gemini"));
+    menu.appendChild(makeItem("claude"));
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
