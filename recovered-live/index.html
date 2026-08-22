@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>StemInteract | StemInteract</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    /* Custom Styles */
+    .image.object {
+      max-height: none;
+      overflow: visible;
+      display: inline-block;
+    }
+
+    .image.object img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .non-stem-entry {
+      display: block;
+      margin-top: 4.5em;
+      text-align: center;
+    }
+
+    .non-stem-entry .button {
+      margin: 0;
+      min-width: 220px;
+      white-space: normal;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        margin-bottom: 0.2em !important;
+      }
+
+      #banner header {
+        margin-bottom: 0.2em !important;
+      }
+    }
+
+    .logo {
+      font-weight: bold;
+      color: #3d4449;
+      font-size: 0.95em;
+      text-decoration: none;
+      display: inline-block;
+      margin-left: 2em;
+    }
+
+    #banner header {
+      margin-left: 2em;
+    }
+
+    #header .logo {
+      margin-left: 2em;
+      font-size: 0.95em;
+    }
+
+    .disclaimer {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1em;
+      margin-top: 8em;
+      text-align: center;
+      font-size: 0.9em;
+      color: #555;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .subject-buttons {
+      text-align: center;
+      margin-top: 5.0em;
+    }
+
+    .subject-buttons ul {
+      display: inline-flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .subject-buttons .button {
+      min-width: 180px;
+    }
+
+    /* Help button: red outline + red text (no fill) */
+    .subject-buttons .button.button-clear {
+      background-color: transparent !important;
+      color: #d52349 !important;
+      /* red text */
+      box-shadow: inset 0 0 0 2px #d52349 !important;
+      /* red border */
+    }
+
+    .subject-buttons .button.button-clear:hover {
+      background-color: rgba(213, 35, 73, 0.08) !important;
+      /* light red tint */
+      color: #d52349 !important;
+      box-shadow: inset 0 0 0 2px #d52349 !important;
+    }
+
+    #header .ayr-rotary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    #header {
+  align-items: center;
+}
+
+#header ul.icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#header ul.icons > li {
+  display: flex;
+  align-items: center;
+}
+
+  </style>
+</head>
+
+<body class="is-preload">
+  <!-- Wrapper -->
+  <div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+      <div class="inner">
+        <!-- Header -->
+        <header id="header">
+          <a class="logo" href="/">STEM INTERACT</a>
+
+          
+
+          <ul class="icons">
+            <li>
+              <a href="https://rotaryclubofayr.org" class="button small ayr-rotary-button">Ayr Rotary</a>
+            </li>
+          </ul>
+        </header>
+
+        <!-- Banner -->
+        <section id="banner">
+          <div class="content">
+            <header>
+              <h1>STEM STUDY HUB</h1>
+              <p><br></p>
+              <p class="fa"><em>- Developed in South Ayrshire for senior school students</em></p>
+              <p class="fa"><em>- Helps you leverage AI giants chatGPT, Claude and Gemini, along with web resources, to get yourself ready for STEM-related exams/careers</em></p>
+            </header>
+
+            <div class="subject-buttons">
+              <ul class="actions">
+                <li><a class='button primary' href='/mathematics-question-explorers'>Mathematics</a></li>
+                <li><a class='button primary' href='/physics-question-explorers'>Physics</a></li>
+                <li><a class='button primary' href='/chemistry-question-explorers'>Chemistry</a></li>
+                <li><a class='button primary' href='/biology-question-explorers'>Biology</a></li>
+                <li><a class='button primary' href='/computing-science-question-explorers'>Computing Science</a></li>
+
+                <!-- Help button: outline + red text -->
+                <li><a class='button primary button-clear' href='/howtouse'>How To Use This Site</a></li>
+              </ul>
+            </div>
+
+            <div class="non-stem-entry">
+              <a class='button primary button-clear' href='/non-stem-subjects'>Non-STEM Subjects</a>
+            </div>
+          </div>
+
+          <span class="image object">
+            <img src="images/Happy%20Students.jpeg" alt="Happy students studying STEM subjects" />
+          </span>
+        </section>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+          This is a non-commercial site maintained by volunteers, running no ads and generating no revenue. The site
+          provides links to material kindly provided on open public access by SQA and others, whose generosity is hereby
+          acknowledged and appreciated.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d974bd099e4a43fca146d0d70c19d84f"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>StemInteract | Physics Question Explorer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    #header { align-items: center; }
+    #header .icons { display: flex; justify-content: flex-end; align-items: center; }
+    #header .button { display: inline-flex; align-items: center; justify-content: center; line-height: 1.2; text-align: center; }
+    .hub-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.65em; padding: 1em 0; border-bottom: 1px solid #e5e5e5; font-size: 0.9em; }
+    .hub-nav a { border-bottom: 0; font-weight: 700; }
+    .hub-nav span { color: #999; }
+    .intro { max-width: 760px; }
+    .level-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25em; margin: 2em 0; }
+    .level-card { border: 1px solid #d7d7d7; border-radius: 10px; padding: 1.5em; background: #fff; display: flex; flex-direction: column; }
+    .level-card h2 { margin-bottom: .45em; }
+    .level-card p { flex-grow: 1; }
+    .level-card .button { display: inline-flex; align-items: center; justify-content: center; text-align: center; line-height: 1.2; margin: 0; }
+    @media screen and (max-width: 900px) { .level-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="is-preload">
+  <div id="wrapper">
+    <div id="main">
+      <div class="inner">
+        <header id="header">
+          <a class='logo' href='/'>STEM INTERACT</a>
+          <ul class="icons">
+            <li><a href="https://rotaryclubofayr.org" class="button small">Ayr Rotary</a></li>
+          </ul>
+        </header>
+
+        <nav class="hub-nav" aria-label="Physics Question Explorer navigation">
+          <a href='/'>StemInteract</a><span>›</span>
+          <strong>Physics Question Explorers</strong>
+        </nav>
+
+        <section>
+          <header class="main"><h1>Physics Question Explorer</h1></header>
+          <div class="intro">
+            <p>Choose your course level to explore past-paper questions by year and topic, open the original papers and marking instructions, and ask an AI tutor for one hint at a time.</p>
+          </div>
+
+          <div class="level-grid">
+            <article class="level-card">
+              <h2>National 5</h2>
+              <p>Explore National 5 Physics questions from 2022 to 2025.</p>
+              <a class='button primary big' href='/n5/n5-physics/n5-physics-question-explorer'>National 5 Question Explorer</a>
+            </article>
+            <article class="level-card">
+              <h2>Higher</h2>
+              <p>Explore Higher Physics questions from 2022 to 2025.</p>
+              <a class='button primary big' href='/higher/ph-h/higher-physics-question-explorer'>Higher Question Explorer</a>
+            </article>
+            <article class="level-card">
+              <h2>Advanced Higher</h2>
+              <p>Explore Advanced Higher Physics questions from 2022 to 2025.</p>
+              <a class='button primary big' href='/ah/ph_ah/advanced-higher-physics-question-explorer'>Advanced Higher Question Explorer</a>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

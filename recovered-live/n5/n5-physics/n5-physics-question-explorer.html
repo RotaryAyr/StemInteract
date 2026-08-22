@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>StemInteract | National 5 Physics Question Explorer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <style>
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      text-align: center;
+    }
+    #header { align-items: center; }
+    #header .icons { display: flex; justify-content: flex-end; align-items: center; }
+    .hub-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.65em; padding: 1em 0; border-bottom: 1px solid #e5e5e5; font-size: 0.9em; }
+    .hub-nav a { border-bottom: 0; font-weight: 700; }
+    .hub-nav span { color: #999; }
+    .explorer-intro { max-width: 900px; }
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(145px, 1fr));
+      gap: 1em;
+      margin: 2em 0 1em;
+    }
+    .filters label { font-weight: 700; }
+    .filters select, .filters input { margin-top: 0.4em; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1em;
+      margin-bottom: 1.5em;
+    }
+    #question-count { font-weight: 700; color: #3d4449; }
+    .resource-links { display: flex; flex-wrap: wrap; gap: 0.7em; }
+    .resource-links .button { margin: 0; }
+    .resource-disabled { opacity: 0.55; pointer-events: none; }
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.2em;
+    }
+    .question-card {
+      border: 1px solid #d7d7d7;
+      border-radius: 10px;
+      padding: 1.25em;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9em;
+    }
+    .question-card h3 { margin: 0; }
+    .meta { display: flex; flex-wrap: wrap; gap: 0.45em; }
+    .tag {
+      border-radius: 999px;
+      background: #f2f3f4;
+      color: #3d4449;
+      font-size: 0.78em;
+      font-weight: 700;
+      padding: 0.25em 0.65em;
+    }
+    .card-actions { display: flex; flex-wrap: wrap; gap: 0.6em; margin-top: auto; }
+    .card-actions .button { margin: 0; padding: 0 1.1em; }
+    details { border-top: 1px solid #e5e5e5; padding-top: 0.8em; }
+    details summary { cursor: pointer; color: #f56a6a; font-weight: 700; }
+    .official-answer { margin: 0.7em 0 0; }
+    .ai-panel {
+      position: relative;
+      display: none;
+      border: 1px solid #f56a6a;
+      border-radius: 8px;
+      padding: 2.7em 1em 1em;
+      background: #fff8f8;
+    }
+    .ai-panel.open { display: block; }
+    .ai-panel textarea { min-height: 180px; resize: vertical; }
+    .prompt-tools { position: absolute; top: 0.65em; right: 0.65em; margin: 0; }
+    .copy-prompt {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      color: #777;
+      cursor: pointer;
+      font-size: 0.8em;
+      padding: 0.25em 0.4em;
+      text-decoration: underline;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    .copy-prompt:hover { color: #f56a6a; }
+    .ai-services { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: 0.8em; }
+    .ai-services .button { margin: 0; }
+    .notice {
+      border-left: 4px solid #f56a6a;
+      padding: 0.8em 1em;
+      background: #fff8f8;
+      margin: 1.5em 0;
+    }
+    .empty { display: none; text-align: center; padding: 3em 1em; }
+    @media screen and (max-width: 736px) {
+      .filters { grid-template-columns: 1fr; }
+      .question-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+<style id="question-action-layout">
+.actions,.actions-row,.card-actions{display:grid!important;grid-template-columns:max-content max-content;align-items:stretch;justify-content:start;gap:.6em}
+.actions>a.button.primary,.actions-row>a.button.primary,.card-actions>a.button.primary{grid-column:1/-1;justify-self:start}
+.actions .button,.actions-row .button,.card-actions .button{margin:0}
+@media(max-width:420px){.actions,.actions-row,.card-actions{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.actions .button,.actions-row .button,.card-actions .button{white-space:normal;padding-left:.7em;padding-right:.7em}}
+</style></head>
+<body class="is-preload">
+  <div id="wrapper">
+    <div id="main">
+      <div class="inner">
+        <header id="header">
+          <a class='logo' href='/'>STEM INTERACT</a>
+          <ul class="icons">
+            <li><a href="https://rotaryclubofayr.org" class="button small">Ayr Rotary</a></li>
+          </ul>
+        </header>
+
+        <nav class="hub-nav" aria-label="National 5 Physics navigation">
+          <a href='/physics-question-explorers'>Physics</a><span>›</span>
+          <a href='/physics-question-explorers'>Question Explorers</a><span>›</span>
+          <strong>National 5 Physics</strong>
+        </nav>
+
+        <section>
+          <header class="main">
+            <h1>National 5 Physics Question Explorer</h1>
+          </header>
+          <div class="explorer-intro">
+            <p>Explore the 2022 to 2025 National 5 Physics papers by topic. Open the original question, check the official marking guidance, or build a prompt that asks an AI tutor for one hint at a time.</p>
+          </div>
+
+          <div class="notice">
+            <strong>The official marking instructions are authoritative.</strong>
+            AI can explain and coach, but it can make mistakes. Do not submit personal information or a photograph containing your name or candidate number.
+          </div>
+
+          <div class="filters">
+            <label>Year
+              <select id="year-filter">
+                <option value="all">All years</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+              </select>
+            </label>
+            <label>Course section
+              <select id="course-section-filter">
+                <option value="all">All course sections</option>
+                <option value="Dynamics and space">Dynamics and space</option>
+                <option value="Electricity">Electricity</option>
+                <option value="Properties of matter">Properties of matter</option>
+                <option value="Waves and radiation">Waves and radiation</option>
+                <option value="Nuclear radiation">Nuclear radiation</option>
+              </select>
+            </label>
+            <label>Topic
+              <select id="topic-filter">
+                <option value="all">All topics</option>
+              </select>
+            </label>
+            <label>Paper
+              <select id="section-filter">
+                <option value="all">Both papers</option>
+                <option value="1">Paper 1 — Multiple Choice</option>
+                <option value="2">Paper 2</option>
+              </select>
+            </label>
+            <label>Search
+              <input id="search-filter" type="search" placeholder="eg circuits, waves, half-life" />
+            </label>
+          </div>
+
+          <div class="toolbar">
+            <div id="question-count" aria-live="polite"></div>
+            <div class="resource-links">
+              <a id="relationships-sheet" class="button small" href="N5_Physics_Relationships-sheet_2025.pdf" target="_blank" rel="noopener">Relationships sheet</a>
+              <a id="marking-instructions" class="button small resource-disabled" aria-disabled="true">Choose a year for marking instructions</a>
+              <a id="topic-notes" class="button small resource-disabled" aria-disabled="true">Choose a topic for notes</a>
+            </div>
+          </div>
+
+          <div id="question-grid" class="question-grid"></div>
+          <div id="empty-message" class="empty">No questions match those filters.</div>
+
+          <div class="notice">
+            Question-paper and marking-instruction content is credited to the Scottish Qualifications Authority (SQA), 2022-2025, and is used on this non-commercial educational site in support of SQA qualifications.
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {y:2023,s:1,q:1,p:3,t:"Dynamics and space",k:"scalar vector force acceleration",d:"Classifying vectors and identifying vector quantities.",m:1,a:"D"},
+      {y:2023,s:1,q:2,p:4,t:"Dynamics and space",k:"instantaneous speed trolley light gate card",d:"Selecting the expression for instantaneous speed at a light gate.",m:1,a:"D"},
+      {y:2023,s:1,q:3,p:5,t:"Dynamics and space",k:"speed time graph distance area runner",d:"Finding distance travelled from a speed-time graph.",m:1,a:"C"},
+      {y:2023,s:1,q:4,p:5,t:"Dynamics and space",k:"work force distance slope friction",d:"Calculating work done by a pushing force.",m:1,a:"D"},
+      {y:2023,s:1,q:5,p:6,t:"Dynamics and space",k:"kinetic energy trolley acceleration",d:"Calculating an increase in kinetic energy.",m:1,a:"B"},
+      {y:2023,s:1,q:6,p:6,t:"Dynamics and space",k:"greenhouse earth temperature radiation",d:"Using a supplied relationship for Earth's no-greenhouse temperature.",m:1,a:"D"},
+      {y:2023,s:1,q:7,p:7,t:"Dynamics and space",k:"asteroid planet star orbit sun",d:"Classifying a small rocky object orbiting the Sun.",m:1,a:"A"},
+      {y:2023,s:1,q:8,p:7,t:"Dynamics and space",k:"mars spacecraft force weight motion acceleration",d:"Predicting a spacecraft's motion after its rocket engines fire.",m:1,a:"D"},
+      {y:2023,s:1,q:9,p:8,t:"Electricity",k:"electric field charged particle plates path",d:"Inferring particle and plate charges from motion in an electric field.",m:1,a:"E"},
+      {y:2023,s:1,q:10,p:8,t:"Electricity",k:"alternating current charge direction",d:"Identifying the definition of alternating current.",m:1,a:"C"},
+      {y:2023,s:1,q:11,p:9,t:"Electricity",k:"led resistor voltage current",d:"Calculating the resistance of a series LED resistor.",m:1,a:"D"},
+      {y:2023,s:1,q:12,p:9,t:"Electricity",k:"potential divider series voltage resistance",d:"Calculating a voltmeter reading in a potential divider.",m:1,a:"A"},
+      {y:2023,s:1,q:13,p:10,t:"Electricity",k:"ldr motor mosfet transistor light switch",d:"Selecting an LDR circuit that switches on a motor in darkness.",m:1,a:"C"},
+      {y:2023,s:1,q:14,p:10,t:"Electricity",k:"power energy time slow cooker",d:"Calculating electrical energy used by a slow cooker.",m:1,a:"E"},
+      {y:2023,s:1,q:15,p:11,t:"Electricity",k:"power resistance graph voltage",d:"Determining voltage from a power-resistance graph.",m:1,a:"C"},
+      {y:2023,s:1,q:16,p:12,t:"Properties of matter",k:"specific heat capacity experiment mass temperature joulemeter",d:"Selecting measurements needed for a specific heat-capacity experiment.",m:1,a:"C"},
+      {y:2023,s:1,q:17,p:13,t:"Properties of matter",k:"latent heat fusion ice melting energy",d:"Calculating the energy required to melt ice.",m:1,a:"B"},
+      {y:2023,s:1,q:18,p:13,t:"Properties of matter",k:"pressure force area hammer nail",d:"Calculating area from pressure and force.",m:1,a:"B"},
+      {y:2023,s:1,q:19,p:13,t:"Properties of matter",k:"gas pressure temperature buoy",d:"Relating gas pressure to temperature at fixed volume.",m:1,a:"A"},
+      {y:2023,s:1,q:20,p:14,t:"Properties of matter",k:"gas law pressure volume temperature",d:"Using the combined gas law to find volume.",m:1,a:"C"},
+      {y:2023,s:1,q:21,p:14,t:"Waves and radiation",k:"wave amplitude frequency speed wavelength",d:"Reading amplitude and calculating frequency from a wave diagram.",m:1,a:"B"},
+      {y:2023,s:1,q:22,p:15,t:"Waves and radiation",k:"diffraction water waves gap barrier",d:"Identifying diffraction through a gap.",m:1,a:"E"},
+      {y:2023,s:1,q:23,p:16,t:"Waves and radiation",k:"refraction red light glass air ray",d:"Tracing a ray refracting from glass into air.",m:1,a:"A"},
+      {y:2023,s:1,q:24,p:16,t:"Nuclear radiation",k:"activity becquerel nuclei decays time",d:"Calculating the number of nuclear decays from activity and time.",m:1,a:"E"},
+      {y:2023,s:1,q:25,p:17,t:"Nuclear radiation",k:"nuclear fusion plasma containment temperature",d:"Evaluating statements about nuclear fusion.",m:1,a:"B"},
+      {y:2023,s:2,q:1,p:6,mp:8,t:"Dynamics and space",k:"vectors displacement bearing velocity speed gravitational potential kinetic energy",d:"Seagull displacement, velocity, gravitational potential energy and falling speed.",m:15,a:"Resultant displacement 67 m at bearing 291 degrees; average velocity 2.2 m s-1 at 291 degrees; GPE 0.18 J; maximum vertical speed 12 m s-1, reduced in practice by air resistance."},
+      {y:2023,s:2,q:2,p:10,mp:12,t:"Dynamics and space",k:"projectile bottle velocity time graph height resultant force acceleration cycling drag",d:"Projectile motion of a dropped bottle and forces on a cyclist.",m:14,a:"Curved projectile path; vertical velocity 5.2 m s-1 downwards; height 1.4 m; cyclist acceleration about 0.43 m s-2; drafting reduces air resistance."},
+      {y:2023,s:2,q:3,p:14,mp:14,t:"Dynamics and space",k:"satellite geostationary weight orbital altitude period",d:"Satellite selection, weight at altitude and orbital period prediction.",m:6,a:"Astra 1KR is geostationary because its period is 24 h; UKube-1 weight is 27 N; predicted period must lie between 101 and 676 minutes."},
+      {y:2023,s:2,q:4,p:16,mp:15,t:"Dynamics and space",k:"moon base space exploration gravity atmosphere energy",d:"Extended response on benefits and challenges of a Moon base.",m:3,a:"Holistically marked. Relevant physics includes lower gravity, no atmosphere, radiation, temperature extremes, resources, energy and travel."},
+      {y:2023,s:2,q:5,p:18,mp:16,t:"Dynamics and space",k:"space telescope spectrum elements hydrogen calcium light year",d:"Space telescopes, stellar spectra and light-year distance.",m:4,a:"A space telescope avoids weather and atmospheric distortion; hydrogen and calcium are present; distance is 3.2 x 10^18 m."},
+      {y:2023,s:2,q:6,p:20,mp:17,t:"Electricity",k:"series parallel circuit resistance current ammeter",d:"Series and parallel resistance and their effect on circuit current.",m:10,a:"Initial current 0.20 A; with the parallel branch the total resistance is 42 ohms; the ammeter reading becomes greater because total resistance falls."},
+      {y:2023,s:2,q:7,p:22,mp:19,t:"Electricity",k:"capacitor plates distance charge graph experimental improvements",d:"Graphing capacitor charge against plate separation and improving the experiment.",m:6,a:"Best-fit curve; charge at 25 mm is about 74 pC; improvements include repeats and averaging, more distances or a wider range."},
+      {y:2023,s:2,q:8,p:26,mp:20,t:"Properties of matter",k:"specific heat capacity titanium ceramic energy temperature",d:"Heating titanium and comparing titanium with ceramic plates.",m:6,a:"Minimum energy about 2120 J; actual input is greater because energy is lost to the surroundings; heating time depends on mass, heat capacity, conductivity and heat loss."},
+      {y:2023,s:2,q:9,p:28,mp:21,t:"Properties of matter",k:"pressure gas law crisp packet altitude equivalent dose",d:"Gas pressure and volume in flight, followed by radiation dose.",m:7,a:"Pressure is force per unit area; crisp-packet volume about 2.5 x 10^-3 m3; gas particles collide with the walls; equivalent dose about 21 microSv."},
+      {y:2023,s:2,q:10,p:30,mp:22,t:"Waves and radiation",k:"ultrasound echo distance frequency oscilloscope",d:"Parking-sensor ultrasound distance and frequency.",m:7,a:"Wall distance about 2.6 m; frequency 45 000 Hz; travel time remains the same because sound speed and distance are unchanged."},
+      {y:2023,s:2,q:11,p:32,mp:23,t:"Waves and radiation",k:"electromagnetic spectrum diffraction microwaves wavelength x ray absorbed equivalent dose",d:"Electromagnetic-spectrum identification, diffraction, wireless signals and X-ray dose.",m:12,a:"P is ultraviolet and Q infrared; radio waves diffract most; wireless signal wavelength 0.12 m and is microwave; absorbed energy 2.3 x 10^-5 J; equivalent dose 5.0 x 10^-6 Sv."},
+      {y:2023,s:2,q:12,p:36,mp:24,t:"Waves and radiation",k:"analogy refraction wave speed wavelength students sand",d:"Extended response evaluating an analogy for refraction.",m:3,a:"Holistically marked. A strong response links the change of speed at the boundary to a change in direction and wavelength while frequency remains constant."},
+      {y:2023,s:2,q:13,p:39,mp:25,t:"Nuclear radiation",k:"alpha beta gamma absorption ionisation spark counter charge current",d:"Identifying radiation using absorbers and investigating ionisation with a spark counter.",m:11,a:"Source Y emits alpha and gamma; ionisation involves an atom gaining or losing electrons; alpha causes the sparks because of its short range; charge per spark is 7.5 x 10^-8 C."},
+      {y:2023,s:2,q:14,p:42,mp:28,t:"Nuclear radiation",k:"iodine half life background count corrected activity medical uses",d:"Background correction, half-life and uses of nuclear radiation.",m:6,a:"Measure background count rate; half-life about 60 days; one-eighth activity after 180 days; initial corrected count about 4000 counts per minute; give another valid use of radiation."},
+      {y:2022,s:1,q:1,p:3,t:"Dynamics and space",k:"scalar vector acceleration displacement energy force",d:"Identifying one scalar and one vector quantity.",m:1,a:"E"},
+      {y:2022,s:1,q:2,p:3,t:"Dynamics and space",k:"constant acceleration speed average toy car",d:"Selecting consistent speeds and average speed for constant acceleration.",m:1,a:"C"},
+      {y:2022,s:1,q:3,p:4,t:"Dynamics and space",k:"speed time graph cyclist distance area",d:"Finding distance from a speed-time graph.",m:1,a:"D"},
+      {y:2022,s:1,q:4,p:5,t:"Dynamics and space",k:"newton third law water rocket reaction force",d:"Explaining launch using a Newton's third-law force pair.",m:1,a:"B"},
+      {y:2022,s:1,q:5,p:6,t:"Dynamics and space",k:"gravitational potential kinetic energy falling ball",d:"Comparing changes in potential and kinetic energy.",m:1,a:"B"},
+      {y:2022,s:1,q:6,p:6,t:"Dynamics and space",k:"weightlessness orbit gravity free fall",d:"Evaluating explanations of weightlessness in orbit.",m:1,a:"B"},
+      {y:2022,s:1,q:7,p:7,t:"Dynamics and space",k:"earth moon galaxy distance scale",d:"Ordering astronomical distances.",m:1,a:"C"},
+      {y:2022,s:1,q:8,p:7,t:"Dynamics and space",k:"satellite orbital period geostationary altitude",d:"Comparing satellite orbital periods.",m:1,a:"A"},
+      {y:2022,s:1,q:9,p:8,t:"Dynamics and space",k:"spacecraft rocket engines force direction deceleration",d:"Selecting rocket engines that reduce spacecraft speed.",m:1,a:"A"},
+      {y:2022,s:1,q:10,p:8,t:"Dynamics and space",k:"weight mass gravitational field planet",d:"Using weight-mass data to predict another weight.",m:1,a:"D"},
+      {y:2022,s:1,q:11,p:9,t:"Electricity",k:"charge current time hair dryer",d:"Calculating charge from current and time.",m:1,a:"C"},
+      {y:2022,s:1,q:12,p:9,t:"Electricity",k:"current voltage graph resistance components",d:"Comparing component resistance using current-voltage graphs.",m:1,a:"D"},
+      {y:2022,s:1,q:13,p:10,t:"Electricity",k:"series parallel circuit ammeter voltmeter",d:"Predicting meter readings in a resistor circuit.",m:1,a:"E"},
+      {y:2022,s:1,q:14,p:11,t:"Electricity",k:"thermistor circuit symbol",d:"Recognising the thermistor circuit symbol.",m:1,a:"B"},
+      {y:2022,s:1,q:15,p:12,t:"Properties of matter",k:"heating graph specific heat latent heat state change",d:"Interpreting heating curves for two substances.",m:1,a:"D"},
+      {y:2022,s:1,q:16,p:12,t:"Properties of matter",k:"latent heat fusion melting ice energy",d:"Calculating energy required to melt ice.",m:1,a:"D"},
+      {y:2022,s:1,q:17,p:13,t:"Properties of matter",k:"pressure weight area bicycle tyres",d:"Calculating pressure exerted by bicycle tyres.",m:1,a:"E"},
+      {y:2022,s:1,q:18,p:13,t:"Properties of matter",k:"gas molecule kinetic energy kelvin boltzmann",d:"Using a supplied relationship for molecular kinetic energy.",m:1,a:"E"},
+      {y:2022,s:1,q:19,p:14,t:"Waves and radiation",k:"longitudinal sound electromagnetic waves",d:"Identifying a longitudinal wave.",m:1,a:"A"},
+      {y:2022,s:1,q:20,p:14,t:"Waves and radiation",k:"radio frequency wavelength speed",d:"Calculating maximum radio wavelength.",m:1,a:"D"},
+      {y:2022,s:1,q:21,p:14,t:"Waves and radiation",k:"electromagnetic spectrum order wavelength",d:"Correcting the order of the electromagnetic spectrum.",m:1,a:"C"},
+      {y:2022,s:1,q:22,p:15,t:"Nuclear radiation",k:"alpha beta gamma absorption paper aluminium",d:"Identifying radiations transmitted through absorbers.",m:1,a:"E"},
+      {y:2022,s:1,q:23,p:15,t:"Nuclear radiation",k:"activity alpha particles time becquerel",d:"Calculating activity from emitted particles and time.",m:1,a:"A"},
+      {y:2022,s:1,q:24,p:16,t:"Nuclear radiation",k:"medical tracer beta gamma half life",d:"Selecting radiation and half-life for a medical tracer.",m:1,a:"D"},
+      {y:2022,s:1,q:25,p:16,t:"Nuclear radiation",k:"half life activity rhodium",d:"Calculating activity after several half-lives.",m:1,a:"C"},
+      {y:2022,s:2,q:1,p:6,mp:8,t:"Dynamics and space",k:"vectors displacement bearing average speed velocity aeroplane",d:"Aeroplane displacement, direction, average speed and velocity.",m:9,a:"Displacement about 190 km at bearing 223 degrees; average speed about 110 m s-1; average velocity about 110 m s-1 at bearing 043 degrees."},
+      {y:2022,s:2,q:2,p:8,mp:11,t:"Dynamics and space",k:"projectile marble range graph experiment variables",d:"Graphing and investigating the horizontal range of a marble.",m:8,a:"Best-fit straight line; predicted range about 0.57 m; use carbon paper, sand or video to identify landing; investigate a valid variable while controlling others."},
+      {y:2022,s:2,q:3,p:12,mp:12,t:"Dynamics and space",k:"mars spaceship weight thrust force acceleration altitude",d:"Weight, forces and acceleration of a spacecraft launching from Mars.",m:11,a:"Weight about 4.8 x 10^6 N; thrust upwards and weight downwards; launch acceleration about 5.5 m s-2; acceleration increases as mass, weight or gravitational field strength falls."},
+      {y:2022,s:2,q:4,p:14,mp:14,t:"Dynamics and space",k:"space underwater exploration pressure gravity communication energy",d:"Extended response comparing space and underwater exploration.",m:3,a:"Holistically marked. Relevant comparisons include pressure, gravity or buoyancy, temperature, life support, communication, visibility and energy."},
+      {y:2022,s:2,q:5,p:16,mp:15,t:"Dynamics and space",k:"rigel star supernova light year speed spectrum elements",d:"Supernova distance, debris motion and stellar spectra.",m:10,a:"Distance about 8.1 x 10^18 m; debris speed 1.5 x 10^7 m s-1; travel time about 5.4 x 10^11 s; light may not yet have arrived; identify spectrum type and match lines to elements."},
+      {y:2022,s:2,q:6,p:20,mp:16,t:"Electricity",k:"resistors series parallel voltage current resistance ammeter",d:"Comparing resistors and calculating series and parallel circuit values.",m:10,a:"The 4 ohm resistor passes greater current; voltmeter reads 1.2 V; parallel total resistance is 3.2 ohms; another parallel branch increases current by reducing total resistance."},
+      {y:2022,s:2,q:7,p:22,mp:18,t:"Electricity",k:"dehumidifier fuse resistance led mosfet moisture sensor variable resistor",d:"Dehumidifier fuse, resistance and automatic switching circuit.",m:8,a:"Use a 3 A fuse; resistance about 150 ohms; LED must have correct polarity; increased moisture raises the control voltage until the transistor switches on; variable resistor sets the switching level."},
+      {y:2022,s:2,q:8,p:24,mp:19,t:"Properties of matter",k:"iron current power specific heat capacity aluminium temperature energy loss",d:"Electric-iron current and heating of its aluminium soleplate.",m:8,a:"Current about 7.6 A; calculated maximum temperature about 237 degrees C; actual temperature is lower because energy is transferred to the surroundings, iron or clothes."},
+      {y:2022,s:2,q:9,p:26,mp:20,t:"Properties of matter",k:"gas pressure temperature experiment kinetic model tyres",d:"Establishing the gas pressure-temperature relationship and explaining tyre pressure.",m:8,a:"Pressure is directly proportional to kelvin temperature; predicted pressure about 140 kPa; improve with repeats or more temperatures; faster particles collide more often or harder, increasing pressure."},
+      {y:2022,s:2,q:10,p:30,mp:23,t:"Waves and radiation",k:"ripple tank wavelength frequency speed diffraction",d:"Ripple-tank wave calculations and diffraction around an obstacle.",m:8,a:"Wavelength 0.020 m; frequency 15 Hz; speed 0.30 m s-1; diffracted wavefronts curve into the shadow region with unchanged wavelength."},
+      {y:2022,s:2,q:11,p:32,mp:25,t:"Waves and radiation",k:"laser refraction glass wavelength pulse energy power time",d:"Laser refraction and the duration of dental-laser pulses.",m:6,a:"The effect is refraction; ray bends towards the normal on entry and leaves without bending at the curved face; wavelength is shorter in glass; pulse time 1.7 x 10^-3 s."},
+      {y:2022,s:2,q:12,p:34,mp:26,t:"Waves and radiation",k:"infrared leslie cube thermopile distance surface solar shower",d:"Infrared emission from surfaces and operation of a solar shower.",m:6,a:"Detected infrared decreases with distance; shiny silver gives a lower curve than matt black; extended response should explain absorption and emission by the two surfaces."},
+      {y:2022,s:2,q:13,p:38,mp:28,t:"Nuclear radiation",k:"smoke detector alpha ionisation half life equivalent dose",d:"Alpha sources in smoke detectors, half-life and worker dose.",m:9,a:"Alpha is strongly ionising and has a short range; source Z has the longest half-life but all shown are too short for a ten-year detector; equivalent dose is 7.2 x 10^-4 Sv."},
+      {y:2022,s:2,q:14,p:42,mp:29,t:"Nuclear radiation",k:"nuclear fission fusion reactor energy power reactions plasma",d:"Nuclear fission energy and the challenge of sustaining fusion.",m:6,a:"Fission splits a large nucleus; about 1.9 x 10^22 fissions occur per hour; fusion requires very high temperature and controlled containment of plasma."},
+      {y:2024,s:1,q:1,p:3,t:"Dynamics and space",k:"scalar vector speed weight energy",d:"Classifying scalar and vector quantities.",m:1,a:"E"},
+      {y:2024,s:1,q:2,p:3,t:"Dynamics and space",k:"trolley average instantaneous speed light gate",d:"Distinguishing average speed from instantaneous speed in a trolley experiment.",m:1,a:"B"},
+      {y:2024,s:1,q:3,p:4,t:"Dynamics and space",k:"newton third law rocket exhaust",d:"Identifying a Newton's third-law force pair for a rocket.",m:1,a:"E"},
+      {y:2024,s:1,q:4,p:4,t:"Dynamics and space",k:"power lifting mass work time",d:"Calculating power while lifting a mass.",m:1,a:"B"},
+      {y:2024,s:1,q:5,p:4,t:"Dynamics and space",k:"satellite circular orbit weightless gravity",d:"Explaining apparent weightlessness in circular orbit.",m:1,a:"A"},
+      {y:2024,s:1,q:6,p:5,t:"Dynamics and space",k:"laser earth moon distance time speed light",d:"Using laser travel time to find the Earth-Moon distance.",m:1,a:"D"},
+      {y:2024,s:1,q:7,p:5,t:"Dynamics and space",k:"satellite altitude period orbit",d:"Relating a satellite's orbital altitude and period.",m:1,a:"C"},
+      {y:2024,s:1,q:8,p:5,t:"Dynamics and space",k:"universe age big bang light year",d:"Interpreting evidence about the age and scale of the Universe.",m:1,a:"D"},
+      {y:2024,s:1,q:9,p:6,t:"Electricity",k:"electric field charges force",d:"Interpreting charges and forces in an electric field.",m:1,a:"A"},
+      {y:2024,s:1,q:10,p:6,t:"Electricity",k:"toaster power fuse charge current",d:"Using appliance power, current and charge information.",m:1,a:"B"},
+      {y:2024,s:1,q:11,p:7,t:"Electricity",k:"series voltage divider resistance",d:"Calculating voltage in a series potential divider.",m:1,a:"E"},
+      {y:2024,s:1,q:12,p:8,t:"Electricity",k:"ldr parallel circuit currents",d:"Analysing currents in a circuit containing an LDR.",m:1,a:"A"},
+      {y:2024,s:1,q:13,p:8,t:"Electricity",k:"total resistance mixed circuit series parallel",d:"Calculating total resistance in a mixed circuit.",m:1,a:"B"},
+      {y:2024,s:1,q:14,p:9,t:"Electricity",k:"power wire current resistance voltage",d:"Calculating power dissipated in a wire.",m:1,a:"C"},
+      {y:2024,s:1,q:15,p:9,t:"Properties of matter",k:"specific heat capacity copper experiment improvement",d:"Improving a specific heat-capacity experiment using copper.",m:1,a:"B"},
+      {y:2024,s:1,q:16,p:10,t:"Properties of matter",k:"heating curve latent heat vaporisation",d:"Interpreting a heating curve and latent heat of vaporisation.",m:1,a:"D"},
+      {y:2024,s:1,q:17,p:10,t:"Properties of matter",k:"gas pressure volume temperature",d:"Relating gas pressure and volume.",m:1,a:"D"},
+      {y:2024,s:1,q:18,p:11,t:"Properties of matter",k:"buoyancy density volume mass",d:"Using density and volume in a buoyancy situation.",m:1,a:"A"},
+      {y:2024,s:1,q:19,p:11,t:"Waves and radiation",k:"wave speed frequency wavelength",d:"Calculating a wave quantity from speed, frequency and wavelength.",m:1,a:"C"},
+      {y:2024,s:1,q:20,p:12,t:"Waves and radiation",k:"infrared wavelength diffraction speed",d:"Comparing infrared waves using wavelength, diffraction and speed.",m:1,a:"C"},
+      {y:2024,s:1,q:21,p:12,t:"Waves and radiation",k:"refraction incidence angles semicircular block",d:"Interpreting refraction angles in a semicircular block.",m:1,a:"A"},
+      {y:2024,s:1,q:22,p:13,t:"Nuclear radiation",k:"ionisation atom electron",d:"Identifying ionisation.",m:1,a:"B"},
+      {y:2024,s:1,q:23,p:13,t:"Nuclear radiation",k:"activity nuclei decay time",d:"Relating activity, number of nuclei and time.",m:1,a:"E"},
+      {y:2024,s:1,q:24,p:13,t:"Nuclear radiation",k:"equivalent dose alpha neutrons weighting factor",d:"Calculating equivalent dose for nuclear radiation.",m:1,a:"C"},
+      {y:2024,s:1,q:25,p:14,t:"Nuclear radiation",k:"half life experimental method count rate background",d:"Selecting a method for measuring half-life.",m:1,a:"B"},
+      {y:2024,s:2,q:1,p:6,mp:8,t:"Dynamics and space",k:"velocity time graph acceleration distance",d:"Velocity-time graph motion, acceleration and distance travelled.",m:8,a:"A-B: constant acceleration; B-C: constant speed; acceleration C-D = -0.75 m s-2; distance A-D = 504 m."},
+      {y:2024,s:2,q:2,p:8,mp:9,t:"Dynamics and space",k:"resultant force bearing acceleration friction triathlon speed velocity",d:"Resultant forces, acceleration, friction, speed and velocity in a triathlon.",m:12,a:"Resultant force 28 N at bearing 116 degrees; acceleration 0.37 m s-2 at 116 degrees; reduce drag by streamlining or tight clothing; running speed 4.4 m s-1; average velocity magnitude 0."},
+      {y:2024,s:2,q:3,p:12,mp:12,t:"Dynamics and space",k:"skateboard kinetic energy friction projectile",d:"Skateboard kinetic energy, friction and projectile motion.",m:8,a:"Decrease in kinetic energy 1300 J; average frictional force 650 N; projectile path curves downwards."},
+      {y:2024,s:2,q:4,p:14,mp:13,t:"Dynamics and space",k:"moon weight gravity challenge acceleration spacecraft",d:"Weight on the Moon, physical challenges and spacecraft acceleration.",m:7,a:"Weight approximately 94 N; valid challenge may include radiation, pressure difference, low gravity or extreme temperature; acceleration increases as mass and weight decrease and the unbalanced force increases."},
+      {y:2024,s:2,q:5,p:16,mp:14,t:"Dynamics and space",k:"copernican model universe planets stars expansion",d:"Extended response on how the Copernican model was developed.",m:3,a:"Holistically marked. Relevant points include planets orbiting the Sun, the Sun not being the centre of the Universe, stars not being fixed, and the expanding Universe. Use the official rubric."},
+      {y:2024,s:2,q:6,p:18,mp:15,t:"Dynamics and space",k:"space telescope exoplanet light year spectrum elements",d:"Space telescopes, exoplanets, light-years and line spectra.",m:6,a:"A space telescope avoids atmospheric effects, weather and light pollution; an exoplanet is outside our Solar System; distance 3.9 x 10^17 m; elements are helium and nitrogen."},
+      {y:2024,s:2,q:7,p:20,mp:16,t:"Electricity",k:"dc charge thermistor mosfet fan led resistor",d:"D.c. current, charge, a thermistor-MOSFET fan circuit and an LED resistor.",m:11,a:"Electrons move in one direction; charge 14 000 C; rising temperature reduces thermistor resistance and its voltage, raising the other voltage until the MOSFET switches on; resistor approximately 160 ohms."},
+      {y:2024,s:2,q:8,p:24,mp:18,t:"Electricity",k:"lamp current voltage graph variable fixed resistor",d:"Plotting a lamp current-voltage graph and comparing it with a fixed resistor.",m:6,a:"Draw a best-fit curve; at 0.70 A the voltage is about 6.6 V; vary the variable resistor; a fixed resistor gives a straight line through the origin."},
+      {y:2024,s:2,q:9,p:28,mp:19,t:"Properties of matter",k:"water heating latent heat microwave energy",d:"Heating and vaporising water in a microwave oven.",m:11,a:"Heating energy 7800 J; vaporisation energy 32 000 J; minimum total 39 800 J; oven supplies 140 000 J; the difference is due to energy losses or incomplete transfer to the water."},
+      {y:2024,s:2,q:10,p:30,mp:20,t:"Properties of matter",k:"gas law kinetic model pressure mass",d:"Gas-law calculations and the kinetic model of pressure.",m:10,a:"Pressure 639 kPa; cooling makes particles move more slowly, reducing collision force or frequency; total mass approximately 78 kg."},
+      {y:2024,s:2,q:11,p:32,mp:21,t:"Waves and radiation",k:"transverse frequency accuracy power diffraction",d:"Water waves: transverse motion, frequency, measurement accuracy, power and diffraction.",m:8,a:"Vibrations are perpendicular to energy transfer; frequency 0.14 Hz; measure more waves or repeat and average; power 480 kW; diffracted wavefronts are curved with unchanged wavelength."},
+      {y:2024,s:2,q:12,p:36,mp:22,t:"Waves and radiation",k:"sound light refraction reflection amplitude",d:"Comparing sound and light, and explaining refraction and reflected echoes.",m:5,a:"The speed of sound is needed; a central ray follows the normal so does not change direction; frequency stays the same; the second reflected sound has smaller amplitude because it travels farther and loses energy."},
+      {y:2024,s:2,q:13,p:38,mp:23,t:"Waves and radiation",k:"radiation danger ionising non ionising dose medical",d:"Extended response evaluating the statement that all radiation is dangerous.",m:3,a:"Holistically marked. A strong response distinguishes ionising and non-ionising radiation, considers dose and exposure, and recognises useful medical applications. Use the official rubric."},
+      {y:2024,s:2,q:14,p:40,mp:24,t:"Nuclear radiation",k:"cobalt 60 half life activity dose time energy",d:"Cobalt-60 half-life, activity, exposure time and absorbed energy.",m:7,a:"After four half-lives the activity is 53 000 GBq; exposure time 50 000 s; absorbed energy 55 J."},
+      {y:2024,s:2,q:15,p:42,mp:25,t:"Nuclear radiation",k:"rtg solar fission chain reaction power space",d:"Power sources for spacecraft, nuclear fission and declining RTG output.",m:5,a:"Solar power is weaker far from the Sun; fission splits a large nucleus and released neutrons trigger further fissions; RTG power falls because activity decreases."},
+      {s:1,q:1,p:3,t:"Dynamics and space",k:"scalars vectors force velocity",d:"Classifying scalar and vector quantities.",m:1,a:"B"},
+      {s:1,q:2,p:3,t:"Dynamics and space",k:"velocity time graph displacement area",d:"Finding displacement from a velocity-time graph.",m:1,a:"A"},
+      {s:1,q:3,p:4,t:"Dynamics and space",k:"acceleration initial final speed",d:"Using constant acceleration to find initial speed.",m:1,a:"D"},
+      {s:1,q:4,p:4,t:"Dynamics and space",k:"newton third law reaction forces",d:"Identifying a Newton's third-law force pair.",m:1,a:"A"},
+      {s:1,q:5,p:4,t:"Dynamics and space",k:"work weight lifting power",d:"Calculating work done while lifting a mass.",m:1,a:"E"},
+      {s:1,q:6,p:5,t:"Dynamics and space",k:"kinetic energy heat asteroid",d:"Converting an asteroid's kinetic energy to heat.",m:1,a:"D"},
+      {s:1,q:7,p:5,t:"Dynamics and space",k:"satellite orbit speed gravity",d:"Calculating orbital speed from radius and field strength.",m:1,a:"C"},
+      {s:1,q:8,p:6,t:"Dynamics and space",k:"weight mass mars gravitational field",d:"Comparing an astronaut's weight on Earth and Mars.",m:1,a:"C"},
+      {s:1,q:9,p:6,t:"Dynamics and space",k:"light year distance space",d:"Converting light-years to metres.",m:1,a:"E"},
+      {s:1,q:10,p:7,t:"Dynamics and space",k:"stars line spectra elements",d:"Identifying elements from stellar line spectra.",m:1,a:"C"},
+      {s:1,q:11,p:8,t:"Electricity",k:"oscilloscope ac dc power supply",d:"Recognising a.c. and d.c. oscilloscope traces.",m:1,a:"E"},
+      {s:1,q:12,p:9,t:"Electricity",k:"electric field charges particle path",d:"Inferring charges from a particle's path in an electric field.",m:1,a:"A"},
+      {s:1,q:13,p:10,t:"Electricity",k:"series circuit voltage resistance",d:"Finding an unknown resistance in a series circuit.",m:1,a:"D"},
+      {s:1,q:14,p:10,t:"Electricity",k:"series parallel total resistance",d:"Calculating total resistance in a mixed circuit.",m:1,a:"D"},
+      {s:1,q:15,p:11,t:"Electricity",k:"current voltage resistance lamp power",d:"Calculating power dissipated by a lamp.",m:1,a:"A"},
+      {s:1,q:16,p:12,t:"Electricity",k:"mains fuse rating power",d:"Selecting appropriate fuse ratings for appliances.",m:1,a:"B"},
+      {s:1,q:17,p:13,t:"Properties of matter",k:"specific heat capacity experiment improvements",d:"Improving a specific heat-capacity experiment.",m:1,a:"C"},
+      {s:1,q:18,p:14,t:"Properties of matter",k:"cooling curve state change melting boiling",d:"Interpreting a cooling curve and changes of state.",m:1,a:"C"},
+      {s:1,q:19,p:15,t:"Properties of matter",k:"pressure force area",d:"Calculating pressure exerted by a dancer.",m:1,a:"D"},
+      {s:1,q:20,p:15,t:"Properties of matter",k:"gas pressure temperature kelvin",d:"Finding pressure after a fixed-volume gas is heated.",m:1,a:"D"},
+      {s:1,q:21,p:16,t:"Waves and radiation",k:"wavelength amplitude diagram",d:"Reading wavelength and amplitude from a wave diagram.",m:1,a:"B"},
+      {s:1,q:22,p:16,t:"Waves and radiation",k:"electromagnetic spectrum diffraction frequency infrared",d:"Identifying an electromagnetic-spectrum band from clues.",m:1,a:"B"},
+      {s:1,q:23,p:17,t:"Nuclear radiation",k:"activity disintegrations becquerel time",d:"Calculating nuclear disintegrations from activity and time.",m:1,a:"E"},
+      {s:1,q:24,p:17,t:"Nuclear radiation",k:"equivalent dose rate time",d:"Calculating an equivalent-dose rate.",m:1,a:"A"},
+      {s:1,q:25,p:17,t:"Nuclear radiation",k:"fusion fission nuclei",d:"Identifying nuclear fusion.",m:1,a:"B"},
+      {s:2,q:1,p:6,mp:8,t:"Dynamics and space",k:"vectors displacement bearing velocity work",d:"Resultant displacement, direction, average velocity and work done.",m:10,a:"39 m; bearing 337 degrees; 0.71 m s-1 at 337 degrees; approximately 3500 J."},
+      {s:2,q:2,p:8,mp:11,t:"Dynamics and space",k:"rocket weight thrust acceleration forces terminal velocity parachute",d:"Rocket weight and acceleration, force diagrams, parachutes and terminal velocity.",m:13,a:"1.4 x 10^7 N; initial acceleration 6.2 m s-2; weight downward and air resistance upward; increased drag creates an upward unbalanced force; at constant velocity the upward force is 9300 N."},
+      {s:2,q:3,p:12,mp:13,t:"Dynamics and space",k:"ski jump projectile forces drag lift speed angle",d:"Extended-response reasoning about factors affecting ski-jump distance.",m:3,a:"Holistically marked: relevant physics may include launch speed and direction, forces, drag, lift, mass and landing height. Use the official rubric for 0-3 marks."},
+      {s:2,q:4,p:14,mp:14,t:"Dynamics and space",k:"spacecraft mars slingshot acceleration solar cells orbit period",d:"Gravity assist, ion-drive acceleration, solar power and orbital period.",m:6,a:"Mars provides a gravitational slingshot that increases speed; a small force acts for a long time; less solar energy is received farther from the Sun; period about 1.4 days; a closer orbit has a shorter period."},
+      {s:2,q:5,p:16,mp:15,t:"Electricity",k:"electrostatics charge current electrons van de graaff",d:"Electrostatic repulsion, discharge current and number of electrons.",m:5,a:"The dishes acquire the same positive charge and repel; average current about 3.1 x 10^-3 A; about 1.56 x 10^13 electrons."},
+      {s:2,q:6,p:18,mp:16,t:"Electricity",k:"circuit ammeter voltmeter resistance gradient filament lamp",d:"Designing a resistance experiment and interpreting current-voltage graphs.",m:5,a:"Ammeter in series and voltmeter in parallel with R; resistance about 56 ohms from the graph gradient; filament-lamp resistance increases and is not constant."},
+      {s:2,q:7,p:22,mp:17,t:"Electricity",k:"parallel led power current ldr mosfet transistor relay",d:"Parallel spotlights, electrical power and an automatic darkness switch.",m:8,a:"Parallel operation keeps other lights working and provides full supply voltage; total current 1.6 A; X is a MOSFET/transistor; darkness raises LDR resistance and voltage until the MOSFET switches on."},
+      {s:2,q:8,p:24,mp:19,t:"Electricity",k:"electron current energy lamp misconception series brightness",d:"Extended-response critique of common misconceptions about current and lamps.",m:3,a:"Holistically marked. A strong response explains that existing electrons drift, charge is conserved, the lamp transfers electrical energy to light and heat, and added series resistance reduces current and brightness."},
+      {s:2,q:9,p:26,mp:20,t:"Properties of matter",k:"specific heat capacity power time insulation latent heat ice",d:"Cooling and freezing water in an ice-making machine.",m:10,a:"About 35 000 J removed; minimum time about 290 s; improve insulation or add a lid; maximum ice mass about 0.0458 kg."},
+      {s:2,q:10,p:28,mp:21,t:"Properties of matter",k:"kinetic model gas pressure volume graph inverse proportion reliability",d:"Gas pressure, graphing inverse volume and improving reliability.",m:8,a:"Pressure comes from particle collisions with the walls; graph pressure against 1/volume with a best-fit line; pressure is inversely proportional to volume; volume about 4.3 ml at 148 kPa; repeat and average or increase the range/number of volumes."},
+      {s:2,q:11,p:32,mp:23,t:"Waves and radiation",k:"transverse waves frequency speed wavelength",d:"Water-wave definitions and calculations.",m:9,a:"Vibrations are perpendicular to energy transfer; frequency 0.28 Hz; speed 5.0 m s-1; wavelength about 18 m."},
+      {s:2,q:12,p:34,mp:24,t:"Waves and radiation",k:"gps satellite microwave geostationary infrared detector frequency distance",d:"GPS microwaves and infrared laser rangefinding.",m:12,a:"Signal time 0.067 s; not geostationary because its period is 12 h rather than 24 h; suitable detector includes CCD or photodiode; frequency about 3.3 x 10^14 Hz; target distance 180 m."},
+      {s:2,q:13,p:36,mp:25,t:"Waves and radiation",k:"refraction incidence glass speed wavelength normal",d:"Refraction through a circular glass block.",m:4,a:"X is angle of incidence and Y angle of refraction; the ray changes speed/wavelength and is not incident along the normal; it exits bending away from the normal."},
+      {s:2,q:14,p:38,mp:26,t:"Nuclear radiation",k:"tracer gamma penetration half life activity graph",d:"Selecting and analysing a radioactive tracer.",m:6,a:"Gamma penetrates the layers to reach the detector; half-life is the time for activity to halve or half the nuclei to decay; sodium-24 is suitable; graph half-life about 150 s; activity at 700 s about 50 kBq."},
+      {s:2,q:15,p:42,mp:27,t:"Nuclear radiation",k:"x rays equivalent absorbed dose energy ionisation safety",d:"X-ray dose calculations, ionisation and exposure precautions.",m:8,a:"Absorbed dose 2.5 x 10^-7 Gy; absorbed energy 1.6 x 10^-5 J; ionisation is an atom gaining or losing electrons; reduce time, increase distance or use shielding."}
+    ];
+
+    const grid = document.getElementById("question-grid");
+    const yearFilter = document.getElementById("year-filter");
+    const courseSectionFilter = document.getElementById("course-section-filter");
+    const topicFilter = document.getElementById("topic-filter");
+    const sectionFilter = document.getElementById("section-filter");
+    const searchFilter = document.getElementById("search-filter");
+    const markingInstructions = document.getElementById("marking-instructions");
+    const relationshipsSheet = document.getElementById("relationships-sheet");
+    const topicNotes = document.getElementById("topic-notes");
+    const count = document.getElementById("question-count");
+    const empty = document.getElementById("empty-message");
+
+    function questionUrl(item) {
+      const year = item.y || 2025;
+      const file = item.s === 1 ? "N5_Physics_Section1_" + year + ".pdf" : "N5_Physics_Section2_" + year + ".pdf";
+      return file + "#page=" + item.p;
+    }
+
+    function updateMarkingInstructions() {
+      const year = yearFilter.value;
+      relationshipsSheet.href = "N5_Physics_Relationships-sheet_" + (year === "2024" ? "2024" : "2025") + ".pdf";
+      if (year === "all") {
+        markingInstructions.removeAttribute("href");
+        markingInstructions.removeAttribute("target");
+        markingInstructions.removeAttribute("rel");
+        markingInstructions.textContent = "Choose a year for marking instructions";
+        markingInstructions.classList.add("resource-disabled");
+        markingInstructions.setAttribute("aria-disabled", "true");
+        return;
+      }
+      markingInstructions.href = "mi_N5_Physics_mi_" + year + ".pdf";
+      markingInstructions.target = "_blank";
+      markingInstructions.rel = "noopener";
+      markingInstructions.textContent = year + " marking instructions";
+      markingInstructions.classList.remove("resource-disabled");
+      markingInstructions.removeAttribute("aria-disabled");
+    }
+
+    function paperName(item) {
+      return item.s === 1 ? "Paper 1 — Multiple Choice" : "Paper 2";
+    }
+
+    function tutorPrompt(item) {
+      return "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
+        ", Question " + item.q + " (" + item.d + "). It is worth " + item.m +
+        (item.m === 1 ? " mark. " : " marks. ") +
+        "First ask me what I have tried. Give only one small hint at a time and do not reveal the final answer unless I explicitly ask. " +
+        "Use National 5 methods and units. If I give an answer, assess it positively against the official SQA marking approach, explain which marking points I have earned, and clearly say that the official marking instructions remain authoritative.";
+    }
+
+    function explainPrompt(item) {
+      return "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
+        ", Question " + item.q + " (" + item.d + "), worth " + item.m +
+        (item.m === 1 ? " mark" : " marks") + ", in fine detail.\n\n" +
+        "Rules:\n1. Use UK English and Scottish National 5 Physics terminology.\n" +
+        "2. Restate what the question is asking and outline the approach.\n" +
+        "3. Explain every step, relationship, substitution, unit and marking point clearly.\n" +
+        "4. Do not invent details that are not visible; ask me to paste or upload anything you cannot see.\n" +
+        "5. Treat the official marking instructions as authoritative.\n\n" +
+        "End with: **AI explanations may contain mistakes; check against the official marking instructions.**";
+    }
+
+    function showPrompt(card, item, mode) {
+      const panel = card.querySelector(".ai-panel");
+      panel.querySelector("textarea").value = mode === "hint" ? tutorPrompt(item) : explainPrompt(item);
+      panel.classList.add("open");
+    }
+
+    const topicsByCourseSection = {
+      "Dynamics and space": ["Vectors and scalars", "Motion, acceleration and graphs", "Forces and Newton's laws", "Energy and power", "Projectile motion", "Space exploration", "Cosmology"],
+      "Electricity": ["Charge and current", "Electric fields", "Potential difference and Ohm's law", "Series and parallel circuits", "Electrical components and switching", "Electrical power"],
+      "Properties of matter": ["Specific heat capacity", "Specific latent heat", "Pressure", "Gas laws and the kinetic model"],
+      "Waves and radiation": ["Wave parameters and speed", "Sound", "Diffraction", "Interference", "Electromagnetic spectrum", "Refraction"],
+      "Nuclear radiation": ["Types, ionisation and penetration", "Activity and background radiation", "Absorbed and equivalent dose", "Half-life", "Fission and fusion", "Applications and safety"]
+    };
+
+    const notesByTopic = {
+      "Vectors and scalars": "https://www.bbc.co.uk/bitesize/guides/zydyxfr/revision/1",
+      "Motion, acceleration and graphs": "https://www.bbc.co.uk/bitesize/guides/zxrtw6f/revision/1",
+      "Forces and Newton's laws": "https://www.bbc.co.uk/bitesize/guides/zgn82hv/revision/1",
+      "Energy and power": "https://www.bbc.co.uk/bitesize/guides/zq2csrd/revision/1",
+      "Projectile motion": "https://www.bbc.co.uk/bitesize/guides/zrsdmp3/revision/1",
+      "Space exploration": "https://www.bbc.co.uk/bitesize/guides/zqm4fcw/revision/1",
+      "Cosmology": "https://www.bbc.co.uk/bitesize/guides/zq6kv9q/revision/1",
+      "Charge and current": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Electric fields": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Potential difference and Ohm's law": "https://www.bbc.co.uk/bitesize/guides/z8b2pv4/revision/1",
+      "Series and parallel circuits": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Electrical components and switching": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Electrical power": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Specific heat capacity": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Specific latent heat": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Pressure": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Gas laws and the kinetic model": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Wave parameters and speed": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Sound": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Diffraction": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Interference": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Electromagnetic spectrum": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Refraction": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Types, ionisation and penetration": "https://www.bbc.co.uk/bitesize/guides/zt9s2nb/revision/1",
+      "Activity and background radiation": "https://www.bbc.co.uk/bitesize/guides/zt9s2nb/revision/1",
+      "Absorbed and equivalent dose": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Half-life": "https://www.bbc.co.uk/bitesize/guides/zxxrng8/revision/1",
+      "Fission and fusion": "https://www.bbc.co.uk/bitesize/subjects/z6fsgk7",
+      "Applications and safety": "https://www.bbc.co.uk/bitesize/guides/zt9s2nb/revision/1"
+    };
+
+    function updateTopicNotes() {
+      const selectedTopic = topicFilter.value;
+      const destination = notesByTopic[selectedTopic];
+      if (selectedTopic === "all" || !destination) {
+        topicNotes.removeAttribute("href");
+        topicNotes.removeAttribute("target");
+        topicNotes.removeAttribute("rel");
+        topicNotes.textContent = "Choose a topic for notes";
+        topicNotes.classList.add("resource-disabled");
+        topicNotes.setAttribute("aria-disabled", "true");
+        return;
+      }
+      topicNotes.href = destination;
+      topicNotes.target = "_blank";
+      topicNotes.rel = "noopener";
+      topicNotes.textContent = selectedTopic + " notes";
+      topicNotes.classList.remove("resource-disabled");
+      topicNotes.removeAttribute("aria-disabled");
+    }
+
+    function questionTopics(item) {
+      const text = (item.k + " " + item.d).toLowerCase();
+      const found = [];
+      function add(topic, pattern) { if (pattern.test(text) && !found.includes(topic)) found.push(topic); }
+      if (item.t === "Dynamics and space") {
+        add("Vectors and scalars", /vector|scalar|bearing|resultant displacement/);
+        add("Motion, acceleration and graphs", /velocity|speed|acceleration|motion|distance travelled|displacement|light gate|time graph/);
+        add("Forces and Newton's laws", /newton|force|friction|weight|thrust|drag|terminal velocity|tension/);
+        add("Energy and power", /kinetic energy|potential energy|work done|power|energy/);
+        add("Projectile motion", /projectile|horizontal range|dropped|vertical velocity|path taken/);
+        add("Space exploration", /spacecraft|rocket|satellite|orbit|mars|moon|astronaut|space exploration|telescope|gps/);
+        add("Cosmology", /universe|cosmolog|star|galaxy|light.year|spectrum|spectra|exoplanet|big bang|copernican|redshift/);
+      } else if (item.t === "Electricity") {
+        add("Charge and current", /charge|current|alternating|direct current|a\.c\.|d\.c\.|electron/);
+        add("Electric fields", /electric field|charged particle|point charge|parallel plate/);
+        add("Potential difference and Ohm's law", /potential difference|voltage|ohm|resistance|resistor|v-i|current.voltage/);
+        add("Series and parallel circuits", /series|parallel|total resistance|circuit/);
+        add("Electrical components and switching", /ldr|thermistor|mosfet|transistor|led|diode|relay|fuse|component|switch|capacitor|motor/);
+        add("Electrical power", /power|electrical energy|appliance|fuse rating/);
+      } else if (item.t === "Properties of matter") {
+        add("Specific heat capacity", /specific heat|heat capacity|temperature change|heating/);
+        add("Specific latent heat", /latent heat|melt|melting|fusion|vapor|boil|freezing|state change/);
+        add("Pressure", /pressure|force per unit area/);
+        add("Gas laws and the kinetic model", /gas|kinetic model|kelvin|volume|particle collision|boyle|gay.lussac|charles/);
+      } else if (item.t === "Waves and radiation") {
+        add("Wave parameters and speed", /wave speed|frequency|wavelength|amplitude|transverse|longitudinal|wave equation/);
+        add("Sound", /sound|ultrasound|echo|loudspeaker/);
+        add("Diffraction", /diffract/);
+        add("Interference", /interferen|coherent|constructive|destructive/);
+        add("Electromagnetic spectrum", /electromagnetic|infrared|microwave|radio wave|ultraviolet|visible light|x-ray|gamma ray|gps/);
+        add("Refraction", /refract|glass block|angle of incidence|normal/);
+      } else if (item.t === "Nuclear radiation") {
+        add("Types, ionisation and penetration", /alpha|beta|gamma|ionis|penetrat|absorbing material/);
+        add("Activity and background radiation", /activity|disintegration|count rate|background/);
+        add("Absorbed and equivalent dose", /absorbed dose|equivalent dose|weighting factor|dose rate/);
+        add("Half-life", /half.life|half life/);
+        add("Fission and fusion", /fission|fusion|chain reaction|plasma/);
+        add("Applications and safety", /medical|tracer|cancer|smoke detector|safety|exposure|power source|electricity generation/);
+      }
+      if (!found.length) found.push(topicsByCourseSection[item.t][0]);
+      return found;
+    }
+
+    function updateTopicOptions() {
+      const previous = topicFilter.value;
+      const selectedSection = courseSectionFilter.value;
+      const sections = selectedSection === "all" ? Object.keys(topicsByCourseSection) : [selectedSection];
+      topicFilter.innerHTML = '<option value="all">All topics</option>';
+      sections.forEach(function(sectionName) {
+        const parent = selectedSection === "all" ? document.createElement("optgroup") : topicFilter;
+        if (parent !== topicFilter) parent.label = sectionName;
+        topicsByCourseSection[sectionName].forEach(function(topic) {
+          const option = document.createElement("option");
+          option.value = topic;
+          option.textContent = topic;
+          parent.appendChild(option);
+        });
+        if (parent !== topicFilter) topicFilter.appendChild(parent);
+      });
+      const available = sections.some(function(sectionName) { return topicsByCourseSection[sectionName].includes(previous); });
+      topicFilter.value = available ? previous : "all";
+    }
+
+    function render() {
+      const year = yearFilter.value;
+      const courseSection = courseSectionFilter.value;
+      const topic = topicFilter.value;
+      const section = sectionFilter.value;
+      const term = searchFilter.value.trim().toLowerCase();
+      const filtered = questions.filter(function(item) {
+        const itemYear = String(item.y || 2025);
+        const yearMatch = year === "all" || itemYear === year;
+        const courseSectionMatch = courseSection === "all" || item.t === courseSection;
+        const itemTopics = questionTopics(item);
+        const topicMatch = topic === "all" || itemTopics.includes(topic);
+        const sectionMatch = section === "all" || String(item.s) === section;
+        const haystack = (item.d + " " + item.k + " " + item.t + " " + itemTopics.join(" ") + " " + item.q).toLowerCase();
+        return yearMatch && courseSectionMatch && topicMatch && sectionMatch && (!term || haystack.includes(term));
+      });
+
+      count.textContent = filtered.length + (filtered.length === 1 ? " question" : " questions");
+      empty.style.display = filtered.length ? "none" : "block";
+      grid.innerHTML = "";
+
+      filtered.forEach(function(item) {
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.innerHTML =
+          '<h3>' + (item.y || 2025) + ': ' + paperName(item) + ', Question ' + item.q + '</h3>' +
+          '<div class="meta"><span class="tag">' + item.t + '</span>' + questionTopics(item).map(function(topic) { return '<span class="tag">' + topic + '</span>'; }).join('') + '<span class="tag">' + item.m + (item.m === 1 ? ' mark' : ' marks') + '</span></div>' +
+          '<p>' + item.d + '</p>' +
+          '<div class="card-actions">' +
+            '<a class="button small primary" href="' + questionUrl(item) + '" target="_blank" rel="noopener">Open question</a>' +
+            '<button class="button small hint-toggle" type="button">Get a hint</button>' +
+            '<button class="button small explain-toggle" type="button">Explain solution</button>' +
+          '</div>' +
+          '<details><summary>Quick official-answer summary</summary><p class="official-answer">' + item.a + '</p></details>' +
+          '<div class="ai-panel">' +
+            '<p><strong>Copy this prompt, then open your preferred AI tutor:</strong></p>' +
+            '<textarea readonly></textarea>' +
+            '<div class="prompt-tools"><button class="copy-prompt" type="button">Copy prompt</button></div>' +
+            '<div class="ai-services">' +
+              '<a class="button small" href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a>' +
+              '<a class="button small" href="https://claude.ai/" target="_blank" rel="noopener">Claude</a>' +
+              '<a class="button small" href="https://gemini.google.com/" target="_blank" rel="noopener">Gemini</a>' +
+            '</div>' +
+          '</div>';
+
+        card.querySelector(".hint-toggle").addEventListener("click", function() {
+          showPrompt(card, item, "hint");
+        });
+        card.querySelector(".explain-toggle").addEventListener("click", function() {
+          showPrompt(card, item, "explain");
+        });
+        card.querySelector(".copy-prompt").addEventListener("click", async function(event) {
+          const button = event.currentTarget;
+          const text = card.querySelector("textarea").value;
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (error) {
+            const area = card.querySelector("textarea");
+            area.select();
+            document.execCommand("copy");
+          }
+          button.textContent = "Copied";
+          setTimeout(function() { button.textContent = "Copy prompt"; }, 1600);
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    yearFilter.addEventListener("change", function() { updateMarkingInstructions(); render(); });
+    courseSectionFilter.addEventListener("change", function() { updateTopicOptions(); updateTopicNotes(); render(); });
+    topicFilter.addEventListener("change", function() { updateTopicNotes(); render(); });
+    sectionFilter.addEventListener("change", render);
+    searchFilter.addEventListener("input", render);
+    updateTopicOptions();
+    updateMarkingInstructions();
+    updateTopicNotes();
+    render();
+  </script>
+  <script src="../../assets/js/jquery.min.js"></script>
+  <script src="../../assets/js/browser.min.js"></script>
+  <script src="../../assets/js/breakpoints.min.js"></script>
+  <script src="../../assets/js/util.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "d974bd099e4a43fca146d0d70c19d84f"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
