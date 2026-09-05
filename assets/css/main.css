@@ -2469,4 +2469,13 @@ img[src*="chemistry-images/"] {
   color: #f56a6a !important;
 }
 
+/* Vertically centre the Ayr Rotary label in every header button. */
+#header .icons .button {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1;
+  padding-bottom: 0;
+  padding-top: 0;
+}
 
