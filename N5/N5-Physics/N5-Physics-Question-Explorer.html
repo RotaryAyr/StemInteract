@@ -361,6 +361,7 @@
       {s:2,q:14,p:38,mp:26,t:"Nuclear radiation",k:"tracer gamma penetration half life activity graph",d:"Selecting and analysing a radioactive tracer.",m:6,a:"Gamma penetrates the layers to reach the detector; half-life is the time for activity to halve or half the nuclei to decay; sodium-24 is suitable; graph half-life about 150 s; activity at 700 s about 50 kBq."},
       {s:2,q:15,p:42,mp:27,t:"Nuclear radiation",k:"x rays equivalent absorbed dose energy ionisation safety",d:"X-ray dose calculations, ionisation and exposure precautions.",m:8,a:"Absorbed dose 2.5 x 10^-7 Gy; absorbed energy 1.6 x 10^-5 J; ionisation is an atom gaining or losing electrons; reduce time, increase distance or use shielding."}
     ];
+    questions.forEach(question => { if (!question.y) question.y = 2025; });
 
     const grid = document.getElementById("question-grid");
     const yearFilter = document.getElementById("year-filter");
