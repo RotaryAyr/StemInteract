@@ -451,16 +451,15 @@
       return item.s === 1 ? "Paper 1 — Multiple Choice" : "Paper 2";
     }
 
-    function tutorPrompt(item) {
-      return "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
+    function sourcePrompt(item){const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n";}
+function tutorPrompt(item) {
+      return sourcePrompt(item)+ "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "). It is worth " + item.m +
         (item.m === 1 ? " mark. " : " marks. ") +
-        "First ask me what I have tried. Give only one small hint at a time and do not reveal the final answer unless I explicitly ask. " +
-        "Use National 5 methods and units. If I give an answer, assess it positively against the official SQA marking approach, explain which marking points I have earned, and clearly say that the official marking instructions remain authoritative.";
-    }
+        "Strategy first: Begin by asking what I have tried and what strategy I think might work. If I am unsure, help me identify an approach through questions and small hints. Explain the strategy when necessary, without making this discussion a barrier to continuing.\nGuided solution: Give only one small hint at a time, then wait for my response. Do not reveal the complete solution, final answer or complete code unless I explicitly request it. Check my working constructively and help me identify mistakes.\nSimilar practice: Let me request a similar question at any stage, especially if I am stuck. Offer this option briefly at a suitable moment and after I finish the original question. Give one new practice question at a time, testing the same skills at a comparable National 5 level, and label it as AI-generated practice. Check privately that it is solvable and that its answer is consistent. Encourage me to choose a strategy again, taking account of what I have already shown. Wait for my attempt and continue with small hints; do not reveal its solution unless I explicitly ask. After I finish, offer another question and adapt the difficulty to my progress.\nExamination standards: Use UK English, subject-appropriate National 5 methods, Scottish course terminology and clear notation, including SQA reference-language conventions for Computing Science. Encourage clear working and units where appropriate. If the question, diagram or code is unavailable or unclear, ask me to paste or upload it rather than guessing. Use official marking instructions to inform feedback only when you can see them; never invent marking points or claim official marks without them. State that official marking instructions remain authoritative for examination questions. Remind me appropriately that AI can make mistakes.";}
 
     function explainPrompt(item) {
-      return "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
+      return sourcePrompt(item)+ "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "), worth " + item.m +
         (item.m === 1 ? " mark" : " marks") + ", in fine detail.\n\n" +
         "Rules:\n1. Use UK English and Scottish National 5 Physics terminology.\n" +
