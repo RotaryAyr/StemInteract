@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>StemInteract | StemInteract</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    /* Custom Styles */
+    .image.object {
+      max-height: none;
+      overflow: visible;
+      display: inline-block;
+    }
+
+    .image.object img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        margin-bottom: 0.2em !important;
+      }
+
+      #banner header {
+        margin-bottom: 0.2em !important;
+      }
+    }
+
+    .logo {
+      font-weight: bold;
+      color: #3d4449;
+      font-size: 0.95em;
+      text-decoration: none;
+      display: inline-block;
+      margin-left: 2em;
+    }
+
+    #banner header {
+      margin-left: 2em;
+    }
+
+    #header .logo {
+      margin-left: 2em;
+      font-size: 0.95em;
+    }
+
+    .disclaimer {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1em;
+      margin-top: 8em;
+      text-align: center;
+      font-size: 0.9em;
+      color: #555;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .subject-buttons {
+      text-align: center;
+      margin-top: 5.0em;
+    }
+
+    .subject-buttons ul {
+      display: inline-flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .subject-buttons .button {
+      min-width: 180px;
+    }
+
+    /* Help button: red outline + red text (no fill) */
+    .subject-buttons .button.button-clear {
+      background-color: transparent !important;
+      color: #d52349 !important;
+      /* red text */
+      box-shadow: inset 0 0 0 2px #d52349 !important;
+      /* red border */
+    }
+
+    .subject-buttons .button.button-clear:hover {
+      background-color: rgba(213, 35, 73, 0.08) !important;
+      /* light red tint */
+      color: #d52349 !important;
+      box-shadow: inset 0 0 0 2px #d52349 !important;
+    }
+
+    #header .ayr-rotary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    #header {
+  align-items: center;
+}
+
+#header ul.icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#header ul.icons > li {
+  display: flex;
+  align-items: center;
+}
+
+
+    /* Temporary announcement: hidden until eligibility is checked. */
+    #stem-welcome[hidden] { display: none !important; }
+    #stem-welcome {
+      margin: 1.5em 0;
+      padding: 1.4em 1.6em;
+      border: 1px solid #f56a6a;
+      border-left: 5px solid #f56a6a;
+      border-radius: 8px;
+      background: #fff8f8;
+      color: #3d4449;
+    }
+    #stem-welcome h2 { margin: 0 0 .6em; font-size: 1.35em; }
+    #stem-welcome p { margin: 0 0 .8em; }
+    #stem-welcome ul { margin: 0 0 1em; padding-left: 1.3em; }
+    #stem-welcome li { margin: .35em 0; }
+    #stem-welcome button { margin: 0; }
+    @media (max-width: 600px) {
+      #stem-welcome { padding: 1.1em; }
+    }
+  </style>
+</head>
+
+<body class="is-preload">
+  <!-- Wrapper -->
+  <div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+      <div class="inner">
+        <!-- Header -->
+        <header id="header">
+          <a class="logo" href="/">STEM INTERACT</a>
+
+          
+
+          <ul class="icons">
+            <li>
+              <a href="https://rotaryclubofayr.org" class="button small ayr-rotary-button">Ayr Rotary</a>
+            </li>
+          </ul>
+        </header>
+
+        <!-- Welcome announcement expires after 12 November 2026. -->
+        <aside id="stem-welcome" aria-labelledby="stem-welcome-title" hidden>
+          <h2 id="stem-welcome-title">New: more ways to learn with StemInteract</h2>
+          <p>Your AI tutor can now help you:</p>
+          <ul>
+            <li><strong>Plan a strategy</strong> before working through a question.</li>
+            <li><strong>Practise a similar question</strong>, with hints and feedback.</li>
+            <li><strong>Review your handwritten working</strong>—attach a photograph in your chosen AI chat.</li>
+          </ul>
+          <p>Choose an examination question, then select <strong>Get a hint</strong> to begin.</p>
+          <button id="stem-welcome-dismiss" class="button primary small" type="button">Got it</button>
+        </aside>
+
+        <!-- Banner -->
+        <section id="banner">
+          <div class="content">
+            <header>
+              <h1>STEM STUDY HUB</h1>
+              <p><br></p>
+              <p class="fa"><em>- Developed in South Ayrshire for senior school students</em></p>
+              <p class="fa"><em>- Helps you leverage AI giants chatGPT, Claude and Gemini, along with web resources, to get yourself ready for STEM-related exams/careers</em></p>
+            </header>
+
+            <div class="subject-buttons">
+              <ul class="actions">
+                <li><a href="Mathematics-Question-Explorers.html" class="button primary">Mathematics</a></li>
+                <li><a href="Physics-Question-Explorers.html" class="button primary">Physics</a></li>
+                <li><a href="Chemistry-Question-Explorers.html" class="button primary">Chemistry</a></li>
+                <li><a href="Biology-Question-Explorers.html" class="button primary">Biology</a></li>
+                <li><a href="Computing-Science-Question-Explorers.html" class="button primary">Computing Science</a></li>
+
+                <!-- Help button: outline + red text -->
+                <li><a href="HowToUse.html" class="button primary button-clear">How To Use This Site</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <span class="image object">
+            <img src="images/Happy%20Students.jpeg" alt="Happy students studying STEM subjects" />
+          </span>
+        </section>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+          This is a non-commercial site maintained by volunteers, running no ads and generating no revenue. The site
+          provides links to material kindly provided on open public access by SQA and others, whose generosity is hereby
+          acknowledged and appreciated.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script id="stem-welcome-script">
+    (function () {
+      var panel = document.getElementById('stem-welcome');
+      var dismiss = document.getElementById('stem-welcome-dismiss');
+      var key = 'steminteract-welcome-october-2026-dismissed';
+      // GMT applies in the UK on this date; include all of 12 November.
+      var expires = Date.parse('2026-11-13T00:00:00Z');
+      if (!panel || !dismiss || Date.now() >= expires) return;
+      try {
+        if (localStorage.getItem(key) === 'yes') return;
+      } catch (error) {
+        // If browser storage is unavailable, the panel still works this visit.
+      }
+      panel.hidden = false;
+      dismiss.addEventListener('click', function () {
+        panel.hidden = true;
+        try { localStorage.setItem(key, 'yes'); } catch (error) {}
+      });
+    }());
+  </script>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d974bd099e4a43fca146d0d70c19d84f"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+
+</html>
