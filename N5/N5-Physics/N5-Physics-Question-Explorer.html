@@ -451,8 +451,8 @@
       return item.s === 1 ? "Paper 1 — Multiple Choice" : "Paper 2";
     }
 
-    function tutorPrompt(item) {
-      return "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
+    function sourcePrompt(item){const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n"}function tutorPrompt(item) {
+      return sourcePrompt(item) + "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "). It is worth " + item.m +
         (item.m === 1 ? " mark. " : " marks. ") +
         "First ask me what I have tried. Give only one small hint at a time and do not reveal the final answer unless I explicitly ask. " +
@@ -460,7 +460,7 @@
     }
 
     function explainPrompt(item) {
-      return "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
+      return sourcePrompt(item) + "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "), worth " + item.m +
         (item.m === 1 ? " mark" : " marks") + ", in fine detail.\n\n" +
         "Rules:\n1. Use UK English and Scottish National 5 Physics terminology.\n" +
