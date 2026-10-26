@@ -200,45 +200,47 @@
     </div>
   </div>
 
-  <script>
+  <script src="../../assets/js/marking-availability.js"></script><script src="../../assets/js/marking-resources.js"></script><script>
+const markingResources=StemMarking.forExplorer('N5/N5-Physics');
+
     const questions = [
-      {y:2026,s:1,q:1,p:3,t:"Dynamics and space",k:"vector force magnitude direction",d:"Identifying a vector quantity from its magnitude and direction.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:2,p:3,t:"Dynamics and space",k:"instantaneous speed light gate card time",d:"Calculating a trolley's instantaneous speed using a light gate.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:3,p:4,t:"Dynamics and space",k:"constant acceleration speed time distance",d:"Calculating distance travelled during constant acceleration.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:4,p:4,t:"Dynamics and space",k:"kinetic energy mass speed",d:"Calculating the speed of a model car from its kinetic energy.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:5,p:4,t:"Dynamics and space",k:"star moon solar system astronomy",d:"Identifying a star, natural satellite and solar system.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:6,p:5,t:"Dynamics and space",k:"rocket thrust mass acceleration unbalanced force",d:"Explaining how a rocket's acceleration changes as fuel is used.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:7,p:5,t:"Dynamics and space",k:"light year distance barnards star",d:"Converting the distance to Barnard's Star from light-years to metres.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:8,p:6,t:"Dynamics and space",k:"planets distance mass gravitational field strength",d:"Interpreting planetary data on mass, distance and gravitational field strength.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:9,p:6,t:"Electricity",k:"current charge time conductor",d:"Calculating the time taken for charge to pass through a conductor.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:10,p:7,t:"Electricity",k:"lamp current voltage resistance graph",d:"Selecting the current-voltage graph for a filament lamp.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:11,p:8,t:"Electricity",k:"potential divider voltage resistance",d:"Calculating the output voltage from a potential divider.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:12,p:8,t:"Electricity",k:"parallel circuit current ammeter",d:"Calculating current in a parallel circuit.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:13,p:9,t:"Electricity",k:"power resistance voltage heating plate",d:"Calculating the operating voltage of a heating plate.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:14,p:10,t:"Properties of matter",k:"cooling curve states solid liquid gas",d:"Interpreting states of matter from a cooling curve.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:15,p:10,t:"Properties of matter",k:"latent heat fusion ice mass energy",d:"Calculating the mass of ice melted using latent heat.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:16,p:11,t:"Properties of matter",k:"kinetic model gas pressure volume temperature",d:"Explaining a pressure change using the kinetic model of gases.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:17,p:11,t:"Properties of matter",k:"gas pressure temperature kelvin rigid container",d:"Calculating gas pressure after a temperature increase.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:18,p:11,t:"Waves and radiation",k:"water waves period wavelength speed",d:"Calculating water-wave speed from period and wavelength.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:19,p:12,t:"Waves and radiation",k:"wave amplitude wavelength diagram",d:"Identifying amplitude and wavelength on a wave diagram.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:20,p:12,t:"Waves and radiation",k:"diffraction wavelength speed",d:"Evaluating statements about diffraction.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:21,p:13,t:"Waves and radiation",k:"electromagnetic spectrum telescope reflector radio",d:"Identifying which telescope requires the largest curved reflector.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:22,p:13,t:"Waves and radiation",k:"infrared detector photodiode",d:"Selecting a suitable detector for infrared radiation.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:23,p:13,t:"Nuclear radiation",k:"activity mass radioactive nuclei decays",d:"Calculating radioactive decays after dividing a sample.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:24,p:14,t:"Nuclear radiation",k:"equivalent dose rate cosmic radiation pilot",d:"Calculating a pilot's annual equivalent dose from cosmic radiation.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:1,q:25,p:14,t:"Nuclear radiation",k:"uranium neutron fission fusion",d:"Identifying the particle and reaction in uranium-235 fission.",m:1,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:1,p:6,t:"Dynamics and space",k:"vectors displacement bearing velocity work zipline",d:"Zipline displacement, average velocity, work done and motion.",m:10,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:2,p:10,t:"Dynamics and space",k:"projectile volleyball horizontal velocity time distance",d:"Horizontal projectile motion of a volleyball.",m:9,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:3,p:12,t:"Dynamics and space",k:"satellites gravity orbit geostationary",d:"Extended response evaluating statements about satellite motion.",m:3,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:4,p:14,t:"Dynamics and space",k:"rocket forces acceleration energy satellite orbit",d:"Rocket forces, acceleration, energy and satellite motion.",m:14,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:5,p:18,t:"Electricity",k:"series parallel circuit voltage resistance current switch",d:"Voltages, resistance and current in a switched circuit.",m:10,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:6,p:20,t:"Electricity",k:"alternating current fuse power energy cost efficiency dishwasher",d:"Alternating current, fuses, energy, cost and efficiency of a dishwasher.",m:16,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:7,p:24,t:"Properties of matter",k:"gas volume temperature experiment graph kelvin",d:"Investigating gas volume and temperature at constant pressure.",m:7,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:8,p:26,t:"Waves and radiation",k:"refraction led colour mixing frequency wavelength",d:"Refraction, colour mixing and LED radiation.",m:14,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:9,p:30,t:"Waves and radiation",k:"sound light crowd longitudinal transverse waves",d:"Extended response comparing wave observations at a music festival.",m:3,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:10,p:32,t:"Waves and radiation",k:"sound echo ultrasound frequency wavelength bat",d:"Echo location and high-frequency sound used by bats.",m:8,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:11,p:34,t:"Nuclear radiation",k:"ionising radiation penetration background count experiment",d:"Investigating the penetration of ionising radiation.",m:7,a:"2026 official marking instructions are not yet published."},
-      {y:2026,s:2,q:12,p:36,t:"Nuclear radiation",k:"gold 198 half life beta activity absorbed dose cancer",d:"Half-life, beta radiation and dose calculations for gold-198.",m:9,a:"2026 official marking instructions are not yet published."},
+      {y:2026,s:1,q:1,p:3,t:"Dynamics and space",k:"vector force magnitude direction",d:"Identifying a vector quantity from its magnitude and direction.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:2,p:3,t:"Dynamics and space",k:"instantaneous speed light gate card time",d:"Calculating a trolley's instantaneous speed using a light gate.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:3,p:4,t:"Dynamics and space",k:"constant acceleration speed time distance",d:"Calculating distance travelled during constant acceleration.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:4,p:4,t:"Dynamics and space",k:"kinetic energy mass speed",d:"Calculating the speed of a model car from its kinetic energy.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:5,p:4,t:"Dynamics and space",k:"star moon solar system astronomy",d:"Identifying a star, natural satellite and solar system.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:6,p:5,t:"Dynamics and space",k:"rocket thrust mass acceleration unbalanced force",d:"Explaining how a rocket's acceleration changes as fuel is used.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:7,p:5,t:"Dynamics and space",k:"light year distance barnards star",d:"Converting the distance to Barnard's Star from light-years to metres.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:8,p:6,t:"Dynamics and space",k:"planets distance mass gravitational field strength",d:"Interpreting planetary data on mass, distance and gravitational field strength.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:9,p:6,t:"Electricity",k:"current charge time conductor",d:"Calculating the time taken for charge to pass through a conductor.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:10,p:7,t:"Electricity",k:"lamp current voltage resistance graph",d:"Selecting the current-voltage graph for a filament lamp.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:11,p:8,t:"Electricity",k:"potential divider voltage resistance",d:"Calculating the output voltage from a potential divider.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:12,p:8,t:"Electricity",k:"parallel circuit current ammeter",d:"Calculating current in a parallel circuit.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:13,p:9,t:"Electricity",k:"power resistance voltage heating plate",d:"Calculating the operating voltage of a heating plate.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:14,p:10,t:"Properties of matter",k:"cooling curve states solid liquid gas",d:"Interpreting states of matter from a cooling curve.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:15,p:10,t:"Properties of matter",k:"latent heat fusion ice mass energy",d:"Calculating the mass of ice melted using latent heat.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:16,p:11,t:"Properties of matter",k:"kinetic model gas pressure volume temperature",d:"Explaining a pressure change using the kinetic model of gases.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:17,p:11,t:"Properties of matter",k:"gas pressure temperature kelvin rigid container",d:"Calculating gas pressure after a temperature increase.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:18,p:11,t:"Waves and radiation",k:"water waves period wavelength speed",d:"Calculating water-wave speed from period and wavelength.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:19,p:12,t:"Waves and radiation",k:"wave amplitude wavelength diagram",d:"Identifying amplitude and wavelength on a wave diagram.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:20,p:12,t:"Waves and radiation",k:"diffraction wavelength speed",d:"Evaluating statements about diffraction.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:21,p:13,t:"Waves and radiation",k:"electromagnetic spectrum telescope reflector radio",d:"Identifying which telescope requires the largest curved reflector.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:22,p:13,t:"Waves and radiation",k:"infrared detector photodiode",d:"Selecting a suitable detector for infrared radiation.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:23,p:13,t:"Nuclear radiation",k:"activity mass radioactive nuclei decays",d:"Calculating radioactive decays after dividing a sample.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:24,p:14,t:"Nuclear radiation",k:"equivalent dose rate cosmic radiation pilot",d:"Calculating a pilot's annual equivalent dose from cosmic radiation.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:1,q:25,p:14,t:"Nuclear radiation",k:"uranium neutron fission fusion",d:"Identifying the particle and reaction in uranium-235 fission.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:1,p:6,t:"Dynamics and space",k:"vectors displacement bearing velocity work zipline",d:"Zipline displacement, average velocity, work done and motion.",m:10,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:2,p:10,t:"Dynamics and space",k:"projectile volleyball horizontal velocity time distance",d:"Horizontal projectile motion of a volleyball.",m:9,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:3,p:12,t:"Dynamics and space",k:"satellites gravity orbit geostationary",d:"Extended response evaluating statements about satellite motion.",m:3,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:4,p:14,t:"Dynamics and space",k:"rocket forces acceleration energy satellite orbit",d:"Rocket forces, acceleration, energy and satellite motion.",m:14,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:5,p:18,t:"Electricity",k:"series parallel circuit voltage resistance current switch",d:"Voltages, resistance and current in a switched circuit.",m:10,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:6,p:20,t:"Electricity",k:"alternating current fuse power energy cost efficiency dishwasher",d:"Alternating current, fuses, energy, cost and efficiency of a dishwasher.",m:16,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:7,p:24,t:"Properties of matter",k:"gas volume temperature experiment graph kelvin",d:"Investigating gas volume and temperature at constant pressure.",m:7,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:8,p:26,t:"Waves and radiation",k:"refraction led colour mixing frequency wavelength",d:"Refraction, colour mixing and LED radiation.",m:14,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:9,p:30,t:"Waves and radiation",k:"sound light crowd longitudinal transverse waves",d:"Extended response comparing wave observations at a music festival.",m:3,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:10,p:32,t:"Waves and radiation",k:"sound echo ultrasound frequency wavelength bat",d:"Echo location and high-frequency sound used by bats.",m:8,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:11,p:34,t:"Nuclear radiation",k:"ionising radiation penetration background count experiment",d:"Investigating the penetration of ionising radiation.",m:7,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
+      {y:2026,s:2,q:12,p:36,t:"Nuclear radiation",k:"gold 198 half life beta activity absorbed dose cancer",d:"Half-life, beta radiation and dose calculations for gold-198.",m:9,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
       {y:2023,s:1,q:1,p:3,t:"Dynamics and space",k:"scalar vector force acceleration",d:"Classifying vectors and identifying vector quantities.",m:1,a:"D"},
       {y:2023,s:1,q:2,p:4,t:"Dynamics and space",k:"instantaneous speed trolley light gate card",d:"Selecting the expression for instantaneous speed at a light gate.",m:1,a:"D"},
       {y:2023,s:1,q:3,p:5,t:"Dynamics and space",k:"speed time graph distance area runner",d:"Finding distance travelled from a speed-time graph.",m:1,a:"C"},
@@ -418,45 +420,18 @@
       return file + "#page=" + item.p;
     }
 
-    function updateMarkingInstructions() {
-      const year = yearFilter.value;
-      relationshipsSheet.href = "N5_Physics_Relationships-sheet_" + (year === "2024" ? "2024" : year === "2026" ? "2026" : "2025") + ".pdf";
-      if (year === "2026") {
-        markingInstructions.removeAttribute("href");
-        markingInstructions.removeAttribute("target");
-        markingInstructions.removeAttribute("rel");
-        markingInstructions.textContent = "2026 marking instructions not yet published";
-        markingInstructions.classList.add("resource-disabled");
-        markingInstructions.setAttribute("aria-disabled", "true");
-        return;
-      }
-      if (year === "all") {
-        markingInstructions.removeAttribute("href");
-        markingInstructions.removeAttribute("target");
-        markingInstructions.removeAttribute("rel");
-        markingInstructions.textContent = "Choose a year for marking instructions";
-        markingInstructions.classList.add("resource-disabled");
-        markingInstructions.setAttribute("aria-disabled", "true");
-        return;
-      }
-      markingInstructions.href = "mi_N5_Physics_mi_" + year + ".pdf";
-      markingInstructions.target = "_blank";
-      markingInstructions.rel = "noopener";
-      markingInstructions.textContent = year + " marking instructions";
-      markingInstructions.classList.remove("resource-disabled");
-      markingInstructions.removeAttribute("aria-disabled");
-    }
+    function updateMarkingInstructions(){relationshipsSheet.href="N5_Physics_Relationships-sheet_"+(yearFilter.value==="2024"?"2024":yearFilter.value==="2026"?"2026":"2025")+".pdf";markingResources.updateLink(markingInstructions,yearFilter.value,null);}
 
     function paperName(item) {
       return item.s === 1 ? "Paper 1 — Multiple Choice" : "Paper 2";
     }
 
-    function sourcePrompt(item){const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n"}function tutorPrompt(item) {
+    function sourcePrompt(item){const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n"+markingResources.prompt(item)}function tutorPrompt(item) {
       return sourcePrompt(item) + "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "). It is worth " + item.m +
         (item.m === 1 ? " mark. " : " marks. ") +
         "First ask me what I have tried. Give only one small hint at a time and do not reveal the final answer unless I explicitly ask. " +
-        "Use National 5 methods and units. If I give an answer, assess it positively against the official SQA marking approach, explain which marking points I have earned, and clearly say that the official marking instructions remain authoritative.";
+        "Use National 5 methods and units. If I give an answer, give constructive feedback using the marking-resource guidance above.";
     }
 
     function explainPrompt(item) {
@@ -465,10 +440,10 @@
         (item.m === 1 ? " mark" : " marks") + ", in fine detail.\n\n" +
         "Rules:\n1. Use UK English and Scottish National 5 Physics terminology.\n" +
         "2. Restate what the question is asking and outline the approach.\n" +
-        "3. Explain every step, relationship, substitution, unit and marking point clearly.\n" +
-        "4. Do not invent details that are not visible; ask me to paste or upload anything you cannot see.\n" +
-        "5. Treat the official marking instructions as authoritative.\n\n" +
-        "End with: **AI explanations may contain mistakes; check against the official marking instructions.**";
+        "3. Explain every step, relationship, substitution, unit clearly.\n" +
+        "4. Do not invent details that are not visible. Try the supplied question source first; ask only for missing question content you cannot read.\n" +
+        "5. Follow the marking-resource guidance above; only attribute official marking points to instructions you have actually read.\n\n" +
+        "End with: **AI explanations may contain mistakes. Where available and readable, official marking instructions are authoritative; otherwise this is an AI-generated solution, not an official marking scheme.**";
     }
 
     function showPrompt(card, item, mode) {
@@ -633,7 +608,7 @@
             '<button class="button small hint-toggle" type="button">Get a hint</button>' +
             '<button class="button small explain-toggle" type="button">Explain solution</button>' +
           '</div>' +
-          '<details><summary>Quick official-answer summary</summary><p class="official-answer">' + item.a + '</p></details>' +
+          '<details><summary>Quick answer summary</summary><p class="official-answer">' + item.a + '</p></details>' +
           '<div class="ai-panel">' +
             '<p><strong>Copy this prompt, then open your preferred AI tutor:</strong></p>' +
             '<textarea readonly></textarea>' +
