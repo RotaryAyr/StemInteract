@@ -1,0 +1,3 @@
+[build]
+  # Discover the official exam marking PDFs on every deployment.
+  command = "python3 scripts/build-marking-availability.py"

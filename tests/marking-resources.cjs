@@ -5,6 +5,9 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const shared = ['marking-availability.js', 'marking-resources.js'].map(f => fs.readFileSync(path.join(root, 'assets/js', f), 'utf8'));
+function makeContext(values) {
+  return vm.createContext({...values, AbortController, setTimeout, clearTimeout});
+}
 // Small DOM fixture: exercise page initialization and actual prompt functions,
 // with link state verified independently of rendering/layout.
 class Element {
@@ -27,8 +30,10 @@ class Element {
   }
   querySelectorAll() { return []; }
 }
+async function main() {
+const fetchPdf = async () => ({ok: true, body: {getReader: () => ({read: async () => ({value: Buffer.from('%PDF-'), done: false}), cancel: async () => {}})}});
 let prompts = 0, links = 0, pages = 0;
-const manifestContext = vm.createContext({window: {}, URL});
+const manifestContext = makeContext({window: {fetch: fetchPdf, location: {href: "https://steminteract.uk/"}}, URL});
 shared.forEach(s => vm.runInContext(s, manifestContext));
 const manifest = manifestContext.window.StemMarkingAvailability;
 for (const [directory, files] of Object.entries(manifest)) {
@@ -42,7 +47,7 @@ for (const [directory, files] of Object.entries(manifest)) {
   }
   get('search').value = '';
   const document = {getElementById: get, createElement: () => new Element(), querySelector: () => ({textContent: html.match(/<h1>(.*?)<\/h1>/)[1]}), addEventListener() {}};
-  const context = vm.createContext({window: {}, URL, URLSearchParams, document, navigator: {}, location: {search: ''}, MutationObserver: class {observe() {}}, setTimeout() {}, console});
+  const context = makeContext({window: {fetch: fetchPdf, location: {href: "https://steminteract.uk/"}}, URL, URLSearchParams, document, navigator: {}, location: {search: ''}, MutationObserver: class {observe() {}}, setTimeout() {}, console});
   shared.forEach(s => vm.runInContext(s, context));
   context.StemMarking = context.window.StemMarking;
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)].filter(m => !/\bsrc=/.test(m[1]) && !/type="module"/.test(m[1]));
@@ -54,21 +59,21 @@ for (const [directory, files] of Object.entries(manifest)) {
     assert.equal(fs.readFileSync(pdf).subarray(0, 5).toString(), '%PDF-', pdf);
     const [year, paper] = key.split(':');
     const link = new Element();
-    resource.updateLink(link, year, paper);
+    await resource.updateLink(link, year, paper);
     assert.equal(link.href, filename);
     assert.equal(link.getAttribute('aria-disabled'), null);
     // Missing -> present -> all -> present must restore both link and accessibility.
-    resource.updateLink(link, '2099', paper);
+    await resource.updateLink(link, '2099', paper);
     assert.equal(link.href, undefined);
     assert.equal(link.getAttribute('aria-disabled'), 'true');
-    assert.match(link.textContent, /unavailable on this site/);
-    resource.updateLink(link, year, paper);
+    assert.match(link.textContent, /Marking instructions unavailable for this paper/);
+    await resource.updateLink(link, year, paper);
     assert.equal(link.href, filename);
     assert.equal(link.style.pointerEvents, '');
-    resource.updateLink(link, 'all', 'all');
+    await resource.updateLink(link, 'all', 'all');
     assert.equal(link.href, undefined);
     assert.equal(link.getAttribute('aria-disabled'), 'true');
-    resource.updateLink(link, year, paper);
+    await resource.updateLink(link, year, paper);
     assert.equal(link.href, filename);
     links++;
   }
@@ -108,4 +113,29 @@ const fixture = manifestContext.window.StemMarking.forExplorer('fixture');
 assert.equal(fixture.file(2030, 1), 'paper1.pdf');
 assert.equal(fixture.file(2030, 2), null);
 assert.match(fixture.prompt({y: 2030, p: 2}), /unavailable on this site/);
+// Listed file can disappear, return an HTML error page, or fail to load.
+for (const failure of ['404', 'html', 'network']) {
+  const ctx = makeContext({window: {location: {href: 'https://steminteract.uk/'}, fetch: async () => {
+    if (failure === 'network') throw new Error('offline');
+    return {ok: failure !== '404', body: {getReader: () => ({read: async () => ({value: Buffer.from('<html>'), done: false}), cancel: async () => {}})}};
+  }}, URL});
+  shared.forEach(source => vm.runInContext(source, ctx));
+  const link = new Element();
+  await ctx.window.StemMarking.forExplorer('AH/Ph_AH').updateLink(link, '2025');
+  assert.equal(link.href, undefined);
+  assert.equal(link.textContent, 'Marking instructions unavailable for this paper.');
+}
+// Changing selection during a slow request must not restore an obsolete link.
+let finish;
+const race = makeContext({window: {location: {href: 'https://steminteract.uk/'}, fetch: () => new Promise(resolve => { finish = () => resolve(fetchPdf()); })}, URL});
+shared.forEach(source => vm.runInContext(source, race));
+const raceResource = race.window.StemMarking.forExplorer('AH/Ph_AH'), raceLink = new Element();
+const pending = raceResource.updateLink(raceLink, '2025');
+await raceResource.updateLink(raceLink, '2099');
+finish(); await pending;
+assert.equal(raceLink.href, undefined);
+assert.equal(raceLink.textContent, 'Marking instructions unavailable for this paper.');
 console.log(`PASS: ${pages} pages initialized; ${prompts} real hint/explanation prompts; ${links} PDF links and state transitions; future-year and missing-paper fallbacks.`);
+
+}
+main().catch(error => { console.error(error); process.exitCode = 1; });

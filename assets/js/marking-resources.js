@@ -2,6 +2,30 @@
 (function (global) {
   "use strict";
   const disabledClasses = ["disabled", "notes-disabled", "marking-disabled", "resource-disabled"];
+  const checks = new Map();
+  const selections = new WeakMap();
+  async function readablePdf(url) {
+    if (!checks.has(url)) checks.set(url, (async () => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await global.fetch(url, {headers: {Range: "bytes=0-4"}, signal: controller.signal});
+        if (!response.ok || !response.body) return false;
+        const reader = response.body.getReader();
+        let signature = "";
+        try {
+          while (signature.length < 5) {
+            const chunk = await reader.read();
+            if (chunk.done) break;
+            signature += String.fromCharCode(...chunk.value.slice(0, 5 - signature.length));
+          }
+        } finally { await reader.cancel(); }
+        return signature === "%PDF-";
+      } catch (_) { return false; }
+      finally { clearTimeout(timeout); }
+    })());
+    return checks.get(url);
+  }
   global.StemMarking = {
     forExplorer(directory) {
       const files = global.StemMarkingAvailability[directory] || {};
@@ -12,13 +36,24 @@
       }
       return {
         file,
-        updateLink(link, year, paper) {
+        async updateLink(link, year, paper) {
+          const selection = {};
+          selections.set(link, selection);
           const needsSelection = year === "all" || (separatePapers && (!paper || paper === "all"));
           const filename = needsSelection ? null : file(year, paper);
           for (const attr of ["href", "target", "rel"]) link.removeAttribute(attr);
           disabledClasses.forEach(name => link.classList.remove(name));
           const label = year + (separatePapers ? " Paper " + paper : "");
+          let available = false;
           if (filename) {
+            link.textContent = "Checking marking instructions…";
+            link.style.pointerEvents = "none";
+            link.setAttribute("aria-disabled", "true");
+            const url = new URL(filename, global.location.href).href;
+            available = await readablePdf(url);
+            if (selections.get(link) !== selection) return;
+          }
+          if (available) {
             link.href = filename;
             link.target = "_blank";
             link.rel = "noopener";
@@ -27,13 +62,13 @@
           } else {
             link.textContent = needsSelection
               ? (year === "all" ? "Choose a year" + (separatePapers ? " and paper" : "") : "Choose a paper") + " for marking instructions"
-              : label + " marking instructions unavailable on this site";
+              : "Marking instructions unavailable for this paper.";
             link.classList.add("disabled");
             link.style.pointerEvents = "none";
             link.style.opacity = ".55";
             link.setAttribute("aria-disabled", "true");
           }
-          if (filename) { link.style.pointerEvents = ""; link.style.opacity = ""; }
+          if (available) { link.style.pointerEvents = ""; link.style.opacity = ""; }
         },
         prompt(item) {
           const filename = file(item.y || 2025, item.p || item.s);

@@ -4,35 +4,41 @@ window.StemMarkingAvailability = {
     "2022": "mi_NAH_Biology_mi_2022.PDF",
     "2023": "mi_NAH_Biology_mi_2023.PDF",
     "2024": "mi_NAH_Biology_mi_2024.PDF",
-    "2025": "mi_NAH_Biology_mi_2025.PDF"
+    "2025": "mi_NAH_Biology_mi_2025.PDF",
+    "2026": "mi_NAH_Biology_mi_2026.pdf"
   },
   "AH/Ch-AH": {
     "2022": "mi_NAH_Chemistry_mi_2022.PDF",
     "2023": "mi_NAH_Chemistry_mi_2023.PDF",
     "2024": "mi_NAH_Chemistry_mi_2024.PDF",
-    "2025": "mi_NAH_Chemistry_mi_2025.PDF"
+    "2025": "mi_NAH_Chemistry_mi_2025.PDF",
+    "2026": "mi_NAH_Chemistry_mi_2026.pdf"
   },
   "AH/CpSc-AH": {
     "2022": "mi_NAH_Computing-Science_mi_2022.PDF",
     "2023": "mi_NAH_Computing-Science_mi_2023.PDF",
     "2024": "mi_NAH_Computing-Science_mi_2024.PDF",
-    "2025": "mi_NAH_Computing-Science_mi_2025.PDF"
+    "2025": "mi_NAH_Computing-Science_mi_2025.PDF",
+    "2026": "mi_NAH_Computing-Science_mi_2026.pdf"
   },
   "AH/Maths-AH": {
     "2022:1": "mi_NAH_Mathematics_Paper-1-Non-calculator_2022.PDF",
     "2024:1": "mi_NAH_Mathematics_Paper-1-Non-calculator_2024.PDF",
     "2025:1": "mi_NAH_Mathematics_Paper-1-Non-calculator_2025.PDF",
+    "2026:1": "mi_NAH_Mathematics_Paper-1-Non-calculator_2026.pdf",
     "2023:1": "mi_NAH_Mathematics_Paper-1_2023.PDF",
     "2022:2": "mi_NAH_Mathematics_Paper-2_2022.PDF",
     "2023:2": "mi_NAH_Mathematics_Paper-2_2023.PDF",
     "2024:2": "mi_NAH_Mathematics_Paper-2_2024.PDF",
-    "2025:2": "mi_NAH_Mathematics_Paper-2_2025.PDF"
+    "2025:2": "mi_NAH_Mathematics_Paper-2_2025.PDF",
+    "2026:2": "mi_NAH_Mathematics_Paper-2_2026.pdf"
   },
   "AH/Ph_AH": {
     "2022": "mi_NAH_Physics_mi_2022.pdf",
     "2023": "mi_NAH_Physics_mi_2023.pdf",
     "2024": "mi_NAH_Physics_mi_2024.pdf",
-    "2025": "mi_NAH_Physics_mi_2025.pdf"
+    "2025": "mi_NAH_Physics_mi_2025.pdf",
+    "2026": "mi_NAH_Physics_mi_2026.pdf"
   },
   "Higher/Bi-H": {
     "2022:1": "mi_NH_Biology_Paper-1-Multiple-choice_2022.PDF",
@@ -99,19 +105,22 @@ window.StemMarkingAvailability = {
     "2022": "mi_N5_Biology_mi_2022.PDF",
     "2023": "mi_N5_Biology_mi_2023.PDF",
     "2024": "mi_N5_Biology_mi_2024.PDF",
-    "2025": "mi_N5_Biology_mi_2025.PDF"
+    "2025": "mi_N5_Biology_mi_2025.PDF",
+    "2026": "mi_N5_Biology_mi_2026.pdf"
   },
   "N5/N5-Chemistry": {
     "2022": "mi_N5_Chemistry_mi_2022.PDF",
     "2023": "mi_N5_Chemistry_mi_2023.PDF",
     "2024": "mi_N5_Chemistry_mi_2024.PDF",
-    "2025": "mi_N5_Chemistry_mi_2025.PDF"
+    "2025": "mi_N5_Chemistry_mi_2025.PDF",
+    "2026": "mi_N5_Chemistry_mi_2026.pdf"
   },
   "N5/N5-ComputingScience": {
     "2022": "mi_N5_Computing-Science_mi_2022.PDF",
     "2023": "mi_N5_Computing-Science_mi_2023.PDF",
     "2024": "mi_N5_Computing-Science_mi_2024.PDF",
-    "2025": "mi_N5_Computing-Science_mi_2025.PDF"
+    "2025": "mi_N5_Computing-Science_mi_2025.PDF",
+    "2026": "mi_N5_Computing-Science_mi_2026.pdf"
   },
   "N5/N5-Maths": {
     "2022:1": "mi_N5_Mathematics_Paper-1-Non-calculator_2022.PDF",
@@ -129,6 +138,7 @@ window.StemMarkingAvailability = {
     "2022": "mi_N5_Physics_mi_2022.pdf",
     "2023": "mi_N5_Physics_mi_2023.pdf",
     "2024": "mi_N5_Physics_mi_2024.pdf",
-    "2025": "mi_N5_Physics_mi_2025.pdf"
+    "2025": "mi_N5_Physics_mi_2025.pdf",
+    "2026": "mi_N5_Physics_mi_2026.pdf"
   }
 };
