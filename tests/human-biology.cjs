@@ -15,6 +15,14 @@ const links = vm.runInContext('noteLinks', context);
 assert.equal(questions.length, 199);
 assert.equal(Object.values(topicAreas).flat().length, 25);
 assert.equal(Object.keys(links).length, 25);
+const contentTopics = Object.values(topicAreas).slice(0,3).flat();
+assert.equal(new Set(contentTopics.map(topic => links[topic])).size, 24);
+contentTopics.forEach(topic => assert.match(links[topic], /^https:\/\/www\.bbc\.co\.uk\/bitesize\/guides\/[a-z0-9]+\/revision\/1$/));
+assert.equal(links.Memory, 'https://www.bbc.co.uk/bitesize/guides/zm24382/revision/1');
+assert.equal(links['Structure and function of the heart'], 'https://www.bbc.co.uk/bitesize/guides/zrrry9q/revision/1');
+assert.ok(html.includes('BBC Bitesize notes'));
+assert.ok(html.includes('Extra revision notes and workbooks'));
+assert.ok(html.includes('drive.google.com/file/d/11Cl5yCIdbBnrBLngLMhJ6zjPDlX0MU4d/view'));
 assert.ok(questions.every(q => q.topics.length && q.areas.length && q.d.length > 20));
 assert.equal(new Set(questions.map(q => [q.y,q.p,q.q].join(':'))).size, 199);
 for (const year of [2022,2023,2024,2025,2026]) {

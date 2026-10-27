@@ -13,13 +13,16 @@ https://www.sqa.org.uk/sqa/47915.html
 
 ## Notes
 
-Complete unit summary documents were inspected from EA Biology's public resource page:
-https://sites.google.com/my.glow.scot/eabiology/higher-human
+The main topic-notes button links directly to the matching BBC Bitesize revision guide for each of the 24 Human Biology content topics. All 24 guide titles and URLs were checked against the BBC Higher Human Biology subject page:
+https://www.bbc.co.uk/bitesize/subjects/zhstqp3
 
-These supply the topic-summary buttons for all 24 content topics. Data analysis links to the same resource page's problem-solving materials. Three longer PDF pupil workbooks linked by Ask Dr Murray are also offered, explicitly labelled as workbooks containing activities and classroom blanks:
+The Memory guide was opened and its Higher Human Biology revision content verified in a normal browser without signing in. BBC may show an optional sign-in invitation; it can be dismissed. General data-analysis skills retain the EA Biology problem-solving resources because the subject index offers a quiz rather than a matching revision-notes guide for this skill.
+
+Complete unit summaries from EA Biology and three longer PDF workbooks linked by Ask Dr Murray remain under “Extra revision notes and workbooks”:
+https://sites.google.com/my.glow.scot/eabiology/higher-human
 https://blogs.glowscotland.org.uk/fi/askdrmurraydotcom/biology/higher-human-biology/
 
-External notes are linked, not copied into this repository. Older assessment references in notes are distinguished from the current official assessment guidance.
+Workbooks are explicitly labelled as containing activities and classroom blanks. External notes are linked, not copied into this repository. Older assessment references in school notes are distinguished from the current official assessment guidance.
 
 ## Marking instructions and previews
 
