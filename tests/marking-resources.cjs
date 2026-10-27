@@ -50,6 +50,9 @@ for (const [directory, files] of Object.entries(manifest)) {
   const context = makeContext({window: {fetch: fetchPdf, location: {href: "https://steminteract.uk/"}}, URL, URLSearchParams, document, navigator: {}, location: {search: ''}, MutationObserver: class {observe() {}}, setTimeout() {}, console});
   shared.forEach(s => vm.runInContext(s, context));
   context.StemMarking = context.window.StemMarking;
+  if (directory === 'Higher/HB-H') {
+    for (const file of ['human-biology-sources.js', 'human-biology-prompts.js']) vm.runInContext(fs.readFileSync(path.join(root,directory,file),'utf8'), context);
+  }
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)].filter(m => !/\bsrc=/.test(m[1]) && !/type="module"/.test(m[1]));
   try { scripts.forEach(m => vm.runInContext(m[2], context, {filename: directory + '/' + pageFile})); }
   catch (e) { throw new Error(directory + ': ' + e.stack); }
