@@ -27,7 +27,7 @@
     return checks.get(url);
   }
   global.StemMarking = {
-    forExplorer(directory) {
+    forExplorer(directory, sourceOrigin = "https://steminteract.uk") {
       const files = global.StemMarkingAvailability[directory] || {};
       const separatePapers = Object.keys(files).some(key => key.includes(":"));
       function file(year, paper) {
@@ -73,7 +73,7 @@
         prompt(item) {
           const filename = file(item.y || 2025, item.p || item.s);
           const reference = filename
-            ? "Official marking instructions: " + new URL(filename, "https://steminteract.uk/" + directory + "/").href +
+            ? "Official marking instructions: " + new URL(filename, sourceOrigin + "/" + directory + "/").href +
               "\nTry to open these instructions and read the relevant section. Use them as authoritative only if you can actually read them. If the link fails or the relevant guidance cannot be read, continue from the original question using the fallback below."
             : "Official marking instructions: unavailable on this site for this paper. This does not establish whether they have been published elsewhere.";
           return "Marking-resource guidance:\n" + reference +

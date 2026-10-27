@@ -1,0 +1,40 @@
+/* Run with node tests/human-biology.cjs; checks the authored index and source files. */
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const root = path.resolve(__dirname, '..');
+const directory = path.join(root, 'Higher/HB-H');
+const html = fs.readFileSync(path.join(directory, 'Higher-Human-Biology-Question-Explorer.html'), 'utf8');
+const index = html.slice(html.indexOf('const topicAreas='), html.indexOf('const year='));
+const context = vm.createContext({});
+vm.runInContext(index, context);
+const questions = vm.runInContext('questions', context);
+const topicAreas = vm.runInContext('topicAreas', context);
+const links = vm.runInContext('noteLinks', context);
+assert.equal(questions.length, 199);
+assert.equal(Object.values(topicAreas).flat().length, 25);
+assert.equal(Object.keys(links).length, 25);
+assert.ok(questions.every(q => q.topics.length && q.areas.length && q.d.length > 20));
+assert.equal(new Set(questions.map(q => [q.y,q.p,q.q].join(':'))).size, 199);
+for (const year of [2022,2023,2024,2025,2026]) {
+  for (const paper of [1,2]) {
+    const rows = questions.filter(q => q.y === year && q.p === paper);
+    assert.equal(rows.length, paper === 1 ? 25 : year === 2026 ? 14 : 15);
+    assert.equal(rows.reduce((sum,q) => sum + q.m, 0), paper === 1 ? 25 : 95);
+    rows.forEach((q,i) => {
+      assert.equal(q.q, i+1);
+      assert.ok(q.pg >= 2);
+      assert.ok(q.m > 0 && Number.isInteger(q.m));
+      q.topics.forEach(t => assert.ok(Object.values(topicAreas).flat().includes(t)));
+      q.areas.forEach(a => assert.ok(q.topics.some(t => topicAreas[a].includes(t))));
+    });
+    const filename = (paper === 1 ? 'NH_Human-Biology_Paper1-Multiple-choice_' : 'NH_Human-Biology_Paper2_') + year + '.pdf';
+    assert.equal(fs.readFileSync(path.join(directory, filename)).subarray(0,5).toString(), '%PDF-');
+  }
+}
+assert.match(html, /session 2026–27/);
+assert.match(html, /Workbooks include activities and some blanks/);
+assert.doesNotMatch(html, /NH_Biology|Higher\/Bi-H|Sustainability and interdependence/);
+assert.ok(fs.readFileSync(path.join(root, 'Biology-Question-Explorers.html'), 'utf8').includes('Higher/HB-H/Higher-Human-Biology-Question-Explorer.html'));
+console.log('PASS: 199 unique questions, ten complete paper indexes, correct 25/95 mark totals, 25 topic-resource mappings, navigation and source-PDF checks.');

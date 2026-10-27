@@ -14,7 +14,7 @@ def scheme_pattern(page):
                           if name.startswith(prefix))
     if subject == 'English-RUAE':
         return re.compile(r'mi_NH_English_Reading-for-(?:RUAE|Understanding-Analysis-and-Evaluation)_(\d{4})\.pdf', re.I)
-    separate = subject == 'Mathematics' or (level == 'NH' and subject in ['Biology', 'Chemistry', 'Physics'])
+    separate = subject == 'Mathematics' or (level == 'NH' and subject in ['Biology', 'Human-Biology', 'Chemistry', 'Physics'])
     middle = r'Paper-(\d+)(?:-[A-Za-z-]+)?' if separate else 'mi'
     return re.compile(r'mi_' + level + '_' + re.escape(subject) + '_' + middle + r'_(\d{4})\.pdf', re.I)
 

@@ -77,6 +77,18 @@ window.StemMarkingAvailability = {
     "2024": "mi_NH_English_Reading-for-Understanding-Analysis-and-Evaluation_2024.pdf",
     "2025": "mi_NH_English_Reading-for-Understanding-Analysis-and-Evaluation_2025.pdf"
   },
+  "Higher/HB-H": {
+    "2023:1": "mi_NH_Human-Biology_Paper-1-Multiple-Choice_2023.pdf",
+    "2022:1": "mi_NH_Human-Biology_Paper-1-Multiple-choice_2022.pdf",
+    "2024:1": "mi_NH_Human-Biology_Paper-1-Multiple-choice_2024.pdf",
+    "2025:1": "mi_NH_Human-Biology_Paper-1-Multiple-choice_2025.pdf",
+    "2026:1": "mi_NH_Human-Biology_Paper-1-Multiple-choice_2026.pdf",
+    "2022:2": "mi_NH_Human-Biology_Paper-2_2022.pdf",
+    "2023:2": "mi_NH_Human-Biology_Paper-2_2023.pdf",
+    "2024:2": "mi_NH_Human-Biology_Paper-2_2024.pdf",
+    "2025:2": "mi_NH_Human-Biology_Paper-2_2025.pdf",
+    "2026:2": "mi_NH_Human-Biology_Paper-2_2026.pdf"
+  },
   "Higher/Maths-H": {
     "2023:1": "mi_NH_Mathematics_Paper-1-Non-Calculator_2023.PDF",
     "2022:1": "mi_NH_Mathematics_Paper-1-Non-calculator_2022.PDF",
