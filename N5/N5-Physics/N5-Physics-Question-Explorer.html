@@ -189,7 +189,8 @@
             </div>
           </div>
 
-          <div id="question-grid" class="question-grid"></div>
+          <p><a href="readable/index.html">Readable papers and marking instructions (HTML)</a>. Tutor prompts include the question wording; explanations also include matching marking text. Use original page images for equations, graphs and diagrams.</p>
+<div id="question-grid" class="question-grid"></div>
           <div id="empty-message" class="empty">No questions match those filters.</div>
 
           <div class="notice">
@@ -200,8 +201,13 @@
     </div>
   </div>
 
-  <script src="../../assets/js/marking-availability.js"></script><script src="../../assets/js/marking-resources.js"></script><script>
-const markingResources=StemMarking.forExplorer('N5/N5-Physics');
+  <script src="../../assets/js/marking-availability.js"></script><script src="../../assets/js/marking-resources.js"></script><script src="physics-sources.js"></script><script src="../../assets/js/physics-prompts.js"></script><script>
+const sourceOrigin=(location.hostname||"").endsWith(".netlify.app")?location.origin:"https://steminteract.uk";
+const markingResources=StemMarking.forExplorer('N5/N5-Physics',sourceOrigin);
+const physicsSources=window.StemPhysics.forExplorer("N5/N5-Physics","National 5 Physics","Section",sourceOrigin);
+function readableQuestionUrl(item){return physicsSources.questionHtml(item,questionUrl(item))}
+function sourceLinks(item){const marking=physicsSources.markingHtml(item);return '<p><a href="'+questionUrl(item)+'" target="_blank" rel="noopener">Original question PDF</a>'+(marking?' · <a href="'+marking+'" target="_blank" rel="noopener">Marking instructions (HTML)</a>':'')+'</p>'}
+
 
     const questions = [
       {y:2026,s:1,q:1,p:3,t:"Dynamics and space",k:"vector force magnitude direction",d:"Identifying a vector quantity from its magnitude and direction.",m:1,a:"No solution summary is supplied for this question. Use AI help to explore a possible solution from the original paper."},
@@ -426,7 +432,7 @@ const markingResources=StemMarking.forExplorer('N5/N5-Physics');
       return item.s === 1 ? "Paper 1 — Multiple Choice" : "Paper 2";
     }
 
-    function sourcePrompt(item){const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n"+markingResources.prompt(item)}function tutorPrompt(item) {
+    function sourcePrompt(item,mode="hint"){const embedded=physicsSources.sourcePrompt(item,mode,markingResources.prompt(item));if(embedded)return embedded;const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n"+markingResources.prompt(item)}function tutorPrompt(item) {
       return sourcePrompt(item) + "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "). It is worth " + item.m +
         (item.m === 1 ? " mark. " : " marks. ") +
@@ -435,13 +441,13 @@ const markingResources=StemMarking.forExplorer('N5/N5-Physics');
     }
 
     function explainPrompt(item) {
-      return sourcePrompt(item) + "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
+      return sourcePrompt(item,"explain") + "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "), worth " + item.m +
         (item.m === 1 ? " mark" : " marks") + ", in fine detail.\n\n" +
         "Rules:\n1. Use UK English and Scottish National 5 Physics terminology.\n" +
         "2. Restate what the question is asking and outline the approach.\n" +
         "3. Explain every step, relationship, substitution, unit clearly.\n" +
-        "4. Do not invent details that are not visible. Try the supplied question source first; ask only for missing question content you cannot read.\n" +
+        "4. Do not invent details that are not visible. Use the supplied question text first. Consult page images for mathematical layout and diagrams; ask only for specific missing content.\n" +
         "5. Follow the marking-resource guidance above; only attribute official marking points to instructions you have actually read.\n\n" +
         "End with: **AI explanations may contain mistakes. Where available and readable, official marking instructions are authoritative; otherwise this is an AI-generated solution, not an official marking scheme.**";
     }
@@ -602,9 +608,9 @@ const markingResources=StemMarking.forExplorer('N5/N5-Physics');
         card.innerHTML =
           '<h3>' + (item.y || 2025) + ': ' + paperName(item) + ', Question ' + item.q + '</h3>' +
           '<div class="meta"><span class="tag">' + item.t + '</span>' + questionTopics(item).map(function(topic) { return '<span class="tag">' + topic + '</span>'; }).join('') + '<span class="tag">' + item.m + (item.m === 1 ? ' mark' : ' marks') + '</span></div>' +
-          '<p>' + item.d + '</p>' +
+          '<p>' + item.d + '</p>' + sourceLinks(item) +
           '<div class="card-actions">' +
-            '<a class="button small primary" href="' + questionUrl(item) + '" target="_blank" rel="noopener">Open question</a>' +
+            '<a class="button small primary" href="' + readableQuestionUrl(item) + '" target="_blank" rel="noopener">Read question</a>' +
             '<button class="button small hint-toggle" type="button">Get a hint</button>' +
             '<button class="button small explain-toggle" type="button">Explain solution</button>' +
           '</div>' +

@@ -1,0 +1,142 @@
+[
+  {
+    "file": "NH_Physics_Paper1-Multiple-choice_2022.pdf",
+    "sha256": "902a9114c5321b0b01e835c0c1f67cf1824d32fbe918f2da4c9cfc3ad01be92a",
+    "pages": 20,
+    "questions": 25,
+    "html": "NH_Physics_Paper1-Multiple-choice_2022.html"
+  },
+  {
+    "file": "NH_Physics_Paper1-Multiple-choice_2023.pdf",
+    "sha256": "82e0b1123653ae3fe6a3b7b0bce7e742eaa0a3980723b6ff0055559c915f6ebe",
+    "pages": 20,
+    "questions": 25,
+    "html": "NH_Physics_Paper1-Multiple-choice_2023.html"
+  },
+  {
+    "file": "NH_Physics_Paper1-Multiple-choice_2024.pdf",
+    "sha256": "fbed3e1f2b03885448ee8a29e48e865d85fbcbfc50af377ed1a7af0ac3c802b9",
+    "pages": 20,
+    "questions": 25,
+    "html": "NH_Physics_Paper1-Multiple-choice_2024.html"
+  },
+  {
+    "file": "NH_Physics_Paper1-Multiple-choice_2025.pdf",
+    "sha256": "9aaa5945d0650add01c5bfa20007e64506f24fbcf2173c80ad65c54a457f9bc3",
+    "pages": 20,
+    "questions": 25,
+    "html": "NH_Physics_Paper1-Multiple-choice_2025.html"
+  },
+  {
+    "file": "NH_Physics_Paper1-Multiple-choice_2026.pdf",
+    "sha256": "2a5807e6de792245be0616c2fd23cec2ed5f8e2b90240b5c5248f23a496f9e52",
+    "pages": 20,
+    "questions": 25,
+    "html": "NH_Physics_Paper1-Multiple-choice_2026.html"
+  },
+  {
+    "file": "NH_Physics_Paper2_2022.pdf",
+    "sha256": "7fdf52b19d6960d9eee6d2944cbce0aaf0f741dd457a2a4300760381c8bfeb0d",
+    "pages": 52,
+    "questions": 14,
+    "html": "NH_Physics_Paper2_2022.html"
+  },
+  {
+    "file": "NH_Physics_Paper2_2023.pdf",
+    "sha256": "fa4e3a41719dc198ecb2759f8bb6c31eb8c4d20222364ba5be3dd65acbea50ac",
+    "pages": 48,
+    "questions": 14,
+    "html": "NH_Physics_Paper2_2023.html"
+  },
+  {
+    "file": "NH_Physics_Paper2_2024.pdf",
+    "sha256": "75b7c7d1df32c08c039a6f2e12a2bdc66510970e6d5901f124c874462a07fd69",
+    "pages": 56,
+    "questions": 16,
+    "html": "NH_Physics_Paper2_2024.html"
+  },
+  {
+    "file": "NH_Physics_Paper2_2025.pdf",
+    "sha256": "d166c5e16796667f7119a1dd3649d8fab5a5d8258f6a6872d6453879b1c7d1bc",
+    "pages": 56,
+    "questions": 14,
+    "html": "NH_Physics_Paper2_2025.html"
+  },
+  {
+    "file": "NH_Physics_Paper2_2026.pdf",
+    "sha256": "85d40470f4199fe3fee66dcbff08abac82c2230f526233563450c85b2c5e1586",
+    "pages": 48,
+    "questions": 14,
+    "html": "NH_Physics_Paper2_2026.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-1-Multiple-Choice_2025.pdf",
+    "sha256": "a18cff2d2f2db763fb655b23098b87fed01393f283eae682568294a67cb3a97b",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Physics_Paper-1-Multiple-Choice_2025.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-1-Multiple-choice_2022.pdf",
+    "sha256": "81ee8ea178d996af502657585f8e025226bf2be7ccc42a7cfa53a963246cd36a",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Physics_Paper-1-Multiple-choice_2022.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-1-Multiple-choice_2024.pdf",
+    "sha256": "c67b294a482c963d7d67070f1abd4e48a5294539dc740bd3982aaa9acb55bd63",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Physics_Paper-1-Multiple-choice_2024.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-1-Multiple-choice_2026.pdf",
+    "sha256": "4bfcb5e9c5abb08d00edacf99611811749ae1d572a27737e77270611e1c2924c",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Physics_Paper-1-Multiple-choice_2026.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-1_2023.pdf",
+    "sha256": "02d13012f5f3392349c9c1a53d4c83952b6d1a10f7331b00d13573b156f7f7ff",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Physics_Paper-1_2023.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-2_2022.pdf",
+    "sha256": "eb16cc898e29096f31fa653c5849c1b0767a1dcc80b033b7f0550eb33ea128c1",
+    "pages": 24,
+    "questions": 14,
+    "html": "mi_NH_Physics_Paper-2_2022.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-2_2023.pdf",
+    "sha256": "47050389fa18ba2a64ec67a0c5913dc5cd833823d05fdc04cfdb808ff3e803b8",
+    "pages": 24,
+    "questions": 14,
+    "html": "mi_NH_Physics_Paper-2_2023.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-2_2024.pdf",
+    "sha256": "c0f669cf7ce12f40fa11d9d6b03be358d930bb7f6b3bc0366b0dbb6a413a7380",
+    "pages": 29,
+    "questions": 16,
+    "html": "mi_NH_Physics_Paper-2_2024.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-2_2025.pdf",
+    "sha256": "c44692bb72cdd0ac683ff3699ea7ea594eb0cbdd18e03ec710450f7a11e22a15",
+    "pages": 27,
+    "questions": 14,
+    "html": "mi_NH_Physics_Paper-2_2025.html"
+  },
+  {
+    "file": "mi_NH_Physics_Paper-2_2026.pdf",
+    "sha256": "8c2e696104d230487a987e1e09b36cc8b55feb0197f243d121717bd800a5c6bf",
+    "pages": 24,
+    "questions": 14,
+    "html": "mi_NH_Physics_Paper-2_2026.html"
+  }
+]
