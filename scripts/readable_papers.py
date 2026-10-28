@@ -34,7 +34,7 @@ def symbol(char):
     return value
 
 
-def readable_text(page, box=None, chemistry=False):
+def readable_text(page, box=None, chemistry=False, literal=False):
     """Decode known fonts and local raised/lowered glyphs without inferring math.
 
     Retain literal spaces and correct tiny matrix rotations. Fractions, vectors
@@ -57,7 +57,7 @@ def readable_text(page, box=None, chemistry=False):
         char=dict(original)
         value=symbol(char)
         candidates=[]
-        if char['upright'] and not value.isspace():
+        if char['upright'] and not value.isspace() and not literal:
             bx,by=int(char['x0']//24),int(char['top']//24)
             for dx in [-1,0]:
                 for dy in [-1,0,1]:
@@ -185,7 +185,7 @@ def question_spans(doc, starts, marking, part, level=None):
             # right sidebar; include the marks column but exclude that sidebar.
             right = min(page.width-20,556 if marking else (level or {}).get('questionRight',556 if part==1 else 530))
             box = (40,top,right,bottom)
-            text = readable_text(page,box,chemistry=(level or {}).get('chemistry',False))
+            text = readable_text(page,box,chemistry=(level or {}).get('chemistry',False),literal=(level or {}).get('literalText',False))
             if 'DO NOT WRITE ON THIS PAGE' in text or '[BLANK PAGE]' in text:
                 continue
             text = clean('\n'.join(line for line in text.splitlines() if not re.search(r'\[Turn over|\[END OF (QUESTION PAPER|MARKING INSTRUCTIONS)\]',line)))
@@ -230,7 +230,7 @@ def build(level, no_images=False):
         title = f'{year} {level["title"]}' + (f' - {level["unit"]} {part}' if level['unit'] and not (marking and (level['unit']=='Section' or level.get('combined'))) else '') + (' marking instructions' if marking else ' questions')
         with pdfplumber.open(file) as doc:
             starts = identify(doc,items,marking,level)
-            page_texts = [readable_text(p,chemistry=level.get('chemistry',False)) for p in doc.pages]
+            page_texts = [readable_text(p,chemistry=level.get('chemistry',False),literal=level.get('literalText',False)) for p in doc.pages]
             # General principles precede the first answer table. Do not include
             # N5's multiple-choice answers among the general marking principles.
             principles = '\n\n'.join(page_texts[1:starts[0]['page']-1]) if marking else ''
