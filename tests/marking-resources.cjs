@@ -61,6 +61,10 @@ for (const [directory, files] of Object.entries(manifest)) {
     vm.runInContext(fs.readFileSync(path.join(root,directory,'mathematics-sources.js'),'utf8'),context);
     vm.runInContext(fs.readFileSync(path.join(root,'assets/js/mathematics-prompts.js'),'utf8'),context);
   }
+  if (['N5/N5-Chemistry','Higher/Ch-H','AH/Ch-AH'].includes(directory)) {
+    vm.runInContext(fs.readFileSync(path.join(root,directory,'chemistry-sources.js'),'utf8'),context);
+    vm.runInContext(fs.readFileSync(path.join(root,'assets/js/chemistry-prompts.js'),'utf8'),context);
+  }
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)].filter(m => !/\bsrc=/.test(m[1]) && !/type="module"/.test(m[1]));
   try { scripts.forEach(m => vm.runInContext(m[2], context, {filename: directory + '/' + pageFile})); }
   catch (e) { throw new Error(directory + ': ' + e.stack); }

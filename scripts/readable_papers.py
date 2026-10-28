@@ -34,7 +34,7 @@ def symbol(char):
     return value
 
 
-def readable_text(page, box=None):
+def readable_text(page, box=None, chemistry=False):
     """Decode known fonts and local raised/lowered glyphs without inferring math.
 
     Retain literal spaces and correct tiny matrix rotations. Fractions, vectors
@@ -68,7 +68,7 @@ def readable_text(page, box=None):
                         script=None
                         if char['bottom']<base['bottom']-1.5 and char['top']>base['top']-base['size']*.9:
                             script='super'
-                        elif char['top']>base['top']+base['size']*.25 and base['bottom']+.3<char['bottom']<base['bottom']+base['size']*.7:
+                        elif char['top']>base['top']+base['size']*.25 and base['bottom']+(-.5 if chemistry and value.isdigit() and gap<2 else .3)<char['bottom']<base['bottom']+base['size']*.7:
                             script='sub'
                         if script:
                             candidates.append((abs(gap)+abs(char['top']-base['top']),script,base))
@@ -92,11 +92,15 @@ def identify(doc, items, marking, level):
     for part in sections:
         expected = sorted((r for r in items if r['part']==part), key=lambda r:r['q'])
         first_page = (expected[0]['page'] or level.get('questionMinimumPage', 2)) if not marking else 2
-        if marking and level['unit']=='Section' and part == 1:
+        if marking and (level['unit']=='Section' or level.get('combined')) and part == 1:
             # N5 has numbered general principles before its actual MCQ table.
             first_page = next(pg for pg,p in enumerate(doc.pages,1) if len({int(w['text'][:-1]) for w in p.extract_words() if re.fullmatch(r'\d{1,2}\.',w['text']) and 65<w['x0']<85}) >= 25)
         low, high = ((210,240) if level['unit']=='Paper' and part==1 else (65,85) if level['unit']=='Section' and part==1 else (40,60)) if marking else (55,73)
         low, high = level.get('markingColumn' if marking else 'questionColumn', (low, high))
+        if marking and level.get('chemistry'):
+            low,high=(65,85) if level.get('combined') and part==1 else (200,240) if part==1 else (40,65)
+            if level.get('combined') and part==2:
+                first_page=next(pg for pg,p in enumerate(doc.pages,1) if len({int(w['text'][:-1]) for w in p.extract_words() if re.fullmatch(r'\d{1,2}\.',w['text']) and 65<w['x0']<85})>=25)+1
         found = []
         for pg in range(first_page, len(doc.pages)+1):
             page = doc.pages[pg-1]
@@ -166,7 +170,7 @@ def question_spans(doc, starts, marking, part, level=None):
             # right sidebar; include the marks column but exclude that sidebar.
             right = min(page.width-20,556 if marking else (level or {}).get('questionRight',556 if part==1 else 530))
             box = (40,top,right,bottom)
-            text = readable_text(page,box)
+            text = readable_text(page,box,chemistry=(level or {}).get('chemistry',False))
             if 'DO NOT WRITE ON THIS PAGE' in text or '[BLANK PAGE]' in text:
                 continue
             text = clean('\n'.join(line for line in text.splitlines() if not re.search(r'\[Turn over|\[END OF (QUESTION PAPER|MARKING INSTRUCTIONS)\]',line)))
@@ -208,10 +212,10 @@ def build(level, no_images=False):
         part = items[0]['part']
         file = source/filename
         digest = hashlib.sha256(file.read_bytes()).hexdigest()
-        title = f'{year} {level["title"]}' + (f' - {level["unit"]} {part}' if level['unit'] and not (marking and level['unit']=='Section') else '') + (' marking instructions' if marking else ' questions')
+        title = f'{year} {level["title"]}' + (f' - {level["unit"]} {part}' if level['unit'] and not (marking and (level['unit']=='Section' or level.get('combined'))) else '') + (' marking instructions' if marking else ' questions')
         with pdfplumber.open(file) as doc:
             starts = identify(doc,items,marking,level)
-            page_texts = [readable_text(p) for p in doc.pages]
+            page_texts = [readable_text(p,chemistry=level.get('chemistry',False)) for p in doc.pages]
             # General principles precede the first answer table. Do not include
             # N5's multiple-choice answers among the general marking principles.
             principles = '\n\n'.join(page_texts[1:starts[0]['page']-1]) if marking else ''
