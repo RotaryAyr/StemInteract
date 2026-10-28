@@ -21,7 +21,7 @@ Question starts are detected in the main-number column and checked against all a
 
 Known Adobe Symbol font mappings and conservative CID-font mathematical operators are decoded. Numerically insignificant rotation matrices are treated as horizontal, correcting MathType exports that otherwise extract as vertical strings. Adjacent raised/lowered glyphs are represented as Unicode scripts where available, with their baseline adjusted only in the temporary text view. Original spaces are preserved, including unit separations such as `m s⁻¹`. Genuine rotated labels remain unmodified. These transformations do not reconstruct fractions, vector arrows or graph geometry: original page images and PDFs remain authoritative for mathematical layout.
 
-Run locally with pdfplumber, pypdfium2, Pillow, reportlab and Node:
+The Physics wrapper uses the shared `scripts/readable_papers.py` engine. Run locally with pdfplumber, pypdfium2, Pillow, reportlab and Node:
 
 ```
 python scripts/build-physics-html.py
