@@ -69,6 +69,10 @@ for (const [directory, files] of Object.entries(manifest)) {
     vm.runInContext(fs.readFileSync(path.join(root,directory,'biology-sources.js'),'utf8'),context);
     vm.runInContext(fs.readFileSync(path.join(root,'assets/js/biology-prompts.js'),'utf8'),context);
   }
+  if (['N5/N5-ComputingScience','Higher/CpSc-H','AH/CpSc-AH'].includes(directory)) {
+    vm.runInContext(fs.readFileSync(path.join(root,directory,'computing-sources.js'),'utf8'),context);
+    vm.runInContext(fs.readFileSync(path.join(root,'assets/js/computing-prompts.js'),'utf8'),context);
+  }
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)].filter(m => !/\bsrc=/.test(m[1]) && !/type="module"/.test(m[1]));
   try { scripts.forEach(m => vm.runInContext(m[2], context, {filename: directory + '/' + pageFile})); }
   catch (e) { throw new Error(directory + ': ' + e.stack); }
