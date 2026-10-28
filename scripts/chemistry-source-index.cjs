@@ -1,4 +1,4 @@
-/* Read Mathematics metadata without executing the explorer UI. */
+/* Read Chemistry metadata without executing the explorer UI. */
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const levels=[

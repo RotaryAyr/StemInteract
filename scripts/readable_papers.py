@@ -92,20 +92,35 @@ def identify(doc, items, marking, level):
     for part in sections:
         expected = sorted((r for r in items if r['part']==part), key=lambda r:r['q'])
         first_page = (expected[0]['page'] or level.get('questionMinimumPage', 2)) if not marking else 2
-        if marking and (level['unit']=='Section' or level.get('combined')) and part == 1:
+        if marking and not level.get('mcqTables') and (level['unit']=='Section' or level.get('combined')) and part == 1:
             # N5 has numbered general principles before its actual MCQ table.
-            first_page = next(pg for pg,p in enumerate(doc.pages,1) if len({int(w['text'][:-1]) for w in p.extract_words() if re.fullmatch(r'\d{1,2}\.',w['text']) and 65<w['x0']<85}) >= 25)
+            first_page = next(pg for pg,p in enumerate(doc.pages,1) if len({int(w['text'][:-1]) for w in p.extract_words() if re.fullmatch(r'\d{1,2}\.',w['text']) and 65<w['x0']<85}) >= len(expected))
         low, high = ((210,240) if level['unit']=='Paper' and part==1 else (65,85) if level['unit']=='Section' and part==1 else (40,60)) if marking else (55,73)
         low, high = level.get('markingColumn' if marking else 'questionColumn', (low, high))
         if marking and level.get('chemistry'):
             low,high=(65,85) if level.get('combined') and part==1 else (200,240) if part==1 else (40,65)
             if level.get('combined') and part==2:
-                first_page=next(pg for pg,p in enumerate(doc.pages,1) if len({int(w['text'][:-1]) for w in p.extract_words() if re.fullmatch(r'\d{1,2}\.',w['text']) and 65<w['x0']<85})>=25)+1
+                first_page=next(pg for pg,p in enumerate(doc.pages,1) if len({int(w['text'][:-1]) for w in p.extract_words() if re.fullmatch(r'\d{1,2}\.',w['text']) and 65<w['x0']<85})>=sum(r['part']==1 for r in items))+1
+        if marking and level.get('mcqTables'):
+            low,high=(200,240) if part==1 else (40,65)
+            if level.get('combined'):
+                mcq_count=sum(r['part']==1 for r in items)
+                tables=[]
+                for page_index,p in enumerate(doc.pages,1):
+                    words=p.extract_words()
+                    for left,right in [(65,85),(200,240)]:
+                        numbers={int(w['text'][:-1]) for w in words if re.fullmatch(r'\d{1,2}\.',w['text']) and left<w['x0']<right}
+                        if set(range(1,mcq_count+1))<=numbers:tables.append((page_index,left,right))
+                assert tables,(level['title'],'MCQ answer table not found')
+                mcq_page,left,right=tables[0]
+                if part==1:first_page,low,high=mcq_page,left,right
+                else:first_page=mcq_page+1
+        table_guard=marking and (level.get('markingTables') or (level.get('mcqTables') and part==2))
         found = []
         for pg in range(first_page, len(doc.pages)+1):
             page = doc.pages[pg-1]
             number_cells=[]
-            if marking and level.get('markingTables'):
+            if table_guard:
                 for table in page.find_tables():
                     for cell in table.cells:
                         # Some schemes merge the three Question subcolumns.
@@ -121,10 +136,10 @@ def identify(doc, items, marking, level):
                 if re.fullmatch(r'\d',word['text']) and re.fullmatch(r'\d\.',following['text']) and low<=word['x0']<=high and following['x0']-word['x1']<4 and abs(word['top']-following['top'])<1:
                     joined.append({**word,'text':word['text']+following['text']})
             for word in sorted(words+joined,key=lambda w:(round(w['top']),w['x0'])):
-                match = re.fullmatch(r'(\d{1,2})\.?' if marking and level.get('markingTables') else r'(\d{1,2})\.',word['text'])
+                match = re.fullmatch(r'(\d{1,2})\.?' if table_guard else r'(\d{1,2})\.',word['text'])
                 if not match or not (low <= word['x0'] <= high) or word['top']>=775:
                     continue
-                if marking and level.get('markingTables'):
+                if table_guard:
                     cx=(word['x0']+word['x1'])/2;cy=(word['top']+word['bottom'])/2
                     if not any(x0<=cx<=x1 and y0<=cy<=y1 for x0,y0,x1,y1 in number_cells):
                         continue
