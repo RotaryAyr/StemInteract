@@ -8,6 +8,7 @@ import os
 import re
 import subprocess
 import textwrap
+from source_text_corrections import corrections_for, correct_text
 
 import pdfplumber
 from pdfplumber.utils import extract_text
@@ -227,14 +228,23 @@ def build(level, no_images=False):
         part = items[0]['part']
         file = source/filename
         digest = hashlib.sha256(file.read_bytes()).hexdigest()
+        corrections = corrections_for(ROOT, level, filename, digest)
         title = f'{year} {level["title"]}' + (f' - {level["unit"]} {part}' if level['unit'] and not (marking and (level['unit']=='Section' or level.get('combined'))) else '') + (' marking instructions' if marking else ' questions')
         with pdfplumber.open(file) as doc:
             starts = identify(doc,items,marking,level)
             page_texts = [readable_text(p,chemistry=level.get('chemistry',False),literal=level.get('literalText',False)) for p in doc.pages]
+            for pg in sorted({e['page'] for e in corrections}):
+                page_texts[pg-1] = correct_text(page_texts[pg-1], [e for e in corrections if e['page']==pg])
             # General principles precede the first answer table. Do not include
             # N5's multiple-choice answers among the general marking principles.
             principles = '\n\n'.join(page_texts[1:starts[0]['page']-1]) if marking else ''
             for start,pieces in question_spans(doc,starts,marking,part,level):
+                applied = [e for e in corrections if e['question']==start['q']]
+                for e in applied:
+                    matches=[p for p in pieces if p['page']==e['page']]
+                    if len(matches)!=1:
+                        raise ValueError(f'Correction page missing for {filename}, Q{start["q"]}')
+                    matches[0]['text']=correct_text(matches[0]['text'], [e])
                 key=f'{year}:{start["part"]}:{start["q"]}'
                 record=records.setdefault(key,{})
                 record['marking' if marking else 'question']={
@@ -242,6 +252,8 @@ def build(level, no_images=False):
                     'pdf':filename,'parts':pieces,
                     'text':'\n\n'.join(f'[PDF page {p["page"]}]\n{p["text"]}' for p in pieces),
                 }
+                if applied:
+                    record['marking' if marking else 'question']['verifiedTextCorrections']=[{'page':e['page'],'verifiedOn':e['verified_on'],'pdfSha256':e['sha256']} for e in applied]
                 if level.get('flagStackedMath'):
                     record['marking' if marking else 'question']['requiresVisualMath']=any(p.get('requiresVisualMath') for p in pieces)
                 if marking:
@@ -264,6 +276,8 @@ def build(level, no_images=False):
                 nav.append(f'<a href="#part-{start["part"]}-q-{start["q"]}">{label}</a>')
             for pg,text in enumerate(page_texts,1):
                 anchors=''.join(f'<span class="question-anchor" id="part-{s["part"]}-q-{s["q"]}">{level["unit"]+" "+str(s["part"])+", " if level["unit"] else ""}Question {s["q"]}</span>' for s in starts if s['page']==pg)
+                if any(e['page']==pg for e in corrections):
+                    text='[StemInteract: this page transcription includes notation repairs checked against the original image. sqrt(...) means square root; ^ denotes a power.]\n\n'+text
                 sections.append(f'<section id="page-{pg}"><h2>PDF page {pg}</h2>{anchors}<figure><a href="{file.stem}/page-{pg}.png"><img src="{file.stem}/page-{pg}.png" width="893" height="1263" loading="lazy" alt="Original {html.escape(title)}, PDF page {pg}; open the image for mathematical layout and diagrams."></a><figcaption>Original page image: preserves diagrams, equations, tables and symbols.</figcaption></figure><details open><summary>Selectable page text</summary><pre>{html.escape(text)}</pre></details></section>')
             document=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)} | StemInteract</title><link rel="stylesheet" href="papers.css"></head><body><main><nav><a href="../{level['explorer']}">{level['title']} explorer</a> · <a href="index.html">All readable papers</a> · <a href="../{filename}">Original PDF</a></nav><h1>{html.escape(title)}</h1><p>Source: Scottish Qualifications Authority (SQA) / Qualifications Scotland. This is a StemInteract HTML companion, not an official HTML edition. Selectable text is supplied alongside original page images. Use the images or original PDF for equations, powers, fractions, vector notation, tables and diagrams; text extraction cannot fully preserve mathematical layout.</p><details><summary>Jump to a question</summary><nav class="questions">{' '.join(nav)}</nav></details>{''.join(sections)}</main></body></html>'''
             (output/(file.stem+'.html')).write_text(document)

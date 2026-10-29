@@ -108,6 +108,29 @@ for(const level of levels){
   if(level.directory==='AH/Maths-AH'){
     assert.match(sources['2024:2:1'].question.text,/sin7x/);
     assert.equal(sources['2024:2:1'].question.requiresVisualMath,true);
+    const repairs={
+      '2026:1:3':'z = sqrt(3) + i.',
+      '2026:1:6':'y = 2*sqrt(x)*(x - 1)^2 about',
+      '2026:2:5':'x^(4*x)',
+      '2026:2:8':'V = 18*(2 + sqrt(h))^6 - 1152',
+      '2026:2:15':'If r is irrational then sqrt(r) is irrational.'
+    };
+    for(const [key,expression] of Object.entries(repairs)){
+      const record=sources[key], [y,p,q]=key.split(':').map(Number);
+      assert.ok(record.question.text.includes(expression),key+' readable transcription');
+      assert.ok(record.question.parts.some(piece=>piece.text.includes(expression)));
+      assert.equal(record.question.verifiedTextCorrections.length,1);
+      const html=fs.readFileSync(path.join(base,record.question.html.split('#')[0]),'utf8');
+      assert.ok(html.includes(expression),key+' HTML transcription');
+      for(const mode of ['hint','explain']){
+        const prompt=helper.sourcePrompt({y,p,q},mode,'');
+        assert.ok(prompt.includes(expression),key+' '+mode+' prompt');
+        assert.match(prompt,/notation repairs, not added answers/);
+        assert.doesNotMatch(prompt,/This is a mechanical extraction, not a paraphrase/);
+      }
+    }
+    assert.ok(!sources['2025:2:15'].question.verifiedTextCorrections);
+
   }
   assert.equal(helper.sourcePrompt({y:2099,p:1,s:1,q:1},'hint',''),null);
 }
