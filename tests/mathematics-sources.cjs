@@ -49,6 +49,8 @@ for(const level of levels){
     assert.equal(helper.questionHtml(item,row.pdf+'#page='+row.page),record.question.html);
     for(const mode of ['hint','explain']){
       const prompt=helper.sourcePrompt(item,mode,'Marking-resource guidance: fixture');
+      assert.match(prompt,/DIAGRAM AND BOUNDARY CHECK/);
+      assert.equal(prompt.includes('WORKING AND MARKING CHECK'),mode==='explain');
       assert.ok(prompt.includes(record.question.text));
       assert.ok(prompt.includes('https://preview.example/'+level.directory+'/'+record.question.html));
       assert.ok(prompt.includes('ask only for the specific diagram, formula or value'));
@@ -78,6 +80,30 @@ for(const level of levels){
     const prompt=helper.sourcePrompt({y:2026,p:1,q:2},'explain','');
     assert.match(prompt,/MATHEMATICAL LAYOUT CHECK REQUIRED/);
     assert.match(prompt,/Official marking page .* image:/);
+    // These audit failures require visual/marking checks even without a fraction flag.
+    const area=sources['2026:2:7'];
+    const logs=sources['2026:2:11'];
+    assert.match(area.marking.text,/9/);
+    assert.match(logs.marking.text,/explicitly/);
+    for(const q of [7,11]){
+      const record=sources['2026:2:'+q];
+      const explain=helper.sourcePrompt({y:2026,p:2,q},'explain','');
+      const hint=helper.sourcePrompt({y:2026,p:2,q},'hint','');
+      assert.ok(explain.includes(record.question.text));
+      assert.ok(explain.includes(record.marking.text));
+      assert.match(explain,/DIAGRAM AND BOUNDARY CHECK/);
+      assert.match(explain,/both sides of each axis/);
+      assert.match(explain,/even if no mathematical-layout warning appears/);
+      assert.match(explain,/WORKING AND MARKING CHECK/);
+      assert.match(explain,/each relevant official marking point/);
+      assert.match(explain,/taking the logarithm of the original expression before expanding/);
+      for(const piece of record.question.parts){
+        assert.ok(explain.includes('/page-'+piece.page+'.png'));
+      }
+      assert.match(hint,/without revealing them or the answer/);
+      assert.doesNotMatch(hint,/WORKING AND MARKING CHECK|BEGIN EXTRACTED OFFICIAL MARKING TEXT/);
+    }
+
   }
   if(level.directory==='AH/Maths-AH'){
     assert.match(sources['2024:2:1'].question.text,/sin7x/);
