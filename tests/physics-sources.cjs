@@ -49,6 +49,8 @@ for(const level of levels){
     assert.equal(helper.questionHtml(item,row.pdf+'#page='+row.page),record.question.html);
     for(const mode of ['hint','explain']){
       const prompt=helper.sourcePrompt(item,mode,'Marking-resource guidance: fixture');
+      assert.match(prompt,/PHYSICS DIAGRAM CHECK/);
+      assert.equal(prompt.includes('PHYSICS WORKING CHECK'),mode==='explain');
       assert.ok(prompt.includes(record.question.text));
       assert.ok(prompt.includes('https://preview.example/'+level.directory+'/'+record.question.html));
       assert.ok(prompt.includes('ask only for the specific diagram, formula or value'));
@@ -73,6 +75,45 @@ for(const level of levels){
     assert.match(sources['2024:0:1'].question.text,/v=2\.4\+13t−0\.69t²/);
     assert.match(sources['2024:0:1'].question.text,/m s⁻¹/);
     assert.ok(sources['2022:0:16'].question.parts.length>=4,'LC/RC question continuation retained');
+    const repaired=sources['2026:0:8'];
+    assert.ok(repaired.question.text.includes('p = sqrt(2*m*e*V)'));
+    assert.ok(repaired.question.text.includes('λ = 1.228e-9/sqrt(V)'));
+    assert.doesNotMatch(repaired.question.text,/p = 2meV/);
+    assert.equal(repaired.question.verifiedTextCorrections.length,2);
+    assert.equal(repaired.marking.verifiedTextCorrections.length,1);
+    for(const field of ['question','marking']){
+      const record=repaired[field];
+      assert.ok(record.text.includes('λ = 1.228e-9/sqrt(V)'));
+      const html=fs.readFileSync(path.join(base,record.html.split('#')[0]),'utf8');
+      assert.ok(html.includes('λ = 1.228e-9/sqrt(V)'));
+    }
+    assert.ok(repaired.marking.text.includes('λ = 1.228e-9/sqrt(150) (1)'));
+    assert.match(repaired.marking.text,/order of magnitude/);
+    assert.match(repaired.marking.text,/Photoelectric|P hotoelectric/);
+    for(const q of [8,14,15]){
+      const record=sources['2026:0:'+q],item={y:2026,q,pg:record.question.parts[0].page};
+      const explain=helper.sourcePrompt(item,'explain','');
+      const hint=helper.sourcePrompt(item,'hint','');
+      assert.ok(explain.includes(record.marking.text));
+      assert.match(explain,/N-to-S.*conventional-current/);
+      assert.match(explain,/Fleming’s left-hand rule/);
+      assert.match(explain,/2\*N\*F\*\(d\/2\)/);
+      assert.match(explain,/physically reasonable alternative/);
+      assert.match(explain,/do not guarantee marks/);
+      for(const piece of record.marking.parts){
+        const image='readable/'+record.marking.pdf.replace(/\.pdf$/i,'')+'/page-'+piece.page+'.png';
+        assert.ok(explain.includes(image));
+      }
+      assert.match(hint,/without supplying the force arrows/);
+      assert.doesNotMatch(hint,/PHYSICS WORKING CHECK|BEGIN EXTRACTED OFFICIAL MARKING TEXT|Official marking page/);
+      if(q===8){
+        assert.ok(hint.includes('p = sqrt(2*m*e*V)'));
+        assert.match(explain,/checked notation repairs in the marking transcription/);
+        assert.doesNotMatch(hint,/λ = 1.228e-9\/sqrt\(150\) \(1\)/);
+      }
+    }
+    assert.ok(!sources['2025:0:8'].question.verifiedTextCorrections);
+
   }
   assert.equal(helper.sourcePrompt({y:2099,p:1,s:1,q:1},'hint',''),null);
 }

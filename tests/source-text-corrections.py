@@ -17,6 +17,11 @@ class Corrections(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'changed PDF'):
             module.corrections_for(ROOT, level, 'NAH_Mathematics_Paper2_2026.PDF', 'different-pdf')
 
+    def test_physics_pdf_change_requires_review(self):
+        level={'directory':'AH/Ph_AH','textCorrections':'scripts/physics-text-corrections.json'}
+        with self.assertRaisesRegex(ValueError, 'changed PDF'):
+            module.corrections_for(ROOT, level, 'NAH_Physics_QP_2026.pdf', 'different-pdf')
+
     def test_missing_or_duplicate_match_requires_review(self):
         entry={'pdf':'paper.pdf','question':3,'pattern':'z = 3','replacement':'z = sqrt(3)'}
         for text in ['z = 4', 'z = 3 and z = 3']:
@@ -30,9 +35,10 @@ class Corrections(unittest.TestCase):
         self.assertEqual(module.corrections_for(ROOT, {}, 'anything.pdf', 'other'), [])
 
     def test_reviewed_pdf_hashes(self):
-        for e in json.loads((ROOT/'scripts/mathematics-text-corrections.json').read_text()):
-            actual=hashlib.sha256((ROOT/e['directory']/e['pdf']).read_bytes()).hexdigest()
-            self.assertEqual(actual, e['sha256'])
+        for config in ['mathematics-text-corrections.json','physics-text-corrections.json']:
+            for e in json.loads((ROOT/'scripts'/config).read_text()):
+                actual=hashlib.sha256((ROOT/e['directory']/e['pdf']).read_bytes()).hexdigest()
+                self.assertEqual(actual, e['sha256'])
 
 if __name__=='__main__':
     unittest.main()

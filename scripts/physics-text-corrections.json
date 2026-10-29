@@ -1,0 +1,35 @@
+[
+  {
+    "directory": "AH/Ph_AH",
+    "pdf": "NAH_Physics_QP_2026.pdf",
+    "sha256": "b543ebb676ad6c723cbeae017c65171213fc4a78ac93fefe4ef5ba66102c6e6d",
+    "page": 20,
+    "question": 8,
+    "pattern": "p = 2meV",
+    "replacement": "p = sqrt(2*m*e*V)",
+    "verified_on": "2026-10-29",
+    "verification": "Checked against original SQA page image; restores radical/fraction notation and preserves marking points."
+  },
+  {
+    "directory": "AH/Ph_AH",
+    "pdf": "NAH_Physics_QP_2026.pdf",
+    "sha256": "b543ebb676ad6c723cbeae017c65171213fc4a78ac93fefe4ef5ba66102c6e6d",
+    "page": 20,
+    "question": 8,
+    "pattern": "1\\.228×10⁻⁹\\s*\\n\\s*λ=\\s*2\\s*\\n\\s*V",
+    "replacement": "λ = 1.228e-9/sqrt(V) [2 marks]",
+    "verified_on": "2026-10-29",
+    "verification": "Checked against original SQA page image; restores radical/fraction notation and preserves marking points."
+  },
+  {
+    "directory": "AH/Ph_AH",
+    "pdf": "mi_NAH_Physics_mi_2026.pdf",
+    "sha256": "d7a367ba4e697ea1039cbb2a68bfd5df2492a98fec6c9d31a7934a380b88422f",
+    "page": 13,
+    "question": 8,
+    "pattern": "8\\.\\s*\\(a\\)\\s*\\(i\\)[\\s\\S]*?(?=\\(Wave-like,\\))",
+    "replacement": "8. (a) (i) [2 marks; SHOW]\nλ = h/p (1)\nλ = h/sqrt(2*m*e*V)\nλ = 6.63e-34/sqrt(2*9.11e-31*1.60e-19*V) (1)\nλ = 1.228e-9/sqrt(V)\n\n(ii) [3 marks]\nλ = 1.228e-9/sqrt(V)\nλ = 1.228e-9/sqrt(150) (1)\nλ = 1.0e-10 (m) (1)\n",
+    "verified_on": "2026-10-29",
+    "verification": "Checked against original SQA page image; restores radical/fraction notation and preserves marking points."
+  }
+]
