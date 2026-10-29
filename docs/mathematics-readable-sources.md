@@ -47,3 +47,13 @@ Every Mathematics prompt now asks the tutor to inspect diagrams that determine a
 | Higher 2026 Paper 2 Q11 | For marking Method 3, explicitly show log₄ y = log₄(abˣ), then log₄ y = log₄ a + x log₄ b; establish log₄ a = 3 and log₄ b = 2, giving a = 64 and b = 16. Other complete permitted methods are acceptable. | Correct final constants but omitting an equation the chosen method explicitly requires, or mixing incomplete methods. |
 
 For each case, also try Hint: it should offer only the next useful check, without disclosing the numerical answer or copying marking answers into the prompt. The expected answers above live in this developer documentation, not in student hint prompts. Repeat these manual checks when changing tutor instructions or AI providers; record the provider, date, full response and result. No claim of guaranteed future correctness is made.
+
+## Reviewed mathematical transcriptions
+
+`scripts/mathematics-text-corrections.json` records five notation repairs checked against the original 2026 Advanced Higher question images: Paper 1 Q3 and Q6; Paper 2 Q5, Q8 and Q15. These restore four missing square-root expressions and make the variable exponent explicit. They add no solutions or marking answers. Plain-text notation uses `sqrt(...)`, `*` and `^` with explicit grouping; for example `18*(2 + sqrt(h))^6 - 1152`.
+
+The Mathematics build applies these repairs to both the question data used in tutor prompts and the selectable HTML page text. Corrected questions carry verification metadata, and their prompts identify the notation repairs. The original PDFs and page images remain unchanged. Unreviewed question text is still mechanically extracted; this small reviewed set does not establish correctness for all subjects, years or mathematical notation.
+
+Every correction specifies the source PDF SHA-256, page, question, expected extraction pattern, replacement and verification date. A changed PDF, missing match or duplicate match stops rebuilding with a review error. The correction file is maintained separately from generated output, so a normal rebuild preserves the repairs. Review the original image before adding or updating a correction; do not update a hash or pattern solely to make a failing build pass.
+
+Run `python3 tests/source-text-corrections.py` for changed-source and ambiguous-match safeguards. `node tests/mathematics-sources.cjs` verifies all five corrected expressions in source parts, HTML and both prompt modes, in addition to the existing coverage and source-hash checks.

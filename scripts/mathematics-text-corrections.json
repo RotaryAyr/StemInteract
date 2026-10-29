@@ -1,0 +1,57 @@
+[
+  {
+    "directory": "AH/Maths-AH",
+    "pdf": "NAH_Mathematics_Paper1-Non-calculator_2026.PDF",
+    "sha256": "823b4830b431b66488f0c8f3afa90d1dbe9c766390fbd3c68c1b69801fdd7bcc",
+    "page": 4,
+    "question": 3,
+    "pattern": "z = 3\\+i\\.",
+    "replacement": "z = sqrt(3) + i.",
+    "verified_on": "2026-10-29",
+    "verification": "Compared with original SQA question page image; notation only, no answer added."
+  },
+  {
+    "directory": "AH/Maths-AH",
+    "pdf": "NAH_Mathematics_Paper1-Non-calculator_2026.PDF",
+    "sha256": "823b4830b431b66488f0c8f3afa90d1dbe9c766390fbd3c68c1b69801fdd7bcc",
+    "page": 5,
+    "question": 6,
+    "pattern": "y =2 x \\( x−1 \\) ²about",
+    "replacement": "y = 2*sqrt(x)*(x - 1)^2 about",
+    "verified_on": "2026-10-29",
+    "verification": "Compared with original SQA question page image; notation only, no answer added."
+  },
+  {
+    "directory": "AH/Maths-AH",
+    "pdf": "NAH_Mathematics_Paper2_2026.PDF",
+    "sha256": "cff1e0fbe342bc62e9aa795c32dc044c9f85291abb8fc1dca822ff1f85fd7de1",
+    "page": 4,
+    "question": 5,
+    "pattern": "x⁴\\^\\{x\\}",
+    "replacement": "x^(4*x)",
+    "verified_on": "2026-10-29",
+    "verification": "Compared with original SQA question page image; notation only, no answer added."
+  },
+  {
+    "directory": "AH/Maths-AH",
+    "pdf": "NAH_Mathematics_Paper2_2026.PDF",
+    "sha256": "cff1e0fbe342bc62e9aa795c32dc044c9f85291abb8fc1dca822ff1f85fd7de1",
+    "page": 5,
+    "question": 8,
+    "pattern": "\\(\\s*\\)\\s*\\n\\s*V =18 2\\+ h ⁶ −1152",
+    "replacement": "V = 18*(2 + sqrt(h))^6 - 1152",
+    "verified_on": "2026-10-29",
+    "verification": "Compared with original SQA question page image; notation only, no answer added."
+  },
+  {
+    "directory": "AH/Maths-AH",
+    "pdf": "NAH_Mathematics_Paper2_2026.PDF",
+    "sha256": "cff1e0fbe342bc62e9aa795c32dc044c9f85291abb8fc1dca822ff1f85fd7de1",
+    "page": 7,
+    "question": 15,
+    "pattern": "If r is irrational then r is irrational\\.",
+    "replacement": "If r is irrational then sqrt(r) is irrational.",
+    "verified_on": "2026-10-29",
+    "verification": "Compared with original SQA question page image; notation only, no answer added."
+  }
+]

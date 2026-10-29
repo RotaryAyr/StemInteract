@@ -11,4 +11,5 @@ if __name__=='__main__':
     levels=json.loads(subprocess.check_output([os.environ.get('NODE_BINARY','node'),str(ROOT/'scripts/mathematics-source-index.cjs')]))
     for level in levels:
         if not args.level or level['directory'].startswith(args.level+'/'):
+            level['textCorrections']='scripts/mathematics-text-corrections.json'
             build(level,no_images=args.no_images)
