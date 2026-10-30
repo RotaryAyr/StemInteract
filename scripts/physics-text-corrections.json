@@ -31,5 +31,38 @@
     "replacement": "8. (a) (i) [2 marks; SHOW]\nλ = h/p (1)\nλ = h/sqrt(2*m*e*V)\nλ = 6.63e-34/sqrt(2*9.11e-31*1.60e-19*V) (1)\nλ = 1.228e-9/sqrt(V)\n\n(ii) [3 marks]\nλ = 1.228e-9/sqrt(V)\nλ = 1.228e-9/sqrt(150) (1)\nλ = 1.0e-10 (m) (1)\n",
     "verified_on": "2026-10-29",
     "verification": "Checked against original SQA page image; restores radical/fraction notation and preserves marking points."
+  },
+  {
+    "directory": "Higher/Ph-H",
+    "pdf": "NH_Physics_Paper1-Multiple-choice_2026.pdf",
+    "sha256": "2a5807e6de792245be0616c2fd23cec2ed5f8e2b90240b5c5248f23a496f9e52",
+    "page": 18,
+    "question": 25,
+    "pattern": "1\\s+T\\s*\\n\\s*f =\\s*\\n\\s*2L\\s+μ",
+    "replacement": "f = (1/(2*L))*sqrt(T/μ)",
+    "verified_on": "2026-10-30",
+    "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation."
+  },
+  {
+    "directory": "Higher/Ph-H",
+    "pdf": "mi_NH_Physics_Paper-2_2026.pdf",
+    "sha256": "8c2e696104d230487a987e1e09b36cc8b55feb0197f243d121717bd800a5c6bf",
+    "page": 21,
+    "question": 13,
+    "pattern": "E = ₂¹CV²",
+    "replacement": "E = (1/2)*C*V²",
+    "verified_on": "2026-10-30",
+    "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation."
+  },
+  {
+    "directory": "Higher/Ph-H",
+    "pdf": "mi_NH_Physics_Paper-2_2026.pdf",
+    "sha256": "8c2e696104d230487a987e1e09b36cc8b55feb0197f243d121717bd800a5c6bf",
+    "page": 21,
+    "question": 13,
+    "pattern": "E = ₂¹QV",
+    "replacement": "E = (1/2)*Q*V",
+    "verified_on": "2026-10-30",
+    "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation."
   }
 ]
