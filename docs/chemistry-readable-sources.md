@@ -23,6 +23,8 @@ Chemical structures, bond positions, stereochemistry, charges, isotope notation,
 
 ## Rebuild and checks
 
+Following the 2026 Advanced Higher audit, explanation prompts also require checking every separately marked mechanism stage (including transition states), current systematic names, charge placement, equilibrium phase labels and absorbed versus observed colours. These checks follow the supplied scheme rather than embedding answers to particular questions. They explicitly withhold claims of completeness when a required visual is unreadable. Hint prompts omit these explanation-only checks and the extracted marking answers. Prompt tests verify this separation across all indexed Chemistry questions; they do not establish an external tutor's reasoning accuracy.
+
 ```sh
 python scripts/build-chemistry-html.py
 node tests/chemistry-sources.cjs
