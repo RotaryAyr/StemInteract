@@ -29,6 +29,8 @@ A fresh Q6 trial described the transition state but displayed a third-party imag
 
 The 2026 Higher Chemistry self-audit adds checks for explicit branch-to-atom connectivity in rendered structures, distinct rate and equilibrium marking points, named interactions broken during denaturation, and preference for reagents explicitly accepted by the supplied scheme. Chemically valid unlisted reagents must not be called wrong or guaranteed marks. These are shared explanation safeguards across all three levels; no exam answers or original source records were changed. Targeted regressions exercise the actual Higher Q5–7 source payloads and retain the hint/explanation separation. These checks validate prompt contents, not future tutor compliance or a fresh external-provider trial.
 
+The 2026 National 5 audit adds a concise exam-answer boundary: explanations must apply explicit rejection notes, including restrictions on mere mention even in negations, without teaching that valid background chemistry is false. Apparent scientific oversimplifications in official wording must be distinguished from the scientific explanation, with no invented marking rules or guaranteed credit. The aromatic-bonding example explicitly avoids inferring saturation from a negative bromine test. Targeted N5 Q2, Q5 and Q9 regressions preserve the original guidance and require these safeguards only in explanations. Fresh provider trial outcomes are recorded separately from these automated checks.
+
 ```sh
 python scripts/build-chemistry-html.py
 node tests/chemistry-sources.cjs

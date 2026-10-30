@@ -58,6 +58,8 @@ for(const level of levels){
       assert.equal(prompt.includes('CHEMISTRY IMAGE ATTRIBUTION CHECK'),mode==='explain');
       assert.equal(prompt.includes('CHEMISTRY STRUCTURAL DRAWING CHECK'),mode==='explain');
       assert.equal(prompt.includes('CHEMISTRY EXPLANATION AND REAGENT CHECK'),mode==='explain');
+      assert.equal(prompt.includes('CHEMISTRY EXAM ANSWER BOUNDARY'),mode==='explain');
+      assert.equal(prompt.includes('CHEMISTRY SCIENTIFIC QUALIFICATION CHECK'),mode==='explain');
       if(mode==='explain') {
         assert.match(prompt,/transition-state or intermediate drawing/);
         assert.match(prompt,/partial\/dashed bonds, brackets and overall charge/);
@@ -90,6 +92,19 @@ for(const level of levels){
     assert.match(written.marking.text,/Same atomic number/);
     assert.match(sources['2026:2:2'].marking.text,/C₂H₂/);
     assert.match(sources['2026:2:3'].marking.text,/Calcium carbonate/);
+    const explain=q=>helper.sourcePrompt({y:2026,p:2,s:2,q},'explain','');
+    const aromatic=explain(2),insulation=explain(5),bridge=explain(9);
+    assert.match(aromatic,/It is saturated/);
+    assert.match(aromatic,/does not establish that an aromatic ring is saturated/);
+    assert.match(aromatic,/distinguish the published exam expectation from the scientific explanation/);
+    assert.match(insulation,/Any mention of absorbing/);
+    assert.match(bridge,/Any mention of electrons negates/);
+    for(const prompt of [aromatic,insulation,bridge]){
+      assert.match(prompt,/clearly labelled Exam answer/);
+      assert.match(prompt,/including negations or extra commentary/);
+      assert.match(prompt,/Do not turn a narrow marking restriction/);
+      assert.match(prompt,/invent replacement marking rules/);
+    }
   }
   if(level.directory==='Higher/Ch-H'){
     // Actual 2026 audit cases: preserve original guidance and require the
