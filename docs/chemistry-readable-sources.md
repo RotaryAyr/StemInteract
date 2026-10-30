@@ -27,6 +27,8 @@ Following the 2026 Advanced Higher audit, explanation prompts also require check
 
 A fresh Q6 trial described the transition state but displayed a third-party image under an official-mechanism heading. Explanation prompts now also prohibit web-search image substitution or false official attribution, distinguish original source images from illustrative reconstructions, and require truthful image-access claims. The initial trial remains a partial result, not a pass.
 
+The 2026 Higher Chemistry self-audit adds checks for explicit branch-to-atom connectivity in rendered structures, distinct rate and equilibrium marking points, named interactions broken during denaturation, and preference for reagents explicitly accepted by the supplied scheme. Chemically valid unlisted reagents must not be called wrong or guaranteed marks. These are shared explanation safeguards across all three levels; no exam answers or original source records were changed. Targeted regressions exercise the actual Higher Q5–7 source payloads and retain the hint/explanation separation. These checks validate prompt contents, not future tutor compliance or a fresh external-provider trial.
+
 ```sh
 python scripts/build-chemistry-html.py
 node tests/chemistry-sources.cjs
