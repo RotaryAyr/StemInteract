@@ -37,6 +37,10 @@
           } else if (source.marking) {
             text+='Official marking instructions, HTML companion: '+absolute(source.marking.html)+'\nThe answer text is intentionally not included in this hint prompt. Do not reveal the answer.\n\n';
           }
+          if (mode==='explain') {
+            text+='CHEMISTRY COMPLETENESS CHECK: before finalising, compare your response with each separately awarded marking point whose guidance is readable. A mechanism may require both electron-pair curly arrows and a transition-state or intermediate drawing. Include every required stage; for a transition state check partial/dashed bonds, brackets and overall charge against the original marking image. A written description is not a substitute for a requested drawing. If the relevant image cannot be read, identify the specific missing visual and do not claim the mechanism is complete or that all marks are secured. Where guidance is unavailable, explain the chemistry without inventing official requirements.\n\n'+
+              'CHEMISTRY NAMING AND NOTATION CHECK: use the current systematic name required by readable official guidance, including ligand names and oxidation states; do not substitute an older synonym when exact naming is required. Check ionic-fragment charges on the correct atom or on the whole bracketed ion, and distinguish subscripts from charges. In equilibrium expressions preserve concentration brackets, the required constant symbol and the phase or solvent labels for both numerator and denominator. For colour explanations distinguish the light absorbed from the colour observed, use transitions between the appropriate orbitals, and avoid adding conflicting colour alternatives or an emission explanation when absorption is required. Apply the actual acceptance and rejection notes, rather than assuming chemically similar wording earns the mark.\n\n';
+          }
           return text+markingGuidance;
         }
       };
