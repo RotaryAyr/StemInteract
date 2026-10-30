@@ -56,6 +56,8 @@ for(const level of levels){
       assert.equal(prompt.includes('CHEMISTRY COMPLETENESS CHECK'),mode==='explain');
       assert.equal(prompt.includes('CHEMISTRY NAMING AND NOTATION CHECK'),mode==='explain');
       assert.equal(prompt.includes('CHEMISTRY IMAGE ATTRIBUTION CHECK'),mode==='explain');
+      assert.equal(prompt.includes('CHEMISTRY STRUCTURAL DRAWING CHECK'),mode==='explain');
+      assert.equal(prompt.includes('CHEMISTRY EXPLANATION AND REAGENT CHECK'),mode==='explain');
       if(mode==='explain') {
         assert.match(prompt,/transition-state or intermediate drawing/);
         assert.match(prompt,/partial\/dashed bonds, brackets and overall charge/);
@@ -88,6 +90,23 @@ for(const level of levels){
     assert.match(written.marking.text,/Same atomic number/);
     assert.match(sources['2026:2:2'].marking.text,/C₂H₂/);
     assert.match(sources['2026:2:3'].marking.text,/Calcium carbonate/);
+  }
+  if(level.directory==='Higher/Ch-H'){
+    // Actual 2026 audit cases: preserve original guidance and require the
+    // explanation contract, without leaking marking answers into hint payloads.
+    const explain=q=>helper.sourcePrompt({y:2026,p:2,q},'explain','');
+    const drawing=explain(5),denaturing=explain(6),equilibrium=explain(7);
+    assert.match(drawing,/each branch bond end unambiguously on the intended atom/);
+    assert.match(drawing,/A correct condensed formula does not establish/);
+    assert.match(denaturing,/Intermolecular bonds\/Van der Waals/);
+    assert.match(denaturing,/identify the intermolecular interactions or hydrogen bonds being broken/);
+    assert.match(equilibrium,/Rate of forward reaction/);
+    assert.match(equilibrium,/Distinguish reaction rate from equilibrium position/);
+    assert.match(equilibrium,/equal again at the new equilibrium/);
+    assert.match(equilibrium,/Fehling/);
+    assert.match(equilibrium,/Tollens/);
+    assert.match(equilibrium,/prefer one explicitly accepted/);
+    assert.match(equilibrium,/chemically valid alternative is not automatically wrong/);
   }
   assert.equal(helper.sourcePrompt({y:2099,p:1,s:1,q:1},'hint',''),null);
 }
