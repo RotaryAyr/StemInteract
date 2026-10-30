@@ -239,7 +239,7 @@ def build(level, no_images=False):
             # N5's multiple-choice answers among the general marking principles.
             principles = '\n\n'.join(page_texts[1:starts[0]['page']-1]) if marking else ''
             for start,pieces in question_spans(doc,starts,marking,part,level):
-                applied = [e for e in corrections if e['question']==start['q']]
+                applied = [e for e in corrections if e['question']==start['q'] and ('part' not in e or e['part']==start['part'])]
                 for e in applied:
                     matches=[p for p in pieces if p['page']==e['page']]
                     if len(matches)!=1:
@@ -293,5 +293,6 @@ def build(level, no_images=False):
     links=''.join(f'<li><a href="{r["html"]}">{html.escape(r["file"].removesuffix(".PDF").removesuffix(".pdf").replace("_"," "))}</a> ({r["pages"]} pages)</li>' for r in manifest)
     (output/'index.html').write_text(f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Readable {level["title"]} papers | StemInteract</title><link rel="stylesheet" href="papers.css"><main><nav><a href="../{level["explorer"]}">{level["title"]} explorer</a></nav><h1>{level["title"]} papers and marking instructions</h1><p>HTML companions with selectable text and original page images. Source: SQA / Qualifications Scotland, 2022–2026. These are StemInteract conversions; each page links to its official PDF. Use page images for mathematical layout and diagrams.</p><ul>{links}</ul></main></html>')
     print(level['title'],len(records),'matched sources;',sum(r['pages'] for r in manifest),'pages',flush=True)
+
 
 

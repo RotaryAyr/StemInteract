@@ -64,5 +64,53 @@
     "replacement": "E = (1/2)*Q*V",
     "verified_on": "2026-10-30",
     "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation."
+  },
+  {
+    "directory": "N5/N5-Physics",
+    "pdf": "mi_N5_Physics_mi_2026.pdf",
+    "sha256": "6a4663ff3a511b767776824fd08bd009407cf5633fc9233a79b8266be3e6a244",
+    "page": 10,
+    "question": 1,
+    "pattern": "₂1×10×16",
+    "replacement": "(1/2)×10×16",
+    "verified_on": "2026-10-30",
+    "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation.",
+    "part": 2
+  },
+  {
+    "directory": "N5/N5-Physics",
+    "pdf": "mi_N5_Physics_mi_2026.pdf",
+    "sha256": "6a4663ff3a511b767776824fd08bd009407cf5633fc9233a79b8266be3e6a244",
+    "page": 25,
+    "question": 11,
+    "pattern": "1→\\s*₂¹\\s*→ 1 → 1 → 1\\s*\\n\\s*4\\s+8\\s+16",
+    "replacement": "1 → 1/2 → 1/4 → 1/8 → 1/16",
+    "verified_on": "2026-10-30",
+    "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation.",
+    "part": 2
+  },
+  {
+    "directory": "N5/N5-Physics",
+    "pdf": "N5_Physics_Section2_2026.pdf",
+    "sha256": "ded158fe7bee63c4e3fe33adf8f59c85f53fca53cbdd290151f2101693d8e21f",
+    "page": 33,
+    "question": 10,
+    "pattern": "\\uf0e6\\s+v\\s*\\uf0f6\\s*\\n\\s*f_\\{w\\} =[\\s\\S]*?\\uf0f8",
+    "replacement": "f_{w} = (v/(v-v_{bat}))*f_{bat}",
+    "verified_on": "2026-10-30",
+    "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation.",
+    "part": 2
+  },
+  {
+    "directory": "N5/N5-Physics",
+    "pdf": "mi_N5_Physics_mi_2026.pdf",
+    "sha256": "6a4663ff3a511b767776824fd08bd009407cf5633fc9233a79b8266be3e6a244",
+    "page": 24,
+    "question": 10,
+    "pattern": "\\(ii\\) [\\s\\S]*?f_\\{w\\} =66000 Hz\\s*\\(1\\)",
+    "replacement": "(ii) [2 marks]\\nf_{w} = (v/(v-v_{bat}))*f_{bat}\\nf_{w} = (340/(340-8.6))*64000 (1)\\nf_{w} = 66000 Hz (1)\\nAccept: 70 000; 65 700; 65 660",
+    "verified_on": "2026-10-30",
+    "verification": "Checked against the original PDF page image; restores mathematical notation without changing the source meaning or marking allocation.",
+    "part": 2
   }
 ]
