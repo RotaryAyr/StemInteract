@@ -2479,3 +2479,50 @@ img[src*="chemistry-images/"] {
   padding-top: 0;
 }
 
+/* Readable, touch-friendly copy buttons in every Question Explorer. */
+.ai-panel:has(.copy-prompt) {
+  padding: 1em !important;
+}
+
+.ai-panel .prompt-tools {
+  position: static !important;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 0.85em !important;
+}
+
+.ai-panel button.copy-prompt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  height: auto;
+  padding: 0.6em 1em;
+  border: 2px solid #a43e3e;
+  border-radius: 0.375em;
+  background: #fff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  color: #8b3030 !important;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: normal;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.ai-panel button.copy-prompt:hover {
+  background: #fff0f0;
+}
+
+.ai-panel button.copy-prompt:active {
+  background: #ffe0e0;
+  box-shadow: none;
+}
+
+.ai-panel button.copy-prompt:focus-visible {
+  outline: 3px solid #3d4449;
+  outline-offset: 3px;
+}
+
+
