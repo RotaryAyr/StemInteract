@@ -55,6 +55,7 @@ for(const level of levels){
       assert.equal(prompt.includes('BEGIN EXTRACTED OFFICIAL MARKING TEXT'),mode==='explain');
       assert.equal(prompt.includes('CHEMISTRY COMPLETENESS CHECK'),mode==='explain');
       assert.equal(prompt.includes('CHEMISTRY NAMING AND NOTATION CHECK'),mode==='explain');
+      assert.equal(prompt.includes('CHEMISTRY IMAGE ATTRIBUTION CHECK'),mode==='explain');
       if(mode==='explain') {
         assert.match(prompt,/transition-state or intermediate drawing/);
         assert.match(prompt,/partial\/dashed bonds, brackets and overall charge/);
@@ -63,6 +64,9 @@ for(const level of levels){
         assert.match(prompt,/correct atom or on the whole bracketed ion/);
         assert.match(prompt,/phase or solvent labels for both numerator and denominator/);
         assert.match(prompt,/distinguish the light absorbed from the colour observed/);
+        assert.match(prompt,/Do not substitute a web-search image/);
+        assert.match(prompt,/never label a third-party diagram as official/);
+        assert.match(prompt,/Only claim to have inspected an image if you actually viewed it/);
       }
       if(mode==='explain')assert.ok(prompt.includes(record.marking.text));
       prompts++;

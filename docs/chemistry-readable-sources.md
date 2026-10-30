@@ -25,6 +25,8 @@ Chemical structures, bond positions, stereochemistry, charges, isotope notation,
 
 Following the 2026 Advanced Higher audit, explanation prompts also require checking every separately marked mechanism stage (including transition states), current systematic names, charge placement, equilibrium phase labels and absorbed versus observed colours. These checks follow the supplied scheme rather than embedding answers to particular questions. They explicitly withhold claims of completeness when a required visual is unreadable. Hint prompts omit these explanation-only checks and the extracted marking answers. Prompt tests verify this separation across all indexed Chemistry questions; they do not establish an external tutor's reasoning accuracy.
 
+A fresh Q6 trial described the transition state but displayed a third-party image under an official-mechanism heading. Explanation prompts now also prohibit web-search image substitution or false official attribution, distinguish original source images from illustrative reconstructions, and require truthful image-access claims. The initial trial remains a partial result, not a pass.
+
 ```sh
 python scripts/build-chemistry-html.py
 node tests/chemistry-sources.cjs
