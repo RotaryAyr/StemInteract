@@ -83,6 +83,8 @@ for(const level of levels){
   assert.ok(fallback.endsWith('Missing guidance fixture'));
   sources[fallbackKey]=saved;
   if(level.directory==='N5/N5-ComputingScience'){
+    assert.ok(explorer.includes('c.querySelector(".question-description").textContent=x.d'));
+    assert.ok(!explorer.includes("<p>'+x.d+'</p>"));
     for(const q of [10,11,20,21]){
       const explain=helper.sourcePrompt({y:2026,q},'explain','');
       assert.ok(explain.includes(sources['2026:0:'+q].question.text));
