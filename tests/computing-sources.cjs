@@ -103,6 +103,8 @@ for(const level of levels){
     assert.match(web,/die\(\) function/);
     assert.match(web,/include any termination behaviour required/);
     assert.match(web,/zero rows/);
+    assert.match(web,/a literal dollar sign must not become a variable reference/);
+    assert.match(web,/Preserving a quoted source is separate/);
     assert.match(web,/all supplied records\/options/);
     assert.match(web,/persistent database changes/);
     assert.match(web,/independent conditions separately/);
