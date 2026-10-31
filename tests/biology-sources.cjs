@@ -54,6 +54,10 @@ for(const level of levels){
       assert.ok(prompt.includes('ask only for the specific diagram, formula or value'));
       assert.equal(prompt.includes('BEGIN EXTRACTED OFFICIAL MARKING TEXT'),mode==='explain');
       if(mode==='explain')assert.ok(prompt.includes(record.marking.text));
+      for(const label of ['BIOLOGY MARKING-POINT CHECK:', 'BIOLOGY EVIDENCE AND PRECISION CHECK:', 'BIOLOGY MULTIPLE-CHOICE AND OPTIONAL-QUESTION CHECK:']){
+        assert.equal(prompt.includes(label),mode==='explain',key+' '+mode+' explanation safeguards must not leak into hint mode');
+      }
+      if(mode==='hint')assert.ok(!prompt.includes(record.marking.text),key+' must omit the actual marking payload');
       prompts++;
     }
     questions++;
@@ -94,6 +98,22 @@ for(const level of levels){
       assert.equal(sources[year+':2:2'].supplement,undefined);
     }
   }
+  // Missing marking guidance must not become fabricated requirements; hint mode
+  // must remain answer-free even when a record has no marking resource.
+  const fixtureKey=Object.keys(sources)[0], fixture=sources[fixtureKey];
+  const [fixtureYear,fixturePart,fixtureQ]=fixtureKey.split(':').map(Number);
+  const fixtureItem={y:fixtureYear,q:fixtureQ,p:fixturePart,s:fixturePart};
+  const savedMarking=fixture.marking;
+  try {
+    delete fixture.marking;
+    const fallback=helper.sourcePrompt(fixtureItem,'explain','No official marking instructions available.');
+    assert.ok(fallback.includes(fixture.question.text));
+    assert.ok(fallback.includes('without inventing official requirements'));
+    assert.ok(!fallback.includes('BEGIN EXTRACTED OFFICIAL MARKING TEXT'));
+    const hint=helper.sourcePrompt(fixtureItem,'hint','');
+    assert.ok(!hint.includes('BIOLOGY MARKING-POINT CHECK:'));
+    assert.ok(!hint.includes(savedMarking.text));
+  } finally { fixture.marking=savedMarking; }
   assert.equal(helper.sourcePrompt({y:2099,p:1,s:1,q:1},'hint',''),null);
 }
 assert.equal(questions,570);assert.equal(papers,50);assert.equal(pages,987);assert.equal(supplementPages,20);assert.equal(prompts,1140);
