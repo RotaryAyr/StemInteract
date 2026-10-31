@@ -79,6 +79,8 @@ for (const q of [21,23]) {
   assert.match(prompt,/verify the selected option against the matching official key/);
   assert.match(prompt,/do not silently change the quoted source or invent a justification/);
 }
+assert.match(explain(1,21),/do not insert web-search images/);
+assert.match(explain(1,21),/Never reconstruct unseen graph values from the answer key/);
 assert.match(explain(2,6),/compare the specified days or groups/);
 assert.match(records['2026:2:6'].marking.text,/thinner/i);
 assert.match(explain(2,9),/If an alternative is scientifically reasonable but not explicitly accepted/);
