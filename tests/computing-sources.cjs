@@ -82,6 +82,24 @@ for(const level of levels){
   assert.match(fallback,/do not invent official requirements or guarantee marks/);
   assert.ok(fallback.endsWith('Missing guidance fixture'));
   sources[fallbackKey]=saved;
+  if(level.directory==='N5/N5-ComputingScience'){
+    assert.ok(explorer.includes('c.querySelector(".question-description").textContent=x.d'));
+    assert.ok(!explorer.includes("<p>'+x.d+'</p>"));
+    for(const q of [10,11,20,21]){
+      const explain=helper.sourcePrompt({y:2026,q},'explain','');
+      assert.ok(explain.includes(sources['2026:0:'+q].question.text));
+      assert.ok(explain.includes(sources['2026:0:'+q].marking.text));
+      assert.match(explain,/state the printed expectation and explain the discrepancy separately/);
+      assert.match(explain,/including decimal points and exponents/);
+      assert.match(explain,/Label disputed values at their point of use/);
+      assert.match(explain,/make an ELSE branch unreachable/);
+      assert.match(explain,/user-agent defaults/);
+      assert.match(explain,/resolve relative paths from the containing document/);
+      const hint=helper.sourcePrompt({y:2026,q},'hint','');
+      assert.ok(!hint.includes('state the printed expectation'));
+      assert.ok(!hint.includes(sources['2026:0:'+q].marking.text));
+    }
+  }
   if(level.directory==='Higher/CpSc-H'){
     for(const q of [6,15,16]){
       const explain=helper.sourcePrompt({y:2026,q},'explain','');
