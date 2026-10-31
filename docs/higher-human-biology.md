@@ -46,3 +46,9 @@ The shared availability generator now recognises the separate Human Biology mark
 - python3 scripts/build-marking-availability.py
 
 Browser checks cover filtering to 2026 Memory / Paper 2, the matching readable question and marking links, BBC notes, and embedded question/marking text in the explanation prompt. Original page images were inspected alongside text for diagram, graph, table and extended-response samples. Source tests cover all 199 matched records and 398 prompts, all 361 images, source hashes, continuation pages, numbered lists and A/B alternatives. The live site changes only after merge and deployment.
+
+## 2026 audit safeguards
+
+Human Biology retains its separate prompt helper. Explanations now carry the same marking-point, evidence, graph/drawing and MCQ/optional-route checks used by the other Biology explorers, plus direct matching marking-page image links. They request precise exam answers alongside reasoning, reconciliation with the readable official key without invented justification, separate optional routes, and rendered graph inspection. Extended responses follow the supplied prose requirements. Visual guidance covers dual axes and comparisons of the specified days/groups.
+
+These instructions reduce known risks; they do not guarantee a student's chosen AI will follow them or access images. No official source text or PDF was changed. Hint prompts retain their existing answer-text boundary and do not receive marking-page image links. Tests verify all 199 matched records and both prompt modes, with targeted handoff regressions for the 2026 MCQs 21/23, written questions 6/9, graph 8 and both essay 14 alternatives. These are source/prompt tests, not fresh external AI trials.
