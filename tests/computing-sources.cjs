@@ -82,6 +82,25 @@ for(const level of levels){
   assert.match(fallback,/do not invent official requirements or guarantee marks/);
   assert.ok(fallback.endsWith('Missing guidance fixture'));
   sources[fallbackKey]=saved;
+  if(level.directory==='Higher/CpSc-H'){
+    for(const q of [6,15,16]){
+      const explain=helper.sourcePrompt({y:2026,q},'explain','');
+      assert.ok(explain.includes(sources['2026:0:'+q].question.text));
+      assert.ok(explain.includes(sources['2026:0:'+q].marking.text));
+      assert.match(explain,/Distinguish end-user requirements from implementation-level functional requirements/);
+      assert.match(explain,/rather than substituting storage of the underlying data/);
+      assert.match(explain,/connect the specific operating mechanism to the outcome/);
+      const hint=helper.sourcePrompt({y:2026,q},'hint','');
+      assert.ok(!hint.includes('implementation-level functional requirements'));
+      assert.ok(!hint.includes(sources['2026:0:'+q].marking.text));
+    }
+    for(const q of [8,10,19]){
+      const explain=helper.sourcePrompt({y:2026,q},'explain','');
+      assert.ok(explain.includes(sources['2026:0:'+q].marking.text));
+      assert.match(explain,/Preserve quoted official code and literal identifiers unchanged/);
+      assert.match(explain,/corrected or alternative implementation/);
+    }
+  }
   if(level.directory==='AH/CpSc-AH'){
     const explain=q=>helper.sourcePrompt({y:2026,q},'explain','');
     // Real audit cases keep original evidence and add general reasoning checks,
