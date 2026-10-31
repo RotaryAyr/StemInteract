@@ -54,7 +54,7 @@ for(const level of levels){
       assert.ok(prompt.includes('ask only for the specific diagram, formula or value'));
       assert.equal(prompt.includes('BEGIN EXTRACTED OFFICIAL MARKING TEXT'),mode==='explain');
       if(mode==='explain')assert.ok(prompt.includes(record.marking.text));
-      for(const label of ['BIOLOGY MARKING-POINT CHECK:', 'BIOLOGY EVIDENCE AND PRECISION CHECK:', 'BIOLOGY MULTIPLE-CHOICE AND OPTIONAL-QUESTION CHECK:']){
+      for(const label of ['BIOLOGY GRAPH AND DRAWING CHECK:', 'BIOLOGY MARKING-POINT CHECK:', 'BIOLOGY EVIDENCE AND PRECISION CHECK:', 'BIOLOGY MULTIPLE-CHOICE AND OPTIONAL-QUESTION CHECK:']){
         assert.equal(prompt.includes(label),mode==='explain',key+' '+mode+' explanation safeguards must not leak into hint mode');
       }
       if(mode==='hint')assert.ok(!prompt.includes(record.marking.text),key+' must omit the actual marking payload');
@@ -73,7 +73,31 @@ for(const level of levels){
   assert.notEqual(written.marking.html,sources['2026:1:1'].marking.html);
   assert.match(helper.sourcePrompt({y:2026,p:2,q:1},'explain',''),/BIOLOGY VISUAL CHECK/);
   assert.match(helper.sourcePrompt({y:2026,p:2,q:1},'explain',''),/Official marking page .* image:/);
-  if(level.directory==='N5/N5-Biology')assert.equal(sources['2022:1:3'].question.parts[0].page,3);
+  if(level.directory==='N5/N5-Biology'){
+    assert.equal(sources['2022:1:3'].question.parts[0].page,3);
+    // Actual 2026 audit cases: correct key and listed alternative reach explanations;
+    // neither is inserted into hints or replaced by a hard-coded tutor answer.
+    const mcq=helper.sourcePrompt({y:2026,s:1,p:1,q:7},'explain','');
+    assert.match(sources['2026:1:7'].marking.text,/7\.\s+D\s+1/);
+    assert.ok(mcq.includes(sources['2026:1:7'].marking.text));
+    assert.match(mcq,/verify the selected option against the matching official key/);
+    const crop=helper.sourcePrompt({y:2026,s:2,p:2,q:13},'explain','');
+    assert.match(crop,/Genetically modified\/GM crop/);
+    assert.match(crop,/scientifically reasonable but not explicitly accepted/);
+    assert.match(crop,/do not guarantee credit/);
+    const graph=helper.sourcePrompt({y:2026,s:2,p:2,q:14},'explain','');
+    assert.match(graph,/plot a line graph/);
+    assert.match(graph,/Points plotted and line drawn/);
+    assert.match(graph,/coordinates or prose alone are not a completed drawing/);
+    assert.match(graph,/visible tick labels, axis labels, units, clipping and plotted positions/);
+    assert.match(graph,/do not add an origin point when no datum is given/);
+    assert.match(graph,/do not claim the drawing is complete or visually verified/);
+    for(const [s,q]of [[1,7],[2,13],[2,14]]){
+      const hint=helper.sourcePrompt({y:2026,s,p:s,q},'hint','');
+      assert.ok(!hint.includes(sources['2026:'+s+':'+q].marking.text));
+      assert.ok(!hint.includes('BIOLOGY GRAPH AND DRAWING CHECK:'));
+    }
+  }
   if(level.directory==='AH/Bi-AH'){
     assert.equal(sources['2024:1:4'].question.parts[0].page,3);
     const supplementManifest=JSON.parse(fs.readFileSync(path.join(base,'readable/supplements-manifest.json')));
