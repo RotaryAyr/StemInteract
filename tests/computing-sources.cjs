@@ -91,6 +91,7 @@ for(const level of levels){
       assert.ok(explain.includes(sources['2026:0:'+q].marking.text));
       assert.match(explain,/state the printed expectation and explain the discrepancy separately/);
       assert.match(explain,/including decimal points and exponents/);
+      assert.match(explain,/Label disputed values at their point of use/);
       assert.match(explain,/make an ELSE branch unreachable/);
       assert.match(explain,/user-agent defaults/);
       assert.match(explain,/resolve relative paths from the containing document/);
