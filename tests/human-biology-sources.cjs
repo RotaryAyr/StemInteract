@@ -40,7 +40,19 @@ for (const [key,source] of Object.entries(records)) {
     assert.ok(prompt.includes('https://preview.example/Higher/HB-H/'+source.question.html));
     assert.ok(prompt.includes('Use it directly; do not ask me to upload or retype it'));
     assert.equal(prompt.includes('BEGIN EXTRACTED OFFICIAL MARKING TEXT'),mode==='explain');
-    if (mode==='explain') assert.ok(prompt.includes(source.marking.text));
+    if (mode==='explain') {
+      assert.ok(prompt.includes(source.marking.text));
+      for (const part of source.marking.parts) {
+        const relative = 'readable/'+source.marking.pdf.replace(/\.pdf$/i,'')+'/page-'+part.page+'.png';
+        assert.ok(fs.existsSync(path.join(base,relative)),key+' marking image exists');
+        assert.ok(prompt.includes('https://preview.example/Higher/HB-H/'+relative),key+' matching marking image supplied');
+      }
+      assert.ok(prompt.includes('BIOLOGY MARKING-POINT CHECK'));
+      assert.ok(prompt.includes('BIOLOGY GRAPH AND DRAWING CHECK'));
+    } else {
+      assert.ok(!prompt.includes('BIOLOGY MARKING-POINT CHECK'));
+      assert.ok(!prompt.includes('Official marking page '));
+    }
     if (p===2 && mode==='explain') assert.ok(prompt.includes('GENERAL MARKING PRINCIPLES'));
     prompts++;
   }
@@ -57,5 +69,27 @@ assert.match(records['2026:2:11'].marking.text,/Chunking/);
 assert.match(records['2024:2:15'].marking.text,/15\. A/);
 assert.match(records['2024:2:15'].marking.text,/15\. B/);
 assert.ok(records['2024:2:15'].question.parts.length>=2);
+
+// Audit regressions exercise real source records and both modes, with no answers
+// hardcoded into the generic helper. These check the handoff, not AI accuracy.
+const explain = (p,q) => context.window.StemHumanBiology.sourcePrompt({y:2026,p,q},'https://preview.example','explain','');
+for (const q of [21,23]) {
+  const prompt=explain(1,q);
+  assert.ok(prompt.includes(records['2026:1:'+q].marking.text));
+  assert.match(prompt,/verify the selected option against the matching official key/);
+  assert.match(prompt,/do not silently change the quoted source or invent a justification/);
+}
+assert.match(explain(2,6),/compare the specified days or groups/);
+assert.match(records['2026:2:6'].marking.text,/thinner/i);
+assert.match(explain(2,9),/If an alternative is scientifically reasonable but not explicitly accepted/);
+assert.match(records['2026:2:9'].marking.text,/negative feedback/i);
+assert.match(explain(2,8),/Inspect the rendered result/);
+assert.match(explain(2,8),/coordinates or prose alone are not a completed drawing/);
+const optional=explain(2,14);
+assert.match(records['2026:2:14'].marking.text,/14\. A/);
+assert.match(records['2026:2:14'].marking.text,/14\. B/);
+assert.match(optional,/do not add their marks together/);
+assert.match(optional,/including any prose requirement/);
+
 assert.equal(context.window.StemHumanBiology.sourcePrompt({y:2099,p:1,q:1},'https://preview.example','hint',''),null);
 console.log('PASS: 20 unchanged PDF sources, 361 page images, 199 matched question/marking records and 398 prompts with embedded question text; hint prompts exclude answer text.');
