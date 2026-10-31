@@ -49,12 +49,16 @@ for(const level of levels){
     assert.equal(helper.questionHtml(item,row.pdf+'#page='+row.page),record.question.html);
     for(const mode of ['hint','explain']){
       if(level.directory==='N5/N5-ComputingScience')assert.match(sources['2022:0:12'].question.text,/WHERE test1 < 10 OR test2 > 90;/);
-  const prompt=helper.sourcePrompt(item,mode,'Marking-resource guidance: fixture');
+      const prompt=helper.sourcePrompt(item,mode,'Marking-resource guidance: fixture');
       assert.ok(prompt.includes(record.question.text));
       assert.ok(prompt.includes('https://preview.example/'+level.directory+'/'+record.question.html));
       assert.ok(prompt.includes('ask only for the specific diagram, formula or value'));
       assert.equal(prompt.includes('BEGIN EXTRACTED OFFICIAL MARKING TEXT'),mode==='explain');
       if(mode==='explain')assert.ok(prompt.includes(record.marking.text));
+      else assert.ok(!prompt.includes(record.marking.text),key+' hint must omit the actual marking payload');
+      for(const label of ['COMPUTING MARKING-POINT CHECK:', 'COMPUTING CODE AND TRACE CHECK:', 'COMPUTING DIAGRAM AND ROUTE CHECK:', 'COMPUTING SOURCE-DISCREPANCY CHECK:']){
+        assert.equal(prompt.includes(label),mode==='explain',key+' '+mode+' explanation checks must not leak into hints');
+      }
       prompts++;
     }
     questions++;
@@ -68,6 +72,50 @@ for(const level of levels){
   assert.match(prompt,/COMPUTING SOURCE CHECK/);
   assert.match(prompt,/Official marking page .* image:/);
   assert.match(prompt,/do not silently repair or invent the source/);
+  // The fallback must still help from the question without inventing a scheme.
+  const fallbackKey=Object.keys(sources)[0],saved=sources[fallbackKey];
+  sources[fallbackKey]={question:saved.question};
+  const [fallbackYear,fallbackPart,fallbackQuestion]=fallbackKey.split(':').map(Number);
+  const fallback=helper.sourcePrompt({y:fallbackYear,q:fallbackQuestion,s:fallbackPart,p:fallbackPart},'explain','Missing guidance fixture');
+  assert.ok(fallback.includes(saved.question.text));
+  assert.ok(!fallback.includes('BEGIN EXTRACTED OFFICIAL MARKING TEXT'));
+  assert.match(fallback,/do not invent official requirements or guarantee marks/);
+  assert.ok(fallback.endsWith('Missing guidance fixture'));
+  sources[fallbackKey]=saved;
+  if(level.directory==='AH/CpSc-AH'){
+    const explain=q=>helper.sourcePrompt({y:2026,q},'explain','');
+    // Real audit cases keep original evidence and add general reasoning checks,
+    // rather than replacing the source with hardcoded question answers.
+    const objects=explain(3);
+    assert.ok(objects.includes(sources['2026:0:3'].question.text));
+    assert.match(objects,/declared reference type from the runtime object/);
+    assert.match(objects,/deliver the diagram where tools permit/);
+    assert.match(objects,/Inspect the rendered result/);
+    const board=explain(4);
+    assert.match(board,/developed separately/);
+    assert.match(board,/State the language and indexing convention/);
+    assert.match(board,/exact boundaries/);
+    const database=explain(6);
+    assert.match(database,/WHERE classID NOT IN/);
+    assert.match(database,/mandatory/);
+    assert.match(explain(7),/immediate action indicated by a diagram label/);
+    const web=explain(8);
+    assert.match(web,/die\(\) function/);
+    assert.match(web,/include any termination behaviour required/);
+    assert.match(web,/zero rows/);
+    assert.match(web,/a literal dollar sign must not become a variable reference/);
+    assert.match(web,/Preserving a quoted source is separate/);
+    assert.match(web,/all supplied records\/options/);
+    assert.match(web,/persistent database changes/);
+    assert.match(web,/independent conditions separately/);
+    assert.match(web,/Preserve quoted official code and literal identifiers unchanged/);
+    assert.ok(web.includes(sources['2026:0:8'].marking.text));
+    for(const q of [3,4,6,7,8]){
+      const hint=helper.sourcePrompt({y:2026,q},'hint','');
+      assert.ok(!hint.includes(sources['2026:0:'+q].marking.text));
+      assert.ok(!hint.includes('COMPUTING MARKING-POINT CHECK:'));
+    }
+  }
   assert.doesNotMatch(fs.readFileSync(path.join(base,'computing-sources.js'),'utf8'),/<\/script/i,'Source data must not close a script element');
   assert.equal(helper.sourcePrompt({y:2099,p:1,s:1,q:1},'hint',''),null);
 }
