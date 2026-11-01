@@ -1,0 +1,142 @@
+[
+  {
+    "file": "NH_Chemistry_Paper1-Multiple-choice_2022.PDF",
+    "sha256": "56bd7f70eb097065455d7f38e28751cf14dca145f9c651e0a2df3535f29effcf",
+    "pages": 16,
+    "questions": 25,
+    "html": "NH_Chemistry_Paper1-Multiple-choice_2022.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper1-Multiple-choice_2023.PDF",
+    "sha256": "a71f0689e25c670fd638d76fe57550811026d65b9bb6e9e16adf03402cd6f886",
+    "pages": 16,
+    "questions": 25,
+    "html": "NH_Chemistry_Paper1-Multiple-choice_2023.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper1-Multiple-choice_2024.PDF",
+    "sha256": "cb5b31d4a1f019f0e74e82d2362ec268b5bf52d9ff28ca569564d109a453aa01",
+    "pages": 16,
+    "questions": 25,
+    "html": "NH_Chemistry_Paper1-Multiple-choice_2024.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper1-Multiple-choice_2025.PDF",
+    "sha256": "5e029a169ed74fcc859676b44b515c743db5bb256293266e15820735d8b6f38e",
+    "pages": 16,
+    "questions": 25,
+    "html": "NH_Chemistry_Paper1-Multiple-choice_2025.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper1-Multiple-choice_2026.PDF",
+    "sha256": "d7a48660195e12192bcdf53a4518f5c3630c031bf038330fb066ad20f68dce45",
+    "pages": 16,
+    "questions": 25,
+    "html": "NH_Chemistry_Paper1-Multiple-choice_2026.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper2_2022.PDF",
+    "sha256": "b3b38736df0f43790c69ebcbfec647596acd9170ee29e6a1d5c07f1945710870",
+    "pages": 36,
+    "questions": 11,
+    "html": "NH_Chemistry_Paper2_2022.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper2_2023.PDF",
+    "sha256": "4963efe6456102f7a65d3c5ab809485062d3cf325a251c30b4da3454966988ca",
+    "pages": 44,
+    "questions": 10,
+    "html": "NH_Chemistry_Paper2_2023.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper2_2024.PDF",
+    "sha256": "87853c3b9834705aa7c303e87bb64a46b72c8a8aae0d546afde56fc9dbf77349",
+    "pages": 40,
+    "questions": 10,
+    "html": "NH_Chemistry_Paper2_2024.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper2_2025.PDF",
+    "sha256": "1163e834d6aa26b9b90f6fbca39b3c5bd2ce37db3babee6d5e29e5579760f5f9",
+    "pages": 40,
+    "questions": 12,
+    "html": "NH_Chemistry_Paper2_2025.html"
+  },
+  {
+    "file": "NH_Chemistry_Paper2_2026.PDF",
+    "sha256": "8dc3822ad0d2cc6724a38eb14bdfdfb5775482e601bf5c75ec69745d8e565380",
+    "pages": 36,
+    "questions": 12,
+    "html": "NH_Chemistry_Paper2_2026.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-1-Multiple-choice_2022.PDF",
+    "sha256": "606db5a70905e03c778723a5416de777b98313ddf4f9fa4af132b7a39c5e2c10",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Chemistry_Paper-1-Multiple-choice_2022.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-1-Multiple-choice_2024.PDF",
+    "sha256": "711e7a6c4482819d4aabbd35c03498de2b6c3f1357e1c1011426f07c2ecc1e82",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Chemistry_Paper-1-Multiple-choice_2024.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-1-Multiple-choice_2025.PDF",
+    "sha256": "229c413342d14b6dde9dccda13fdcee1f9f7c473f37c37bcf0f2002305b9a945",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Chemistry_Paper-1-Multiple-choice_2025.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-1-Multiple-choice_2026.PDF",
+    "sha256": "e2ea03e314737ce4439fb235deb7665d7f3a3991ccfc9f328aba9440fd2829e3",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Chemistry_Paper-1-Multiple-choice_2026.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-1_2023.PDF",
+    "sha256": "e5fb93d5ba8877ac9e0e337bb5efd89ec5134799e263f5b8f006144a00b5eabe",
+    "pages": 2,
+    "questions": 25,
+    "html": "mi_NH_Chemistry_Paper-1_2023.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-2_2022.PDF",
+    "sha256": "376b0667314f44fa1127b25e6e02965319980adbd3d1351824ac8980ae9ad3a6",
+    "pages": 22,
+    "questions": 11,
+    "html": "mi_NH_Chemistry_Paper-2_2022.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-2_2023.PDF",
+    "sha256": "b59273971f4ae744131d04681d07798c2e15e519ecf26b814b7fa65dd137134a",
+    "pages": 21,
+    "questions": 10,
+    "html": "mi_NH_Chemistry_Paper-2_2023.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-2_2024.PDF",
+    "sha256": "1c23da13faad291b457351c4bd5a80cc05e3b28c3085ce989c0e771f7f48c470",
+    "pages": 20,
+    "questions": 10,
+    "html": "mi_NH_Chemistry_Paper-2_2024.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-2_2025.PDF",
+    "sha256": "4a6a476b8f2077c625509d85bfb87c30fb3ae419f52383e8c70dfee29b92d0ca",
+    "pages": 21,
+    "questions": 12,
+    "html": "mi_NH_Chemistry_Paper-2_2025.html"
+  },
+  {
+    "file": "mi_NH_Chemistry_Paper-2_2026.PDF",
+    "sha256": "2d007e9b1ec926d869c023231730aeee4767ff770087a7bfa8d1dbb889243f06",
+    "pages": 22,
+    "questions": 12,
+    "html": "mi_NH_Chemistry_Paper-2_2026.html"
+  }
+]

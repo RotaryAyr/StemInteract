@@ -1,0 +1,72 @@
+[
+  {
+    "file": "NH_Computing-Science_QP_2022.PDF",
+    "sha256": "7118dbfb1399ddbb36754dcefed6bfd33e47c56eba09cc0b1d89fa401d1a3623",
+    "pages": 44,
+    "questions": 16,
+    "html": "NH_Computing-Science_QP_2022.html"
+  },
+  {
+    "file": "NH_Computing-Science_QP_2023.PDF",
+    "sha256": "3d2458610051e0b4330edbe3e4189135b656e567c71e7cf0bc72dd7a3c78bf2e",
+    "pages": 36,
+    "questions": 19,
+    "html": "NH_Computing-Science_QP_2023.html"
+  },
+  {
+    "file": "NH_Computing-Science_QP_2024.PDF",
+    "sha256": "5529181d9484d14f50e0c00081f005d2e9124bb8217d72e2e688a53c318bb71b",
+    "pages": 40,
+    "questions": 18,
+    "html": "NH_Computing-Science_QP_2024.html"
+  },
+  {
+    "file": "NH_Computing-Science_QP_2025.PDF",
+    "sha256": "8300498e672ddd0ab326c72def15f7eea7b711afb64481004038b511c9b7a07c",
+    "pages": 44,
+    "questions": 18,
+    "html": "NH_Computing-Science_QP_2025.html"
+  },
+  {
+    "file": "NH_Computing-Science_QP_2026.PDF",
+    "sha256": "cc3d816135bd01ec3e659700e322f661e0efae4f9d20984b48da76927cb437d1",
+    "pages": 40,
+    "questions": 19,
+    "html": "NH_Computing-Science_QP_2026.html"
+  },
+  {
+    "file": "mi_NH_Computing-Science_mi_2022.PDF",
+    "sha256": "7f96ef75fc66d851c279d9e0cb794661d27ca012063d5679415beba3aa374541",
+    "pages": 11,
+    "questions": 16,
+    "html": "mi_NH_Computing-Science_mi_2022.html"
+  },
+  {
+    "file": "mi_NH_Computing-Science_mi_2023.PDF",
+    "sha256": "84e6ea6820b9683ec5a6686ec26bad05db29d4506408e0f853df4a9f2b4e53da",
+    "pages": 16,
+    "questions": 19,
+    "html": "mi_NH_Computing-Science_mi_2023.html"
+  },
+  {
+    "file": "mi_NH_Computing-Science_mi_2024.PDF",
+    "sha256": "859e54f45c6b57fbb466d73b53d81b71958283dd23897723ee7fb249cc0e7bea",
+    "pages": 15,
+    "questions": 18,
+    "html": "mi_NH_Computing-Science_mi_2024.html"
+  },
+  {
+    "file": "mi_NH_Computing-Science_mi_2025.PDF",
+    "sha256": "bcd405d7d2a8b571023d99f007a72696d26e3cfd25fb9c1415f3b7dde726b530",
+    "pages": 12,
+    "questions": 18,
+    "html": "mi_NH_Computing-Science_mi_2025.html"
+  },
+  {
+    "file": "mi_NH_Computing-Science_mi_2026.PDF",
+    "sha256": "80c731da789901a47e0fd4ed827c59bfc6f7b068b6e3e11988f4f62dc59bbc93",
+    "pages": 12,
+    "questions": 19,
+    "html": "mi_NH_Computing-Science_mi_2026.html"
+  }
+]

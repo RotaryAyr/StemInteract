@@ -47,3 +47,5 @@ Requested diagrams must be delivered and inspected where tools permit, and optio
 Regression checks cover all 241 records and both modes, missing-marking fallbacks, and real 2026 AH source cases in Q3, Q4, Q6, Q7 and Q8. Passing tests verifies source delivery and prompt construction; it is not a fresh student-facing AI trial or a guarantee that an external tutor will follow every instruction.
 
 The Higher 2026 review adds a general distinction between end-user goals and implementation-level functional requirements. Explanations name the required query processing/output or form/event/script mechanism where the readable guidance calls for it, and connect operating mechanisms to claimed effects. These checks do not add hardcoded question answers or alter hint/source payloads.
+
+The National 5 2026 review strengthens source-discrepancy handling: distinguish printed expectations from independently established behaviour, reconstruct numerical values, identify exhaustive predicates, account for CSS defaults and resolve relative links with exact case. Disputed alternatives stay separate from concise exam answers; original source quotations and hints remain unchanged.
