@@ -5,22 +5,135 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="assets/css/main.css" />
+
   <style>
-    #header { align-items: center; }
-    #header .icons { display: flex; justify-content: flex-end; align-items: center; }
-    #header .button { display: inline-flex; align-items: center; justify-content: center; line-height: 1.2; text-align: center; }
-    .hub-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.65em; padding: 1em 0; border-bottom: 1px solid #e5e5e5; font-size: 0.9em; }
-    .hub-nav a { border-bottom: 0; font-weight: 700; }
-    .hub-nav span { color: #999; }
-    .intro { max-width: 760px; }
-    .level-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25em; margin: 2em 0; }
-    .level-card { border: 1px solid #d7d7d7; border-radius: 10px; padding: 1.5em; background: #fff; display: flex; flex-direction: column; }
-    .level-card h2 { margin-bottom: .45em; }
-    .level-card p { flex-grow: 1; }
-    .level-card .button { display: inline-flex; align-items: center; justify-content: center; text-align: center; line-height: 1.2; margin: 0; }
-    @media screen and (max-width: 900px) { .level-grid { grid-template-columns: 1fr; } }
+    /* Compact header: logo on the left, Ayr Rotary button on the right. */
+    #header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-top: 0;
+      padding: .65rem 0;
+    }
+
+    #header .logo {
+      display: block;
+      flex: 1 1 auto;
+      min-width: 0;
+      margin: 0;
+      line-height: 1.2;
+      border-bottom: 0;
+    }
+
+    #header ul.icons {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 0;
+      padding: 0;
+    }
+
+    #header ul.icons > li {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    #header ul.icons > li > a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      line-height: 1;
+      margin: 0;
+      padding: .6em .85em;
+    }
+
+    @media screen and (max-width: 600px) {
+      #header {
+        gap: .5rem;
+        padding: .45rem 0;
+        margin-bottom: .75em;
+      }
+
+      #header .logo {
+        font-size: .82em;
+      }
+
+      #header ul.icons > li > a {
+        font-size: .7em;
+        padding: .55em .7em;
+      }
+    }
+
+    .hub-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65em;
+      padding: 1em 0;
+      border-bottom: 1px solid #e5e5e5;
+      font-size: 0.9em;
+    }
+
+    .hub-nav a {
+      border-bottom: 0;
+      font-weight: 700;
+    }
+
+    .hub-nav span {
+      color: #999;
+    }
+
+    .intro {
+      max-width: 760px;
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25em;
+      margin: 2em 0;
+    }
+
+    .level-card {
+      border: 1px solid #d7d7d7;
+      border-radius: 10px;
+      padding: 1.5em;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .level-card h2 {
+      margin-bottom: .45em;
+    }
+
+    .level-card p {
+      flex-grow: 1;
+    }
+
+    .level-card .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    @media screen and (max-width: 900px) {
+      .level-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
+
 <body class="is-preload">
   <div id="wrapper">
     <div id="main">
@@ -28,42 +141,60 @@
         <header id="header">
           <a class="logo" href="index.html">STEM INTERACT</a>
           <ul class="icons">
-            <li><a href="https://rotaryclubofayr.org" class="button small">Ayr Rotary</a></li>
+            <li>
+              <a href="https://rotaryclubofayr.org" class="button small">
+                Ayr Rotary
+              </a>
+            </li>
           </ul>
         </header>
 
         <nav class="hub-nav" aria-label="Physics Question Explorer navigation">
-          <a href="index.html">StemInteract</a><span>›</span>
+          <a href="index.html">StemInteract</a>
+          <span>›</span>
           <strong>Physics Question Explorers</strong>
         </nav>
 
         <section>
-          <header class="main"><h1>Physics Question Explorer</h1></header>
+          <header class="main">
+            <h1>Physics Question Explorer</h1>
+          </header>
+
           <div class="intro">
-            <p>Choose your course level to explore past-paper questions by year and topic, open the original papers and marking instructions, and ask an AI tutor for one hint at a time.</p>
+            <p>
+              Choose your course level to explore past-paper questions by year
+              and topic, open the original papers and marking instructions, and
+              ask an AI tutor for one hint at a time.
+            </p>
           </div>
 
           <div class="level-grid">
             <article class="level-card">
               <h2>National 5</h2>
               <p>Explore National 5 Physics questions from 2022 - 2026.</p>
-              <a href="N5/N5-Physics/N5-Physics-Question-Explorer.html" class="button primary big">National 5 Question Explorer</a>
+              <a href="N5/N5-Physics/N5-Physics-Question-Explorer.html"
+                 class="button primary big">National 5 Question Explorer</a>
             </article>
+
             <article class="level-card">
               <h2>Higher</h2>
               <p>Explore Higher Physics questions from 2022 - 2026.</p>
-              <a href="Higher/Ph-H/Higher-Physics-Question-Explorer.html" class="button primary big">Higher Question Explorer</a>
+              <a href="Higher/Ph-H/Higher-Physics-Question-Explorer.html"
+                 class="button primary big">Higher Question Explorer</a>
             </article>
+
             <article class="level-card">
               <h2>Advanced Higher</h2>
               <p>Explore Advanced Higher Physics questions from 2022 - 2026.</p>
-              <a href="AH/Ph_AH/Advanced-Higher-Physics-Question-Explorer.html" class="button primary big">Advanced Higher Question Explorer</a>
+              <a href="AH/Ph_AH/Advanced-Higher-Physics-Question-Explorer.html"
+                 class="button primary big">Advanced Higher Question Explorer</a>
             </article>
           </div>
         </section>
       </div>
     </div>
   </div>
+
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/browser.min.js"></script>
   <script src="assets/js/breakpoints.min.js"></script>
