@@ -2,34 +2,44 @@
 <html lang="en">
 <head>
   <title>StemInteract | Physics Question Explorer</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="assets/css/main.css">
 
   <style>
-    /* Compact header: logo on the left, Ayr Rotary button on the right. */
     #header {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       gap: .75rem;
       margin-top: 0;
       padding: .65rem 0;
     }
 
     #header .logo {
+      justify-self: start;
       display: block;
-      flex: 1 1 auto;
-      min-width: 0;
       margin: 0;
       line-height: 1.2;
       border-bottom: 0;
     }
 
+    #header .stem-study-hub {
+      display: block;
+      width: 190px;
+      max-width: 28vw;
+      border-bottom: 0;
+    }
+
+    #header .stem-study-hub img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     #header ul.icons {
+      justify-self: end;
       display: flex;
-      flex: 0 0 auto;
       align-items: center;
       justify-content: flex-end;
       margin: 0;
@@ -61,18 +71,24 @@
 
     @media screen and (max-width: 600px) {
       #header {
-        gap: .5rem;
+        grid-template-columns: auto 1fr auto;
+        gap: .4rem;
         padding: .45rem 0;
         margin-bottom: .75em;
       }
 
       #header .logo {
-        font-size: .82em;
+        font-size: .72em;
+      }
+
+      #header .stem-study-hub {
+        width: 115px;
+        max-width: 34vw;
       }
 
       #header ul.icons > li > a {
-        font-size: .7em;
-        padding: .55em .7em;
+        font-size: .68em;
+        padding: .55em .65em;
       }
     }
 
@@ -144,8 +160,19 @@
   <div id="wrapper">
     <div id="main">
       <div class="inner">
+
         <header id="header">
-          <a class="logo" href="index.html">STEM INTERACT</a>
+          <a class="logo" href="index.html">
+            <strong>STEM INTERACT</strong>
+          </a>
+
+          <a href="index.html"
+             class="stem-study-hub"
+             aria-label="StemInteract home">
+            <img src="images/stem-study-hub.png"
+                 alt="STEM Study Hub">
+          </a>
+
           <ul class="icons">
             <li>
               <a href="https://rotaryclubofayr.org"
