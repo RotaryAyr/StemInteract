@@ -183,6 +183,16 @@
       min-width: 180px;
     }
 
+    /* Place the help button on its own centred row at every screen width. */
+    .subject-buttons ul.actions > li.help-button-row {
+      flex: 0 0 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 0.4em 0 0;
+      padding: 0;
+    }
+
     /* Help button: red outline + red text (no fill) */
     .subject-buttons .button.button-clear {
       background-color: transparent !important;
@@ -366,7 +376,7 @@
                 </li>
 
                 <!-- Help button -->
-                <li>
+                <li class="help-button-row">
                   <a href="HowToUse.html"
                      class="button primary button-clear">
                     How To Use This Site
