@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>StemInteract | Economics Question Explorer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <style>
+    #header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: .75rem;
+      margin-top: 0;
+      padding: .65rem 0;
+    }
+
+    #header .logo {
+      justify-self: start;
+      display: block;
+      margin: 0;
+      line-height: 1.2;
+      border-bottom: 0;
+    }
+
+    #header .stem-study-hub {
+      display: block;
+      width: 190px;
+      max-width: 28vw;
+      border-bottom: 0;
+    }
+
+    #header .stem-study-hub img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    #header ul.icons {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 0;
+      padding: 0;
+    }
+
+    #header ul.icons > li {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    #header ul.icons > li > a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      line-height: 1;
+      margin: 0;
+      padding: .6em .85em;
+    }
+
+    #header ul.icons > li > a.ayr-rotary-button {
+      background-color: #f56a6a !important;
+      color: #fff !important;
+      box-shadow: none !important;
+    }
+
+    @media screen and (max-width: 600px) {
+      #header {
+        grid-template-columns: auto 1fr auto;
+        gap: .4rem;
+        padding: .45rem 0;
+        margin-bottom: .75em;
+      }
+
+      #header .logo {
+        font-size: .72em;
+      }
+
+      #header .stem-study-hub {
+        width: 115px;
+        max-width: 34vw;
+      }
+
+      #header ul.icons > li > a {
+        font-size: .68em;
+        padding: .55em .65em;
+      }
+    }
+
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      align-items: center;
+      margin: 1.2rem 0 0;
+      color: #7f888f;
+      font-size: .92rem;
+    }
+
+    .crumbs a {
+      border-bottom: 0;
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .level-card {
+      display: flex;
+      flex-direction: column;
+      padding: 1.7rem;
+      border: 1px solid rgba(210, 215, 217, .75);
+      border-radius: .45rem;
+      background: #fff;
+    }
+
+    .level-card h2 {
+      margin-bottom: .55rem;
+    }
+
+    .level-card p {
+      flex: 1;
+    }
+
+    .level-card .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.5rem;
+      line-height: 1.25;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .button.unavailable {
+      opacity: .58;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    @media screen and (max-width: 980px) {
+      .level-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    #header ul.icons > li > a.ayr-rotary-button, #header ul.icons > li > a.ayr-rotary-button:hover { text-decoration: none !important; border-bottom: 0 !important; }
+  </style>
+</head>
+
+<body class="is-preload">
+  <div id="wrapper">
+    <div id="main">
+      <div class="inner">
+
+        <header id="header">
+          <a href="index.html" class="logo">
+            <strong>STEM INTERACT</strong>
+          </a>
+
+          <a href="index.html"
+             class="stem-study-hub"
+             aria-label="StemInteract home">
+            <img src="images/stem-study-hub.png"
+                 alt="STEM Study Hub">
+          </a>
+
+          <ul class="icons">
+            <li>
+              <a href="https://rotaryclubofayr.org"
+                 class="button small ayr-rotary-button">
+                Ayr Rotary
+              </a>
+            </li>
+          </ul>
+        </header>
+
+        <nav class="crumbs" aria-label="Economics navigation">
+          <a href="index.html">StemInteract</a>
+          <span>›</span>
+          <strong>Economics Question Explorers</strong>
+        </nav>
+
+        <section>
+          <header class="main">
+            <h1>Economics Question Explorer</h1>
+          </header>
+
+          <p>
+            Choose your course level to explore past-paper questions by topic,
+            open the official marking instructions, and create a prompt for
+            help from an AI tutor.
+          </p>
+
+          <div class="level-grid">
+            <article class="level-card">
+              <h2>National 5</h2>
+              <p>Explore the 2026 National 5 Economics examination by topic, with the official question paper, marking instructions and AI tutoring prompts.</p>
+              <a href="N5/N5-Economics/N5-Economics-Question-Explorer.html" class="button primary big">Open National 5</a>
+            </article>
+            <article class="level-card">
+              <h2>Higher</h2>
+              <p>The Higher Economics Question Explorer is being prepared.</p>
+              <span class="button big unavailable" aria-disabled="true">Coming soon</span>
+            </article>
+            <article class="level-card">
+              <h2>Advanced Higher</h2>
+              <p>The Advanced Higher Economics Question Explorer is being prepared.</p>
+              <span class="button big unavailable" aria-disabled="true">Coming soon</span>
+            </article>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script
+    type="module"
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"d974bd099e4a43fca146d0d70c19d84f"}'>
+  </script>
+</body>
+</html>
