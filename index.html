@@ -187,7 +187,8 @@
     /* Mobile layout: prevent header collisions and prioritize revision links. */
     @media screen and (max-width: 736px) {
       #header { display: grid !important; grid-template-columns: minmax(0,1fr) auto; grid-template-rows: auto auto; gap: .45rem .65rem; padding: .55rem 0 !important; margin-bottom: 0; }
-      #header > .logo { display: none !important; }
+      #header > .logo { display: block !important; grid-column: 1; grid-row: 1; justify-self: start; align-self: center; font-size: 0 !important; line-height: 0 !important; margin: 0 !important; }
+      #header > .logo .site-wordmark { display: none !important; }
       #header > ul.icons { grid-column: 2; grid-row: 1; position: static !important; justify-self: end; }
       #header > .stem-heading { grid-column: 1 / -1; grid-row: 2; justify-self: center; font-size: 1.15rem; gap: .45rem; margin: 0 !important; }
       #header .stem-heading-logo { width: 38px; height: 38px; flex: 0 0 38px; }
@@ -219,7 +220,7 @@
 
         <!-- Header -->
         <header id="header">
-          <a class="logo" href="/">STEM INTERACT</a>
+          <a class="logo" href="/" aria-label="StemInteract home"><span class="site-wordmark">STEM INTERACT</span></a>
 
           <h1 class="stem-heading">
                 <img
