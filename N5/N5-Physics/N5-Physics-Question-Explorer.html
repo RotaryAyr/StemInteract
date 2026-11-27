@@ -120,6 +120,7 @@ html body #header.unified-explorer-header > a.ue-rotary {margin-left:auto!import
 html body #header.unified-explorer-header > a.ue-brand > img {display:block!important; width:48px!important; height:48px!important; flex:0 0 48px!important; object-fit:contain!important; margin:0!important;}
 @media(max-width:736px){html body #header.unified-explorer-header {padding:8px 0!important;gap:4px!important;} html body #header.unified-explorer-header > a.ue-brand {font-size:clamp(.60rem,3.1vw,1.05rem)!important;gap:3px!important;} html body #header.unified-explorer-header > a.ue-brand > img {width:24px!important;height:24px!important;flex-basis:24px!important;}}
 </style>
+<script src="../../assets/js/exam-quality-control.js"></script>
 </head>
 <body class="is-preload">
   <div id="wrapper">
@@ -435,7 +436,8 @@ function sourceLinks(item){const marking=physicsSources.markingHtml(item);return
       return item.s === 1 ? "Paper 1 — Multiple Choice" : "Paper 2";
     }
 
-    function sourcePrompt(item,mode="hint"){const embedded=physicsSources.sourcePrompt(item,mode,markingResources.prompt(item));if(embedded)return embedded;const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n"+markingResources.prompt(item)}function tutorPrompt(item) {
+    function sourcePrompt(item,mode="hint"){const embedded=physicsSources.sourcePrompt(item,mode,markingResources.prompt(item));if(embedded)return embedded;const url=new URL(questionUrl(item),"https://steminteract.uk/N5/N5-Physics/");const page=new URLSearchParams(url.hash.slice(1)).get("page");return "Original examination question PDF: "+url.href+(page?"\nPDF page: "+page:"")+"\nUse the supplied PDF first: open it and read the specified question, including its exact expression, figures, diagrams or code. If the question is already visible in this conversation, use it without asking for it again. Do not ask me to retype or upload information you can read from the supplied source. Begin by asking about my attempt and strategy. Only if you have tried the link and cannot access or read the question, briefly explain the problem and ask for the missing question or part. Do not guess from the topic description.\n\n"+markingResources.prompt(item)}function tutorPrompt(item) { return window.STEMInteractQuality(rd007Original_tutorPrompt(item), 'Physics', false); }
+function rd007Original_tutorPrompt(item) {
       return sourcePrompt(item) + "Act as a supportive National 5 Physics tutor. I am working on the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "). It is worth " + item.m +
         (item.m === 1 ? " mark. " : " marks. ") +
@@ -443,7 +445,8 @@ function sourceLinks(item){const marking=physicsSources.markingHtml(item);return
         "Use National 5 methods and units. If I give an answer, give constructive feedback using the marking-resource guidance above.";
     }
 
-    function explainPrompt(item) {
+    function explainPrompt(item) { return window.STEMInteractQuality(rd007Original_explainPrompt(item), 'Physics', true); }
+function rd007Original_explainPrompt(item) {
       return sourcePrompt(item,"explain") + "Explain the complete solution to the " + (item.y || 2025) + " " + paperName(item) +
         ", Question " + item.q + " (" + item.d + "), worth " + item.m +
         (item.m === 1 ? " mark" : " marks") + ", in fine detail.\n\n" +
