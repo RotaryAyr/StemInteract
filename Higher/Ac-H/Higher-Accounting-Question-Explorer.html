@@ -82,7 +82,7 @@ function render(){
   const solution=document.createElement('button');solution.className='btn';solution.textContent='Explain solution';solution.onclick=()=>setPrompt(true);buttons.append(solution);card.append(buttons);
   const tutorLabel=document.createElement('p');tutorLabel.className='meta';tutorLabel.textContent='Choose a tutor after selecting Get a hint or Explain solution and copying the prompt. Then paste the prompt to start the tutor:';card.append(tutorLabel);
   const tutors=document.createElement('div');tutors.className='links';
-  for(const [name,url] of [['ChatGPT','https://chatgpt.com/'],['Gemini','https://gemini.google.com/'],['Claude','https://claude.ai/'],['Copilot','https://copilot.microsoft.com/']]){
+  for(const [name,url] of [['ChatGPT','https://chatgpt.com/'],['Gemini','https://gemini.google.com/'],['Claude','https://claude.ai/']]){
    const a=document.createElement('a');a.className='btn';a.href=url;a.target='_blank';a.rel='noopener';a.textContent=name;
    a.onclick=()=>{if(!panel.classList.contains('show'))setPrompt(false);if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(ta.value).then(()=>copy.textContent='Prompt copied').catch(()=>{})}};tutors.append(a);
   }card.append(tutors,panel);cards.append(card);
